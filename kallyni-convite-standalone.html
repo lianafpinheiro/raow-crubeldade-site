@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Convite de 15 anos da Kallyni - 20 de Dezembro de 2025">
+    <meta property="og:title" content="Kallyni - Meus 15 Anos">
+    <meta property="og:description" content="Você está convidado para os 15 anos da Kallyni - 20 de Dezembro de 2025">
+    <title>Kallyni - Meus 15 Anos | Convite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, #0B5B5E, #06373A, #0B5B5E);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 375px;
+            height: 812px;
+            background: #0B5B5E;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border-radius: 1.5rem;
+            overflow: hidden;
+        }
+
+        .scene {
+            position: absolute;
+            inset: 0;
+            display: none;
+        }
+
+        .scene.active {
+            display: flex;
+        }
+
+        /* Controles */
+        .controls {
+            position: absolute;
+            bottom: 1rem;
+            left: 0;
+            right: 0;
+            padding: 0 1.5rem;
+            z-index: 50;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 4px;
+            border-radius: 2px;
+            margin-bottom: 0.75rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .progress-fill {
+            background: #FFD700;
+            height: 100%;
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .play-button {
+            width: 3rem;
+            height: 3rem;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #FFD700;
+            color: #0B5B5E;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+        }
+
+        .play-button:hover {
+            background: white;
+            transform: scale(1.05);
+        }
+
+        .scene-info {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(0, -30px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        @keyframes finalPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes shimmer {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes scaleRotate {
+            0% { transform: scale(0.3) rotateY(90deg) rotateX(20deg); opacity: 0; }
+            50% { transform: scale(1.05) rotateY(-10deg) rotateX(3deg); }
+            100% { transform: scale(1) rotateY(-15deg) rotateX(5deg); opacity: 1; }
+        }
+
+        @keyframes sealGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(255,215,0,0.6)); }
+            50% { filter: drop-shadow(0 0 25px rgba(255,215,0,0.9)); }
+        }
+
+        @keyframes rayPulse {
+            0%, 100% { opacity: 0.6; transform: scaleX(1); }
+            50% { opacity: 1; transform: scaleX(1.2); }
+        }
+
+        @keyframes expandFade {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+        }
+
+        @keyframes letterReveal {
+            from { opacity: 0; transform: translateY(-30px) scale(0.8); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: perspective(1000px) rotateY(-5deg) translateY(0); }
+            50% { transform: perspective(1000px) rotateY(-5deg) translateY(-10px); }
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        @keyframes cloudMove {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(200%); }
+        }
+
+        /* Estilos específicos das cenas */
+        .scene-1 {
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 50% 30%, #0B5B5E 0%, #06373A 100%);
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        .scene-2 {
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom right, #0B5B5E, #06373A);
+        }
+
+        .scene-3 {
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom right, white, #FFD700, #0B5B5E);
+        }
+
+        .scene-4 {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom, #06373A, #0B5B5E, #06373A);
+        }
+
+        .scene-5 {
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom right, #0B5B5E, #06373A);
+            overflow-y: auto;
+        }
+
+        .scene-6 {
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom, #06373A, #0B5B5E, #06373A);
+        }
+
+        .scene-7 {
+            background: linear-gradient(to bottom, #06373A, #0B5B5E, black);
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-white {
+            color: white;
+        }
+
+        .text-gold {
+            color: #FFD700;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        .font-light {
+            font-weight: 300;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .px-8 {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .whatsapp-button {
+            margin-top: 1.5rem;
+            padding: 1rem 2rem;
+            background: #25D366;
+            color: white;
+            font-weight: bold;
+            border-radius: 9999px;
+            font-size: 1.125rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .whatsapp-button:hover {
+            background: #128C7E;
+            transform: scale(1.05);
+        }
+
+        .invitation-card {
+            position: relative;
+            width: 90%;
+            max-width: 340px;
+            border-radius: 1rem;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #0B5B5E 0%, #1A7A7F 100%);
+            transform: perspective(1000px) rotateY(-5deg);
+            border: 2px solid rgba(255,215,0,0.3);
+            animation: cardFloat 4s ease-in-out infinite;
+            min-height: 600px;
+        }
+
+        .kallyni-title {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: 'Brush Script MT', cursive;
+            background: linear-gradient(135deg, #FFD700 0%, #FFF8DC 50%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255,215,0,0.3);
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        .seal-k {
+            width: 6rem;
+            height: 6rem;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #FFE68F 0%, #FFD700 50%, #B8860B 100%);
+            box-shadow: 0 8px 24px rgba(255, 215, 0, 0.6), inset 0 -2px 8px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: sealGlow 2s ease-in-out infinite;
+        }
+
+        .seal-k span {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: Georgia, serif;
+            color: #D4AF37;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4), -1px -1px 2px rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="video-container">
+            <!-- CENA 1 -->
+            <div id="scene-1" class="scene scene-1 active">
+                <div style="position: relative;">
+                    <div style="width: 8rem; height: 8rem; border-radius: 50%; background: linear-gradient(to bottom right, rgba(255,255,255,0.2), rgba(255,215,0,0.1)); backdrop-filter: blur(4px); box-shadow: 0 0 40px rgba(255,215,0,0.3); animation: pulse 2s ease-in-out infinite;">
+                        <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
+                            <div style="width: 4rem; height: 4rem; border-radius: 50%; background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);"></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="position: absolute; bottom: 8rem; text-align: center; padding: 0 2rem; animation: fadeIn 2s;">
+                    <p style="color: rgba(255,255,255,0.8); font-size: 1.125rem; font-style: italic; font-weight: 300;">
+                        No silêncio azul do amanhecer,
+                    </p>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 1.125rem; font-style: italic; font-weight: 300; margin-top: 0.5rem;">
+                        nasce um convite feito de luz e sonho.
+                    </p>
+                </div>
+                <div id="particles-1"></div>
+            </div>
+
+            <!-- CENA 2 -->
+            <div id="scene-2" class="scene scene-2">
+                <div style="position: relative; animation: scaleRotate 5s ease-in-out; transform-style: preserve-3d;">
+                    <div style="width: 20rem; height: 14rem; border-radius: 1rem; box-shadow: 0 30px 60px rgba(0,0,0,0.5); background: linear-gradient(135deg, #1A7A7F 0%, #0B5B5E 100%); transform: rotateY(-15deg) rotateX(5deg); position: relative;">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 6rem; background: linear-gradient(180deg, #134F52 0%, #0B5B5E 100%); clip-path: polygon(0 0, 50% 60%, 100% 0); box-shadow: 0 5px 15px rgba(0,0,0,0.3);"></div>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            <div class="seal-k">
+                                <span>K</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="position: absolute; bottom: 6rem; text-align: center; padding: 0 2rem; animation: fadeIn 2s;">
+                    <p style="color: rgba(255,255,255,0.9); font-size: 1.125rem; font-style: italic; font-weight: 300;">
+                        Cada passo desenha esperança na areia,
+                    </p>
+                    <p style="color: rgba(255,255,255,0.9); font-size: 1.125rem; font-style: italic; font-weight: 300; margin-top: 0.5rem;">
+                        enquanto o vento sussurra promessas de encontro.
+                    </p>
+                </div>
+            </div>
+
+            <!-- CENA 3 -->
+            <div id="scene-3" class="scene scene-3">
+                <div style="position: relative; z-index: 10; width: 8rem; height: 8rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #FFFFFF 0%, #FFD700 50%, #D4AF37 100%); box-shadow: 0 0 60px rgba(255,255,255,1), 0 0 100px rgba(255,215,0,0.8); animation: pulse 1.5s ease-in-out infinite;">
+                    <span style="font-size: 4.5rem; font-weight: bold; font-family: Georgia, serif; color: #B8860B; text-shadow: 0 0 20px rgba(255,255,255,0.8);">K</span>
+                </div>
+                <div style="position: absolute; bottom: 6rem; text-align: center; padding: 0 2rem; z-index: 10;">
+                    <p style="color: #0B5B5E; font-size: 1.25rem; font-weight: 600; font-style: italic; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
+                        De mãos abertas, deixo voar o desejo:
+                    </p>
+                    <p style="color: #0B5B5E; font-size: 1.25rem; font-weight: 600; font-style: italic; margin-top: 0.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
+                        que todos possam ouvir a canção do céu azul.
+                    </p>
+                </div>
+            </div>
+
+            <!-- CENA 4 -->
+            <div id="scene-4" class="scene scene-4">
+                <div style="position: relative; z-index: 10; text-align: center;">
+                    <h1 class="kallyni-title" style="margin-bottom: 1.5rem; animation: letterReveal 2s ease-out forwards;">
+                        Kallyni
+                    </h1>
+                    <div style="display: flex; align-items: center; justify-content: center; margin: 1.5rem 0; gap: 1rem;">
+                        <div style="height: 1px; width: 6rem; background: linear-gradient(to right, transparent, #FFD700);"></div>
+                        <div style="width: 1rem; height: 1rem; border-radius: 50%; background: #FFD700; box-shadow: 0 0 20px rgba(255,215,0,0.8); animation: pulse 2s ease-in-out infinite;"></div>
+                        <div style="height: 1px; width: 6rem; background: linear-gradient(to left, transparent, #FFD700);"></div>
+                    </div>
+                    <p style="font-size: 1.875rem; letter-spacing: 0.1em; color: #FFD700; font-family: Georgia, serif; text-shadow: 0 2px 10px rgba(255,215,0,0.4);">
+                        MEUS 15 ANOS
+                    </p>
+                </div>
+                <div style="position: absolute; bottom: 8rem; text-align: center; padding: 0 2rem; animation: fadeIn 2s;">
+                    <p style="color: rgba(255,255,255,0.8); font-size: 1.125rem; font-style: italic; font-weight: 300;">
+                        Olhos que buscam o infinito,
+                    </p>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 1.125rem; font-style: italic; font-weight: 300; margin-top: 0.5rem;">
+                        coração aberto ao azul que canta.
+                    </p>
+                </div>
+                <div id="particles-4"></div>
+            </div>
+
+            <!-- CENA 5 -->
+            <div id="scene-5" class="scene scene-5">
+                <div class="invitation-card">
+                    <div style="text-align: center; margin-bottom: 1rem;">
+                        <div style="color: #FFD700; font-size: 1.5rem; margin-bottom: 0.75rem; text-shadow: 0 0 10px rgba(255,215,0,0.5);">
+                            ❧ ❦ ❧
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <p style="color: #FFD700; font-size: 0.75rem; letter-spacing: 0.1em; font-weight: 300;">
+                            VOCÊ É ESPECIALMENTE CONVIDADO
+                        </p>
+                        <h2 style="font-size: 3rem; font-weight: bold; margin: 0.75rem 0; font-family: 'Brush Script MT', cursive; background: linear-gradient(135deg, #FFD700 0%, #FFF8DC 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(255,215,0,0.3);">
+                            Kallyni
+                        </h2>
+                        <div style="height: 1px; width: 6rem; margin: 0 auto; background: linear-gradient(to right, transparent, #FFD700, transparent);"></div>
+                        <p style="color: white; font-size: 1.25rem; font-weight: 300; margin-top: 0.75rem;">
+                            MEUS 15 ANOS
+                        </p>
+                        <div style="margin-top: 1rem; color: rgba(255,255,255,0.9); font-size: 0.875rem;">
+                            <div style="display: flex; align-items: flex-start; justify-content: center; gap: 0.5rem; margin: 0.5rem 0;">
+                                <span style="color: #FFD700; font-size: 1.125rem;">📅</span>
+                                <p style="font-size: 1rem;">20 de Dezembro de 2025</p>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin: 0.5rem 0;">
+                                <span style="color: #FFD700; font-size: 1.125rem;">🕐</span>
+                                <p style="font-size: 1rem;">19h30</p>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; justify-content: center; gap: 0.5rem; margin: 0.5rem 0;">
+                                <span style="color: #FFD700; font-size: 1.125rem;">📍</span>
+                                <div style="text-align: center;">
+                                    <p style="font-size: 1rem; font-weight: 600;">Cantina Nostra</p>
+                                    <p style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">Rua 10 de Novembro</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.75rem; color: rgba(255,255,255,0.8);">
+                            <p style="font-weight: 600; color: #FFD700;">
+                                📱 Confirme sua presença:
+                            </p>
+                            <p style="margin-top: 0.5rem;">
+                                +55 54 99638-1003
+                            </p>
+                            <div style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                                <p style="font-style: italic; color: rgba(255,255,255,0.9); line-height: 1.6;">
+                                    Meu maior presente é sua presença
+                                </p>
+                                <p style="font-size: 0.625rem; color: rgba(255,255,255,0.7); margin-top: 0.25rem;">
+                                    Se desejar me presentear, aceito com carinho contribuições via mesmo número
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="position: absolute; bottom: 0.75rem; left: 0; right: 0; text-align: center;">
+                        <div style="color: #FFD700; font-size: 1.25rem; text-shadow: 0 0 10px rgba(255,215,0,0.5);">
+                            ❧ ❦ ❧
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENA 6 -->
+            <div id="scene-6" class="scene scene-6">
+                <div style="position: absolute; top: 25%; width: 10rem; height: 10rem; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #FFE68F 0%, #FFD700 40%, #D4AF37 100%); box-shadow: 0 20px 60px rgba(255,215,0,0.6), inset 0 -4px 12px rgba(0,0,0,0.3); animation: pulse 3s ease-in-out infinite; display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 4.5rem; font-weight: bold; font-family: Georgia, serif; color: #B8860B; text-shadow: 2px 2px 6px rgba(0,0,0,0.5), -1px -1px 3px rgba(255,255,255,0.3);">K</span>
+                </div>
+                <div style="position: relative; z-index: 10; text-align: center; padding: 0 2rem; margin-top: 8rem;">
+                    <p style="color: white; font-size: 1.5rem; font-style: italic; font-weight: 300; line-height: 1.6; text-shadow: 0 2px 8px rgba(0,0,0,0.5); animation: fadeInUp 2s ease-out forwards;">
+                        Entre estrelas, sonhos e risos,
+                    </p>
+                    <p style="color: white; font-size: 1.5rem; font-style: italic; font-weight: 300; line-height: 1.6; text-shadow: 0 2px 8px rgba(0,0,0,0.5); margin-top: 1.5rem;">
+                        te espero para celebrar
+                    </p>
+                    <p style="color: white; font-size: 1.5rem; font-style: italic; font-weight: 300; line-height: 1.6; text-shadow: 0 2px 8px rgba(0,0,0,0.5); margin-top: 1.5rem;">
+                        este momento mágico.
+                    </p>
+                    <div style="display: flex; justify-content: center; margin-top: 2rem;">
+                        <div style="color: #FFD700; font-size: 1.5rem; filter: drop-shadow(0 0 8px rgba(255,215,0,0.8));">
+                            ✦
+                        </div>
+                    </div>
+                </div>
+                <div id="particles-6"></div>
+            </div>
+
+            <!-- CENA 7 -->
+            <div id="scene-7" class="scene scene-7">
+                <div style="position: absolute; top: 25%; left: 50%; transform: translateX(-50%);">
+                    <div style="width: 12rem; height: 12rem; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #FFE68F 0%, #FFD700 40%, #D4AF37 100%); box-shadow: 0 30px 80px rgba(255,215,0,0.8), inset 0 -6px 16px rgba(0,0,0,0.4); animation: finalPulse 4s ease-in-out infinite; display: flex; align-items: center; justify-content: center; position: relative;">
+                        <span style="font-size: 5rem; font-weight: bold; font-family: Georgia, serif; color: #B8860B; text-shadow: 3px 3px 8px rgba(0,0,0,0.6), -2px -2px 4px rgba(255,255,255,0.4);">K</span>
+                    </div>
+                </div>
+                <div style="position: absolute; top: 50%; left: 50%; transform: translateX(-50%); text-align: center; width: 100%; padding: 0 1.5rem; margin-top: 2rem;">
+                    <h2 style="font-size: 3.75rem; font-weight: bold; margin-bottom: 1rem; font-family: 'Brush Script MT', cursive; background: linear-gradient(135deg, #FFD700 0%, #FFF8DC 50%, #FFD700 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 40px rgba(255,215,0,0.6); animation: shimmer 3s ease-in-out infinite;">
+                        Kallyni
+                    </h2>
+                    <div style="height: 1px; width: 12rem; margin: 0 auto; background: linear-gradient(to right, transparent, #FFD700, transparent); margin: 1.5rem auto;"></div>
+                    <p style="color: white; font-size: 1.25rem; font-weight: 300; margin-bottom: 0.75rem; font-style: italic;">
+                        A canção que nasce no céu,
+                    </p>
+                    <p style="color: white; font-size: 1.25rem; font-weight: 300; font-style: italic; margin-bottom: 1.5rem;">
+                        ecoa em cada coração.
+                    </p>
+                    <button class="whatsapp-button" onclick="confirmPresence()">
+                        <span style="font-size: 1.5rem;">💬</span>
+                        Confirmar Presença
+                    </button>
+                    <p style="color: rgba(255,255,255,0.6); font-size: 0.875rem; margin-top: 1rem;">
+                        +55 54 99638-1003
+                    </p>
+                </div>
+            </div>
+
+            <!-- Controles -->
+            <div class="controls">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress"></div>
+                </div>
+                <button class="play-button" id="playButton">
+                    <span id="playIcon" style="font-size: 1.5rem;">▶</span>
+                </button>
+                <p class="scene-info">
+                    Cena <span id="currentScene">1</span> de 7 • <span id="progressPercent">0</span>%
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentScene = 0;
+        let progress = 0;
+        let isPlaying = false;
+        let startTime = null;
+        let animationFrame = null;
+
+        const sceneDurations = [8, 10, 10, 12, 15, 20, 15]; // segundos
+        const totalDuration = sceneDurations.reduce((a, b) => a + b, 0);
+
+        const playButton = document.getElementById('playButton');
+        const playIcon = document.getElementById('playIcon');
+        const progressBar = document.getElementById('progress');
+        const currentSceneEl = document.getElementById('currentScene');
+        const progressPercentEl = document.getElementById('progressPercent');
+
+        // Criar partículas para cena 1
+        function createParticles(containerId, count, color = '#FFD700') {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.background = color;
+                particle.style.width = (Math.random() * 4 + 2) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.opacity = Math.random() * 0.6 + 0.4;
+                particle.style.animation = `float ${Math.random() * 3 + 3}s ease-in-out infinite`;
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        createParticles('particles-1', 20);
+        createParticles('particles-4', 100, 'white');
+        createParticles('particles-6', 40);
+
+        function togglePlay() {
+            if (progress >= 100) {
+                progress = 0;
+                currentScene = 0;
+                showScene(0);
+            }
+            isPlaying = !isPlaying;
+            playIcon.textContent = isPlaying ? '⏸' : '▶';
+
+            if (isPlaying) {
+                startTime = Date.now() - (progress / 100 * totalDuration * 1000);
+                animate();
+            } else {
+                cancelAnimationFrame(animationFrame);
+            }
+        }
+
+        function animate() {
+            if (!isPlaying) return;
+
+            const elapsed = (Date.now() - startTime) / 1000;
+            const newProgress = (elapsed / totalDuration) * 100;
+
+            if (newProgress >= 100) {
+                isPlaying = false;
+                progress = 0;
+                currentScene = 0;
+                showScene(0);
+                playIcon.textContent = '▶';
+                progressBar.style.width = '0%';
+                currentSceneEl.textContent = '1';
+                progressPercentEl.textContent = '0';
+                return;
+            }
+
+            progress = newProgress;
+            progressBar.style.width = progress + '%';
+            progressPercentEl.textContent = Math.floor(progress);
+
+            // Determinar cena atual
+            let accumulated = 0;
+            for (let i = 0; i < sceneDurations.length; i++) {
+                accumulated += sceneDurations[i];
+                if (elapsed < accumulated) {
+                    if (currentScene !== i) {
+                        currentScene = i;
+                        showScene(i);
+                        currentSceneEl.textContent = (i + 1);
+                    }
+                    break;
+                }
+            }
+
+            animationFrame = requestAnimationFrame(animate);
+        }
+
+        function showScene(index) {
+            document.querySelectorAll('.scene').forEach((scene, i) => {
+                if (i === index) {
+                    scene.classList.add('active');
+                } else {
+                    scene.classList.remove('active');
+                }
+            });
+        }
+
+        function confirmPresence() {
+            window.open('https://wa.me/5554996381003?text=Ol%C3%A1!%20Confirmo%20minha%20presen%C3%A7a%20nos%2015%20anos%20da%20Kallyni%20%F0%9F%8E%89', '_blank');
+        }
+
+        playButton.addEventListener('click', togglePlay);
+    </script>
+</body>
+</html>
