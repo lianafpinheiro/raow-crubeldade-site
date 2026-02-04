@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>CÓDICE 1403 | Matriz RACI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; padding: 3rem; max-width: 960px; margin: 0 auto; color: #0A0A0A; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+        th { text-align: left; padding: 1rem; border-bottom: 2px solid black; font-family: 'Playfair Display', serif; }
+        td { padding: 1rem; border-bottom: 1px solid #eee; }
+        .role { display: inline-block; width: 25px; height: 25px; line-height: 25px; text-align: center; border-radius: 50%; font-size: 0.8rem; font-weight: bold; }
+        .role-A { background: black; color: white; } /* Accountable */
+        .role-R { border: 1px solid black; color: black; } /* Responsible */
+        .role-C { background: #eee; color: #555; } /* Consulted */
+        .legend { display: flex; gap: 2rem; background: #fafafa; padding: 1rem; margin-bottom: 2rem; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <div style="margin-bottom: 2rem;"><a href="index.html" style="color: #555; text-decoration: none;">← Voltar ao Dossiê</a></div>
+
+    <h1>Matriz de Governança (RACI)</h1>
+    <p>Definição clara de autoridade para evitar conflitos de obra.</p>
+
+    <div class="legend">
+        <div><span class="role role-A">A</span> <strong>Accountable (Dono):</strong> Quem aprova e tem poder de veto.</div>
+        <div><span class="role role-R">R</span> <strong>Responsible (Executor):</strong> Quem põe a mão na massa.</div>
+        <div><span class="role role-C">C</span> <strong>Consulted:</strong> Quem opina antes.</div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Decisão / Disciplina</th>
+                <th style="background: #fff8f0;">Autora (Conceito)</th>
+                <th>Arq. Executora</th>
+                <th>Fornecedor</th>
+                <th>Construtora</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Conceito Arquitetônico</td><td style="background: #fff8f0;"><span class="role role-A">A</span></td><td><span class="role role-C">C</span></td><td>-</td><td>I</td></tr>
+            <tr><td>Layout e Fluxo</td><td style="background: #fff8f0;"><span class="role role-A">A</span></td><td><span class="role role-R">R</span></td><td>-</td><td>I</td></tr>
+            <tr><td>Detalhamento Marcenaria</td><td style="background: #fff8f0;"><span class="role role-A">A</span></td><td><span class="role role-C">C</span></td><td><span class="role role-R">R</span></td><td>-</td></tr>
+            <tr><td>Iluminação (Cenas)</td><td style="background: #fff8f0;"><span class="role role-A">A</span></td><td><span class="role role-C">C</span></td><td><span class="role role-R">R</span></td><td>R</td></tr>
+            <tr><td>Aprovação de RFI</td><td style="background: #fff8f0;"><span class="role role-A">A</span></td><td><span class="role role-C">C</span></td><td><span class="role role-R">R</span></td><td>-</td></tr>
+        </tbody>
+    </table>
+</body>
+</html>
