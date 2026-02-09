@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import KallyniVideoConvite from './components/KallyniVideoConvite';
 import FrutasMortais from './components/FrutasMortais';
+import ChecklistCores from './components/ChecklistCores';
 
 function App() {
   const [currentView, setCurrentView] = useState('home');
@@ -11,6 +12,8 @@ function App() {
         return <KallyniVideoConvite />;
       case 'frutas-mortais':
         return <FrutasMortais />;
+      case 'checklist-cores':
+        return <ChecklistCores />;
       default:
         return (
           <div className="min-h-screen bg-gradient-to-br from-purple-900 via-black to-orange-900 text-white flex items-center justify-center p-4">
@@ -32,6 +35,13 @@ function App() {
                   className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-6 px-8 rounded-lg transition-all transform hover:scale-105 text-xl"
                 >
                   ◻ Frutas Mortais ◻
+                </button>
+
+                <button
+                  onClick={() => setCurrentView('checklist-cores')}
+                  className="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-6 px-8 rounded-lg transition-all transform hover:scale-105 text-xl"
+                >
+                  Checklist de Avaliação – Uso das Cores
                 </button>
               </div>
 
