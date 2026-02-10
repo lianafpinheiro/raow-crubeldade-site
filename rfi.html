@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CÓDICE 1403: Sistema de Solicitação de Informação (RFI)">
+    <meta name="robots" content="noindex, nofollow">
+    <title>CÓDICE 1403 | Sistema RFI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #0A0A0A;
+            background: #FAFAFA;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Header */
+        .page-header {
+            margin-bottom: 3rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #555;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: #0A0A0A;
+        }
+
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header .subtitle {
+            color: #555;
+            font-size: 1rem;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-box h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #999;
+            margin-bottom: 1rem;
+        }
+
+        .info-box p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Form */
+        .rfi-form {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 2.5rem;
+        }
+
+        .form-section {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .form-section:last-of-type {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .form-section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: #0A0A0A;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #555;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        label .required {
+            color: #c62828;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        select,
+        textarea {
+            padding: 0.875rem 1rem;
+            border: 1px solid #ddd;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: #0A0A0A;
+            background: #fff;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #0A0A0A;
+            box-shadow: 0 0 0 3px rgba(10, 10, 10, 0.05);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        /* Priority Selector */
+        .priority-options {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .priority-option {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .priority-option input {
+            display: none;
+        }
+
+        .priority-option label {
+            display: block;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .priority-option input:checked + label {
+            border-color: #0A0A0A;
+            background: #0A0A0A;
+            color: #fff;
+        }
+
+        .priority-option label:hover {
+            border-color: #999;
+        }
+
+        .priority-option label .priority-tag {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.25rem;
+            opacity: 0.7;
+        }
+
+        /* File Upload */
+        .file-upload {
+            border: 2px dashed #ddd;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .file-upload:hover {
+            border-color: #999;
+            background: #fafafa;
+        }
+
+        .file-upload input {
+            display: none;
+        }
+
+        .file-upload-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .file-upload-text {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .file-upload-hint {
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 0.5rem;
+        }
+
+        /* Submit */
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid;
+        }
+
+        .btn-primary {
+            background: #0A0A0A;
+            color: #fff;
+            border-color: #0A0A0A;
+        }
+
+        .btn-primary:hover {
+            background: #333;
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: #555;
+            border-color: #ddd;
+        }
+
+        .btn-secondary:hover {
+            border-color: #999;
+        }
+
+        /* RFI History */
+        .rfi-history {
+            margin-top: 4rem;
+        }
+
+        .rfi-history h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+
+        .rfi-list {
+            background: #fff;
+            border: 1px solid #eee;
+        }
+
+        .rfi-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid #f0f0f0;
+            gap: 1rem;
+        }
+
+        .rfi-item:last-child {
+            border-bottom: none;
+        }
+
+        .rfi-item-info {
+            flex: 1;
+        }
+
+        .rfi-item-id {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #999;
+            margin-bottom: 0.25rem;
+        }
+
+        .rfi-item-title {
+            font-size: 0.95rem;
+            color: #0A0A0A;
+        }
+
+        .rfi-item-meta {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 0.25rem;
+        }
+
+        .rfi-status {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        .status-open {
+            background: #fff8e1;
+            color: #f57c00;
+        }
+
+        .status-answered {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-closed {
+            background: #f5f5f5;
+            color: #757575;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .rfi-form {
+                padding: 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .priority-options {
+                flex-direction: column;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .rfi-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .rfi-status {
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="page-header">
+            <a href="dossie.html" class="back-link">← Voltar ao Dossiê</a>
+            <h1>Sistema RFI</h1>
+            <p class="subtitle">Request for Information — Solicitação Oficial de Informação</p>
+        </header>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            <h3>Como Funciona</h3>
+            <p><strong>RFI (Request for Information)</strong> é o canal oficial para dúvidas técnicas, pedidos de esclarecimento e solicitações de decisão durante a execução do projeto.</p>
+            <p>Todas as solicitações são numeradas, rastreadas e arquivadas. Respostas oficiais têm valor contratual.</p>
+            <p>Prazo padrão de resposta: <strong>48 horas úteis</strong>. Urgências: <strong>24 horas</strong>.</p>
+        </div>
+
+        <!-- Form -->
+        <form class="rfi-form" id="rfiForm">
+            <!-- Identificação -->
+            <div class="form-section">
+                <h3 class="form-section-title">Identificação do Solicitante</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome Completo <span class="required">*</span></label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="empresa">Empresa / Função</label>
+                        <input type="text" id="empresa" name="empresa">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">E-mail <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input type="text" id="telefone" name="telefone">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Classificação -->
+            <div class="form-section">
+                <h3 class="form-section-title">Classificação da Solicitação</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="disciplina">Disciplina <span class="required">*</span></label>
+                        <select id="disciplina" name="disciplina" required>
+                            <option value="">Selecione...</option>
+                            <option value="arquitetura">Arquitetura</option>
+                            <option value="marcenaria">Marcenaria</option>
+                            <option value="iluminacao">Iluminação</option>
+                            <option value="eletrica">Elétrica</option>
+                            <option value="hidraulica">Hidráulica</option>
+                            <option value="acabamentos">Acabamentos</option>
+                            <option value="mobiliario">Mobiliário</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo">Tipo de Solicitação <span class="required">*</span></label>
+                        <select id="tipo" name="tipo" required>
+                            <option value="">Selecione...</option>
+                            <option value="esclarecimento">Esclarecimento Técnico</option>
+                            <option value="aprovacao">Pedido de Aprovação</option>
+                            <option value="alteracao">Proposta de Alteração</option>
+                            <option value="conflito">Conflito de Projeto</option>
+                            <option value="falta">Informação Faltante</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label>Prioridade <span class="required">*</span></label>
+                        <div class="priority-options">
+                            <div class="priority-option">
+                                <input type="radio" id="prioridade-baixa" name="prioridade" value="baixa">
+                                <label for="prioridade-baixa">
+                                    Baixa
+                                    <span class="priority-tag">5 dias úteis</span>
+                                </label>
+                            </div>
+                            <div class="priority-option">
+                                <input type="radio" id="prioridade-normal" name="prioridade" value="normal" checked>
+                                <label for="prioridade-normal">
+                                    Normal
+                                    <span class="priority-tag">48 horas</span>
+                                </label>
+                            </div>
+                            <div class="priority-option">
+                                <input type="radio" id="prioridade-alta" name="prioridade" value="alta">
+                                <label for="prioridade-alta">
+                                    Alta
+                                    <span class="priority-tag">24 horas</span>
+                                </label>
+                            </div>
+                            <div class="priority-option">
+                                <input type="radio" id="prioridade-urgente" name="prioridade" value="urgente">
+                                <label for="prioridade-urgente">
+                                    Urgente
+                                    <span class="priority-tag">Imediato</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detalhes -->
+            <div class="form-section">
+                <h3 class="form-section-title">Detalhes da Solicitação</h3>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="assunto">Assunto <span class="required">*</span></label>
+                        <input type="text" id="assunto" name="assunto" placeholder="Resumo em uma linha" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="descricao">Descrição Detalhada <span class="required">*</span></label>
+                        <textarea id="descricao" name="descricao" placeholder="Descreva a dúvida, o contexto e a informação necessária para resposta" required></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="referencia">Referência de Projeto</label>
+                        <input type="text" id="referencia" name="referencia" placeholder="Ex: Planta Baixa p.03, Detalhe D-15, Matriz Marcenaria item 7.2">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Anexos -->
+            <div class="form-section">
+                <h3 class="form-section-title">Anexos</h3>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label class="file-upload">
+                            <input type="file" id="anexos" name="anexos" multiple accept=".pdf,.jpg,.jpeg,.png,.dwg">
+                            <div class="file-upload-icon">📎</div>
+                            <div class="file-upload-text">Clique para adicionar arquivos</div>
+                            <div class="file-upload-hint">PDF, JPG, PNG ou DWG — Máx. 10MB por arquivo</div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">Limpar</button>
+                <button type="submit" class="btn btn-primary">Enviar Solicitação</button>
+            </div>
+        </form>
+
+        <!-- RFI History -->
+        <section class="rfi-history">
+            <h2>Histórico de RFIs</h2>
+            <div class="rfi-list">
+                <div class="rfi-item">
+                    <div class="rfi-item-info">
+                        <div class="rfi-item-id">RFI-1403-007</div>
+                        <div class="rfi-item-title">Confirmação de altura do nicho da sala de estar</div>
+                        <div class="rfi-item-meta">Marcenaria • 05/02/2025</div>
+                    </div>
+                    <span class="rfi-status status-answered">Respondida</span>
+                </div>
+                <div class="rfi-item">
+                    <div class="rfi-item-info">
+                        <div class="rfi-item-id">RFI-1403-006</div>
+                        <div class="rfi-item-title">Especificação de acabamento para rodapé em carvalho</div>
+                        <div class="rfi-item-meta">Acabamentos • 03/02/2025</div>
+                    </div>
+                    <span class="rfi-status status-answered">Respondida</span>
+                </div>
+                <div class="rfi-item">
+                    <div class="rfi-item-info">
+                        <div class="rfi-item-id">RFI-1403-005</div>
+                        <div class="rfi-item-title">Conflito entre pontos elétricos e marcenaria</div>
+                        <div class="rfi-item-meta">Elétrica • 01/02/2025</div>
+                    </div>
+                    <span class="rfi-status status-closed">Fechada</span>
+                </div>
+                <div class="rfi-item">
+                    <div class="rfi-item-info">
+                        <div class="rfi-item-id">RFI-1403-004</div>
+                        <div class="rfi-item-title">Definição de temperatura de cor para iluminação indireta</div>
+                        <div class="rfi-item-meta">Iluminação • 28/01/2025</div>
+                    </div>
+                    <span class="rfi-status status-answered">Respondida</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Form submission handler
+        document.getElementById('rfiForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // In production, this would send to a backend
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+
+            // Generate RFI number
+            const rfiNumber = 'RFI-1403-' + String(Math.floor(Math.random() * 900) + 100).padStart(3, '0');
+
+            alert(`Solicitação ${rfiNumber} registrada com sucesso!\n\nVocê receberá confirmação por e-mail em ${data.email}.\n\nPrazo de resposta conforme prioridade selecionada.`);
+
+            this.reset();
+        });
+
+        // Reset form
+        function resetForm() {
+            document.getElementById('rfiForm').reset();
+        }
+
+        // File upload feedback
+        document.getElementById('anexos').addEventListener('change', function() {
+            const fileCount = this.files.length;
+            const uploadText = this.closest('.file-upload').querySelector('.file-upload-text');
+
+            if (fileCount > 0) {
+                uploadText.textContent = `${fileCount} arquivo(s) selecionado(s)`;
+            } else {
+                uploadText.textContent = 'Clique para adicionar arquivos';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CÓDICE 1403: Bíblia conceitual do projeto arquitetônico">
+    <meta name="robots" content="noindex, nofollow">
+    <title>CÓDICE 1403 | Bíblia Conceitual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #0A0A0A;
+            background: #fff;
+            line-height: 1.8;
+        }
+
+        /* Layout Principal */
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Fixa */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: #0A0A0A;
+            color: #fff;
+            padding: 2rem;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .sidebar-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-header .project-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #777;
+        }
+
+        .sidebar-nav {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-nav h2 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.5rem 0;
+            border-left: 2px solid transparent;
+            padding-left: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            color: #fff;
+            border-left-color: #fff;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            right: 2rem;
+        }
+
+        .sidebar-footer a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #555;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.2s ease;
+        }
+
+        .sidebar-footer a:hover {
+            color: #fff;
+        }
+
+        /* Conteúdo Principal */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 4rem;
+            max-width: 900px;
+        }
+
+        /* Seções */
+        .codice-section {
+            margin-bottom: 5rem;
+            padding-top: 1rem;
+        }
+
+        .codice-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: #0A0A0A;
+        }
+
+        .codice-section .section-number {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #999;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .codice-section p {
+            font-size: 1rem;
+            color: #444;
+            margin-bottom: 1.5rem;
+        }
+
+        .codice-section p.lead {
+            font-size: 1.15rem;
+            color: #333;
+            font-weight: 300;
+            line-height: 1.9;
+        }
+
+        /* Citações */
+        blockquote {
+            border-left: 3px solid #0A0A0A;
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: #333;
+        }
+
+        blockquote cite {
+            display: block;
+            margin-top: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        /* Listas de Princípios */
+        .principle-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .principle-list li {
+            padding: 1.5rem;
+            background: #FAFAFA;
+            margin-bottom: 1rem;
+            border-left: 3px solid #0A0A0A;
+        }
+
+        .principle-list li strong {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .principle-list li span {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* Paleta de Materiais */
+        .material-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .material-card {
+            padding: 1.5rem;
+            border: 1px solid #eee;
+            text-align: center;
+        }
+
+        .material-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            border: 1px solid #ddd;
+        }
+
+        .material-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+        }
+
+        .material-card span {
+            font-size: 0.75rem;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Hierarquia Visual */
+        .hierarchy-diagram {
+            background: #FAFAFA;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .hierarchy-level {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .hierarchy-level:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .hierarchy-number {
+            width: 40px;
+            height: 40px;
+            background: #0A0A0A;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .hierarchy-content h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+        }
+
+        .hierarchy-content p {
+            font-size: 0.85rem;
+            color: #666;
+            margin: 0;
+        }
+
+        /* Notas */
+        .note {
+            background: #fff8f0;
+            border: 1px solid #f0e6d8;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-size: 0.9rem;
+        }
+
+        .note-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #b38b4d;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Mobile */
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #0A0A0A;
+            color: #fff;
+            padding: 1rem;
+            z-index: 200;
+        }
+
+        .mobile-menu-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .mobile-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 5rem 1.5rem 2rem;
+            }
+
+            .codice-section h2 {
+                font-size: 1.5rem;
+            }
+
+            blockquote {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <span style="font-family: 'Playfair Display', serif;">CÓDICE 1403</span>
+        <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+    </header>
+
+    <div class="layout">
+        <!-- Sidebar Fixa -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>CÓDICE 1403</h1>
+                <span class="project-tag">Bíblia Conceitual</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <h2>Navegação</h2>
+                <ul>
+                    <li><a href="#introducao" class="active">Introdução</a></li>
+                    <li><a href="#principios">Princípios Fundacionais</a></li>
+                    <li><a href="#estetica">Linguagem Estética</a></li>
+                    <li><a href="#materiais">Paleta de Materiais</a></li>
+                    <li><a href="#espacial">Hierarquia Espacial</a></li>
+                    <li><a href="#luz">Filosofia da Luz</a></li>
+                    <li><a href="#funcao">Função & Fluxo</a></li>
+                    <li><a href="#interdicoes">Interdições</a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="dossie.html">← Voltar ao Dossiê</a>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+            <!-- Introdução -->
+            <section id="introducao" class="codice-section">
+                <span class="section-number">Seção I</span>
+                <h2>Introdução</h2>
+                <p class="lead">
+                    Este documento constitui a referência primária para todas as decisões de design do Projeto 1403.
+                    Cada especificação técnica, cada escolha material, cada detalhe construtivo deve ser validado
+                    contra os princípios aqui estabelecidos.
+                </p>
+                <p>
+                    O CÓDICE não é um manual de instruções — é uma declaração de intenções. Define não apenas
+                    <em>o que</em> construir, mas <em>por que</em> construir de determinada forma. Quando surgir
+                    dúvida entre duas soluções tecnicamente equivalentes, este documento fornece os critérios
+                    de desempate.
+                </p>
+
+                <blockquote>
+                    "O espaço não existe para ser habitado. Existe para transformar quem o habita."
+                    <cite>— Princípio Orientador do Projeto 1403</cite>
+                </blockquote>
+            </section>
+
+            <!-- Princípios Fundacionais -->
+            <section id="principios" class="codice-section">
+                <span class="section-number">Seção II</span>
+                <h2>Princípios Fundacionais</h2>
+                <p>
+                    Cinco axiomas governam o projeto. Nenhuma decisão de execução pode contradizê-los.
+                    Em caso de conflito entre requisitos técnicos e princípios fundacionais, os princípios prevalecem.
+                </p>
+
+                <ul class="principle-list">
+                    <li>
+                        <strong>1. Silêncio Visual</strong>
+                        <span>O espaço deve respirar. Superfícies vazias não são desperdício — são pausas necessárias.
+                        A ausência de elemento é, em si, um elemento de design.</span>
+                    </li>
+                    <li>
+                        <strong>2. Materialidade Honesta</strong>
+                        <span>Cada material deve expressar sua natureza. Madeira deve parecer madeira.
+                        Simulações, laminados com padrão falso e acabamentos que mascaram a estrutura são proibidos.</span>
+                    </li>
+                    <li>
+                        <strong>3. Geometria Intencional</strong>
+                        <span>Linhas retas dominam. Curvas só aparecem quando funcionalmente necessárias ou
+                        quando criam contraste deliberado. Nunca por decoração.</span>
+                    </li>
+                    <li>
+                        <strong>4. Escala Humana</strong>
+                        <span>Proporções derivam do corpo, não de abstrações matemáticas.
+                        Altura de bancadas, profundidade de assentos, alcance de prateleiras — tudo calibrado para uso real.</span>
+                    </li>
+                    <li>
+                        <strong>5. Luz como Material</strong>
+                        <span>Iluminação não é utilitária — é arquitetônica. A luz esculpe o espaço,
+                        revela texturas, cria hierarquias. Fontes visíveis são exceção, não regra.</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Linguagem Estética -->
+            <section id="estetica" class="codice-section">
+                <span class="section-number">Seção III</span>
+                <h2>Linguagem Estética</h2>
+                <p>
+                    O projeto opera numa zona de tensão produtiva entre o austero e o acolhedor.
+                    Não é minimalismo frio nem decorativismo excessivo. É rigor com calor humano.
+                </p>
+                <p>
+                    A paleta cromática gravita em torno de neutros quentes. Brancos tendem ao marfim,
+                    cinzas tendem ao greige, pretos tendem ao carvão. Cores saturadas são tratadas como
+                    pontuação tipográfica: raras, precisas, significativas.
+                </p>
+
+                <div class="note">
+                    <span class="note-label">Nota de Aplicação</span>
+                    Quando fornecedores apresentarem amostras de cor, sempre avaliar sob luz natural
+                    e luz artificial simultaneamente. A cor escolhida deve funcionar em ambas condições
+                    sem perder sua intenção.
+                </div>
+            </section>
+
+            <!-- Paleta de Materiais -->
+            <section id="materiais" class="codice-section">
+                <span class="section-number">Seção IV</span>
+                <h2>Paleta de Materiais</h2>
+                <p>
+                    Materiais foram selecionados por durabilidade, envelhecimento gracioso e coerência tátil.
+                    Cada superfície deve convidar ao toque.
+                </p>
+
+                <div class="material-grid">
+                    <div class="material-card">
+                        <div class="material-swatch" style="background: #8B6914;"></div>
+                        <h4>Carvalho Natural</h4>
+                        <span>Estruturas & Móveis</span>
+                    </div>
+                    <div class="material-card">
+                        <div class="material-swatch" style="background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);"></div>
+                        <h4>Mármore Branco</h4>
+                        <span>Bancadas & Detalhes</span>
+                    </div>
+                    <div class="material-card">
+                        <div class="material-swatch" style="background: #2C2C2C;"></div>
+                        <h4>Aço Carbono</h4>
+                        <span>Ferragens & Estrutura</span>
+                    </div>
+                    <div class="material-card">
+                        <div class="material-swatch" style="background: #D4C4B0;"></div>
+                        <h4>Linho Natural</h4>
+                        <span>Têxteis & Estofados</span>
+                    </div>
+                </div>
+
+                <div class="note">
+                    <span class="note-label">Interdição Material</span>
+                    MDF com revestimento melamínico branco brilhante está expressamente proibido.
+                    Alternativas: MDF laqueado fosco ou madeira natural com acabamento acetinado.
+                </div>
+            </section>
+
+            <!-- Hierarquia Espacial -->
+            <section id="espacial" class="codice-section">
+                <span class="section-number">Seção V</span>
+                <h2>Hierarquia Espacial</h2>
+                <p>
+                    O espaço organiza-se em três níveis de intimidade, do mais público ao mais privado.
+                    Transições entre níveis devem ser perceptíveis mas não abruptas.
+                </p>
+
+                <div class="hierarchy-diagram">
+                    <div class="hierarchy-level">
+                        <div class="hierarchy-number">1</div>
+                        <div class="hierarchy-content">
+                            <h4>Zona de Recepção</h4>
+                            <p>Primeiro contato visual. Define expectativas. Pé-direito máximo, materiais nobres expostos.</p>
+                        </div>
+                    </div>
+                    <div class="hierarchy-level">
+                        <div class="hierarchy-number">2</div>
+                        <div class="hierarchy-content">
+                            <h4>Zona de Convívio</h4>
+                            <p>Área social principal. Flexibilidade de layout. Iluminação em camadas.</p>
+                        </div>
+                    </div>
+                    <div class="hierarchy-level">
+                        <div class="hierarchy-number">3</div>
+                        <div class="hierarchy-content">
+                            <h4>Zona Íntima</h4>
+                            <p>Espaços de recolhimento. Escala reduzida. Materiais táteis predominam.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filosofia da Luz -->
+            <section id="luz" class="codice-section">
+                <span class="section-number">Seção VI</span>
+                <h2>Filosofia da Luz</h2>
+                <p>
+                    Iluminação artificial deve simular as qualidades da luz natural: direcionalidade,
+                    temperatura variável, capacidade de criar sombras. Luz chapada e uniforme é inimiga do projeto.
+                </p>
+
+                <ul class="principle-list">
+                    <li>
+                        <strong>Luz Ambiente</strong>
+                        <span>Indireta, refletida em superfícies. Define o humor geral do espaço.
+                        Temperatura entre 2700K e 3000K.</span>
+                    </li>
+                    <li>
+                        <strong>Luz de Tarefa</strong>
+                        <span>Focada onde necessário. Bancadas de trabalho, leitura, preparação de alimentos.
+                        Pode ser mais fria (até 4000K) para precisão visual.</span>
+                    </li>
+                    <li>
+                        <strong>Luz de Destaque</strong>
+                        <span>Dramática, escultural. Revela texturas, cria pontos focais.
+                        Usada com parcimônia — excesso anula o efeito.</span>
+                    </li>
+                </ul>
+
+                <blockquote>
+                    "Se você vê a lâmpada, o projeto de iluminação falhou."
+                    <cite>— Diretriz de Execução</cite>
+                </blockquote>
+            </section>
+
+            <!-- Função & Fluxo -->
+            <section id="funcao" class="codice-section">
+                <span class="section-number">Seção VII</span>
+                <h2>Função & Fluxo</h2>
+                <p>
+                    Circulação não é resíduo entre áreas funcionais — é arquitetura.
+                    O percurso através do espaço deve ser uma experiência coreografada,
+                    com momentos de compressão e expansão, revelação e ocultamento.
+                </p>
+                <p>
+                    Armazenamento é invisível. Onde possível, armários ocupam a espessura de paredes.
+                    Portas de correr embutidas. Puxadores que desaparecem na superfície.
+                </p>
+
+                <div class="note">
+                    <span class="note-label">Critério de Validação</span>
+                    Antes de aprovar qualquer layout, simular mentalmente: uma pessoa atravessando
+                    o espaço carregando uma bandeja; duas pessoas se cruzando no corredor;
+                    alguém abrindo um armário enquanto outro passa. Se houver conflito, redesenhar.
+                </div>
+            </section>
+
+            <!-- Interdições -->
+            <section id="interdicoes" class="codice-section">
+                <span class="section-number">Seção VIII</span>
+                <h2>Interdições</h2>
+                <p>
+                    Lista não-exaustiva de elementos expressamente proibidos no projeto.
+                    Qualquer proposta que inclua itens desta lista será automaticamente rejeitada.
+                </p>
+
+                <ul class="principle-list">
+                    <li>
+                        <strong>Sancas de Gesso com Iluminação Embutida</strong>
+                        <span>Solução ultrapassada que cria luz chapada e acumula poeira. Proibido.</span>
+                    </li>
+                    <li>
+                        <strong>Porcelanato Imitando Madeira</strong>
+                        <span>Viola o princípio de materialidade honesta. Se precisa de piso resistente, use porcelanato com identidade própria.</span>
+                    </li>
+                    <li>
+                        <strong>Spots de LED Visíveis em Grade Regular</strong>
+                        <span>Transforma teto em tabuleiro de damas. Iluminação deve ser integrada à arquitetura, não sobreposta.</span>
+                    </li>
+                    <li>
+                        <strong>Molduras Decorativas</strong>
+                        <span>Adição de complexidade sem função. Se uma superfície precisa de moldura para parecer "terminada", o design base falhou.</span>
+                    </li>
+                    <li>
+                        <strong>Puxadores Tipo "Colonial" ou "Provençal"</strong>
+                        <span>Anacronismo estilístico incompatível com a linguagem do projeto.</span>
+                    </li>
+                </ul>
+
+                <blockquote>
+                    "Se não está no CÓDICE, pergunte. Se contradiz o CÓDICE, não faça."
+                    <cite>— Protocolo de Dúvidas</cite>
+                </blockquote>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Toggle sidebar on mobile
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        // Active link highlighting on scroll
+        const sections = document.querySelectorAll('.codice-section');
+        const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Close sidebar when clicking a link on mobile
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 900) {
+                    document.getElementById('sidebar').classList.remove('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
