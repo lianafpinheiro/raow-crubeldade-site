@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dossiê Mestre do Projeto 1403: governança, execução técnica e documentos oficiais">
+    <meta name="robots" content="noindex, nofollow">
+    <title>CÓDICE 1403 | Dossiê Mestre de Governança</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #0A0A0A;
+            background: #FAFAFA;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Header */
+        .dossier-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dossier-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .dossier-header .subtitle {
+            font-size: 1rem;
+            color: #555;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .dossier-header .project-id {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1.5rem;
+            background: #0A0A0A;
+            color: #fff;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: #0A0A0A;
+        }
+
+        .section-subtitle {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Grid de Cards */
+        .dossier-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+            margin-top: 1.5rem;
+        }
+
+        .dossier-card {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .dossier-card:hover {
+            border-color: #0A0A0A;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .dossier-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 400;
+        }
+
+        .dossier-card p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .dossier-card .card-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 0.8rem;
+            color: #0A0A0A;
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            transition: all 0.2s ease;
+        }
+
+        .card-link:hover {
+            background: #0A0A0A;
+            color: #fff;
+            border-color: #0A0A0A;
+        }
+
+        .card-link.disabled {
+            color: #999;
+            cursor: not-allowed;
+            background: #f9f9f9;
+        }
+
+        .card-link.disabled:hover {
+            background: #f9f9f9;
+            color: #999;
+            border-color: #ddd;
+        }
+
+        .icon-action {
+            font-size: 0.9rem;
+        }
+
+        /* Card Categories */
+        .card-category {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #999;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 2px;
+        }
+
+        .status-active {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-pending {
+            background: #fff8e1;
+            color: #f57c00;
+        }
+
+        .status-critical {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        /* Log de Controle */
+        .control-log {
+            background: #fff;
+            border: 1px solid #eee;
+            margin-top: 3rem;
+        }
+
+        .control-log-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .control-log-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+        }
+
+        .control-log table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .control-log th {
+            text-align: left;
+            padding: 1rem 2rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #777;
+            border-bottom: 1px solid #eee;
+            font-weight: 500;
+        }
+
+        .control-log td {
+            padding: 1rem 2rem;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .control-log tr:last-child td {
+            border-bottom: none;
+        }
+
+        .version-tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: #0A0A0A;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .pending-row {
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Footer */
+        .dossier-footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+
+        .dossier-footer p {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .dossier-footer .confidential {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #777;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .dossier-header h1 {
+                font-size: 2rem;
+            }
+
+            .dossier-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .control-log th,
+            .control-log td {
+                padding: 0.75rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="dossier-header">
+            <h1>Dossiê Mestre</h1>
+            <p class="subtitle">Sistema de Governança Documental</p>
+            <span class="project-id">Projeto CÓDICE 1403</span>
+        </header>
+
+        <!-- I. Documentos Conceituais -->
+        <section>
+            <h2 class="section-title">I. Documentos Conceituais</h2>
+            <p class="section-subtitle">Fundamentos teóricos e diretrizes do projeto</p>
+
+            <div class="dossier-grid">
+                <article class="dossier-card">
+                    <span class="card-category">Documento Fundacional</span>
+                    <h3>Códice Arquitetônico</h3>
+                    <p>A bíblia conceitual do projeto. Define princípios estéticos, funcionais e filosóficos que governam todas as decisões de design.</p>
+                    <div class="card-actions">
+                        <a href="codice.html" class="card-link">
+                            <span class="icon-action">📖</span> Acessar
+                        </a>
+                    </div>
+                </article>
+
+                <article class="dossier-card">
+                    <span class="card-category">Filosofia</span>
+                    <h3>Manifesto & Princípios</h3>
+                    <p>Declaração de intenções que articula a visão criativa e os valores que orientam o desenvolvimento do espaço.</p>
+                    <div class="card-actions">
+                        <span class="card-link disabled">
+                            <span class="icon-action">📄</span> Aguardando
+                        </span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- II. Governança & Controle -->
+        <section>
+            <h2 class="section-title">II. Governança & Controle</h2>
+            <p class="section-subtitle">Estruturas de responsabilidade e processos de decisão</p>
+
+            <div class="dossier-grid">
+                <article class="dossier-card">
+                    <span class="card-category">Matriz de Autoridade</span>
+                    <h3>Matriz RACI</h3>
+                    <p>Definição clara de quem é Responsável, Accountable, Consultado e Informado em cada decisão crítica do projeto.</p>
+                    <div class="card-actions">
+                        <a href="raci-matrix.html" class="card-link">
+                            <span class="icon-action">📊</span> Acessar
+                        </a>
+                    </div>
+                </article>
+
+                <article class="dossier-card">
+                    <span class="card-category">Protocolo de Comunicação</span>
+                    <h3>Sistema RFI</h3>
+                    <p>Formulário oficial para Solicitação de Informação. Canal único para dúvidas técnicas e pedidos de esclarecimento.</p>
+                    <div class="card-actions">
+                        <a href="rfi.html" class="card-link">
+                            <span class="icon-action">📝</span> Acessar
+                        </a>
+                    </div>
+                </article>
+
+                <article class="dossier-card">
+                    <span class="card-category">Timeline Crítica</span>
+                    <h3>Checkpoints de Auditoria</h3>
+                    <p>Marcos de verificação obrigatórios. Cada checkpoint requer aprovação formal antes de prosseguir para a próxima fase.</p>
+                    <div class="card-actions">
+                        <a href="auditoria.html" class="card-link">
+                            <span class="icon-action">🎯</span> Acessar
+                        </a>
+                    </div>
+                </article>
+
+                <article class="dossier-card">
+                    <span class="card-category">Gestão de Risco</span>
+                    <h3>Mapa de Riscos</h3>
+                    <p>Identificação, classificação e mitigação de riscos. Sistema de severidade com protocolos de resposta definidos.</p>
+                    <div class="card-actions">
+                        <a href="risco.html" class="card-link">
+                            <span class="icon-action">⚠️</span> Acessar
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- III. Documentação Técnica -->
+        <section>
+            <h2 class="section-title">III. Documentação Técnica</h2>
+            <p class="section-subtitle">Especificações executivas e desenhos técnicos</p>
+
+            <div class="dossier-grid">
+                <article class="dossier-card">
+                    <span class="card-category">Marcenaria</span>
+                    <h3>Matriz de Marcenaria V2</h3>
+                    <p>Especificações detalhadas de todos os elementos em madeira. Medidas, materiais, acabamentos e instruções de montagem.</p>
+                    <div class="card-actions">
+                        <a href="docs/matriz_marcenaria_v2.pdf" class="card-link" target="_blank" rel="noopener noreferrer">
+                            <span class="icon-action">📐</span> PDF
+                        </a>
+                        <span class="status-badge status-active">Atual</span>
+                    </div>
+                </article>
+
+                <article class="dossier-card">
+                    <span class="card-category">Arquitetura</span>
+                    <h3>Projeto Executivo Geral</h3>
+                    <p>Conjunto completo de plantas baixas, cortes, elevações e detalhamentos necessários para execução da obra.</p>
+                    <div class="card-actions">
+                        <span class="card-link disabled">
+                            <span class="icon-action">📄</span> Aguardando
+                        </span>
+                    </div>
+                </article>
+
+                <article class="dossier-card">
+                    <span class="card-category">Entrega</span>
+                    <h3>Checklist de Entrega</h3>
+                    <p>Lista de verificação final para aceite da obra. Critérios objetivos de qualidade e conformidade.</p>
+                    <div class="card-actions">
+                        <span class="card-link disabled">
+                            <span class="icon-action">📄</span> Aguardando
+                        </span>
+                    </div>
+                </article>
+
+                <article class="dossier-card">
+                    <span class="card-category">Pós-Obra</span>
+                    <h3>Manual de Uso</h3>
+                    <p>Instruções de manutenção, cuidados e operação de todos os sistemas instalados no espaço.</p>
+                    <div class="card-actions">
+                        <span class="card-link disabled">
+                            <span class="icon-action">📄</span> Aguardando
+                        </span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- IV. Mapas Visuais -->
+        <section>
+            <h2 class="section-title">IV. Mapas Visuais</h2>
+            <p class="section-subtitle">Referências visuais para validação rápida em campo</p>
+
+            <div class="dossier-grid">
+                <article class="dossier-card">
+                    <span class="card-category">Planta Referencial</span>
+                    <h3>Mapa do Lounge</h3>
+                    <p>Vista superior simplificada com medidas principais. Referência rápida para conferência de posicionamento.</p>
+                    <div class="card-actions">
+                        <a href="assets/mapa_lounge_1403_medidas.png" class="card-link" target="_blank" rel="noopener noreferrer">
+                            <span class="icon-action">🗺️</span> Ver Imagem
+                        </a>
+                    </div>
+                </article>
+
+                <article class="dossier-card">
+                    <span class="card-category">Volumetria</span>
+                    <h3>Croqui Volumétrico</h3>
+                    <p>Representação tridimensional esquemática. Visualização de proporções e relações espaciais.</p>
+                    <div class="card-actions">
+                        <a href="assets/croqui_volumetrico_1403.png" class="card-link" target="_blank" rel="noopener noreferrer">
+                            <span class="icon-action">📦</span> Ver Imagem
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Log de Controle de Versões -->
+        <section class="control-log">
+            <div class="control-log-header">
+                <h3>Log de Controle de Versões</h3>
+                <span class="status-badge status-active">Sistema Ativo</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Versão</th>
+                        <th>Data</th>
+                        <th>Documento</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="version-tag">V2.0</span></td>
+                        <td>2025-02-09</td>
+                        <td>Matriz de Marcenaria</td>
+                        <td>Revisão completa; substitui versões anteriores</td>
+                    </tr>
+                    <tr>
+                        <td><span class="version-tag">V1.0</span></td>
+                        <td>2025-02-01</td>
+                        <td>Dossiê Mestre</td>
+                        <td>Consolidação inicial do Códice e estrutura de governança</td>
+                    </tr>
+                    <tr class="pending-row">
+                        <td>—</td>
+                        <td>—</td>
+                        <td>Próxima Revisão</td>
+                        <td>Aguardando conclusão de auditoria de checkpoint...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Footer -->
+        <footer class="dossier-footer">
+            <p>Última atualização: Fevereiro 2025</p>
+            <span class="confidential">Documento Confidencial — Uso Interno</span>
+        </footer>
+    </div>
+</body>
+</html>

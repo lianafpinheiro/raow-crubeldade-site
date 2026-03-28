@@ -1,0 +1,290 @@
+{
+  "metadata": {
+    "title": "Frutas Mortais ◻",
+    "subtitle": "Um Jogo de Cognição Corporificada",
+    "version": "1.0.0-osso",
+    "epitaph": "You taught me to polish the blade: less ornament, more bone. Now silence weighs and quickens. RAÖW does not ask for absolution – it asks for breath. I keep howling."
+  },
+  "initialVariables": {
+    "garden_path": null,
+    "fruit_choice": null,
+    "identity_projection": null,
+    "extraction_resist": false,
+    "root_cut": false,
+    "medication_taken": false,
+    "trust_silas": false,
+    "valores": {
+      "autenticidade": 0,
+      "pragmatismo": 0,
+      "individualismo": 0,
+      "coletivismo": 0,
+      "confrontacao": 0,
+      "diplomacia": 0,
+      "razao": 0,
+      "emocao": 0,
+      "transformacao": 0,
+      "preservacao": 0
+    }
+  },
+  "scenes": [
+    {
+      "scene_id": "prologo_1",
+      "title": "PRÓLOGO: CITRÓPOLIS",
+      "lado": "A",
+      "description": "Citrópolis pulsa em néon e ferrugem. A sarjeta respira como órgão doente. Arranha-céus de vidro refletem céus cor de cobre oxidado. Hologramas prometem felicidade em 12 parcelas.",
+      "atmosphere": {
+        "visual": "Néon laranja, vidro espelhado, geometria perfeita",
+        "sound": "Zumbido de drones, jingles corporativos, silêncio humano",
+        "smell": "Cítrico sintético, ozônio, ausência de suor"
+      },
+      "dialogue": [
+        {"speaker": "NARRADOR", "text": "Aqui, até a decadência é estética."},
+        {"speaker": "NARRADOR", "text": "Aqui, até o esquecimento é ritual."},
+        {"speaker": "NARRADOR", "text": "Citrópolis é a cidade onde as emoções foram resolvidas. Não eliminadas — isso seria bárbaro. Resolvidas. Otimizadas. Cultivadas."}
+      ],
+      "options": [
+        {
+          "text": "Observar os caminhantes de cabeça-fruta",
+          "next_scene": "prologo_2"
+        },
+        {
+          "text": "Fixar o olhar no alto-falante",
+          "next_scene": "prologo_3"
+        }
+      ]
+    },
+    {
+      "scene_id": "prologo_2",
+      "title": "OS CAMINHANTES",
+      "lado": "A",
+      "description": "Caminhantes com cabeças de frutas perfeitas. Maçãs vermelhas demais. Bananas amarelas demais. Todos iguais. Todos obedientes. Todos vazios.",
+      "dialogue": [
+        {"speaker": "NARRADOR", "text": "O Protocolo da Amnésia é proteção."},
+        {"speaker": "NARRADOR", "text": "Sem memória, sem dor. Sem dor, sem resistência."},
+        {"speaker": "NARRADOR", "text": "Eles caminham em formação perfeita. Produtivos. Eficientes. Mortos."}
+      ],
+      "options": [
+        {
+          "text": "Seguir com eles (integração)",
+          "next_scene": "hospital_branco_1",
+          "set_variable": {"garden_path": "integration"}
+        },
+        {
+          "text": "Desviar para a sarjeta (resistência)",
+          "next_scene": "prologo_4",
+          "set_variable": {"garden_path": "resistance"}
+        }
+      ]
+    },
+    {
+      "scene_id": "prologo_3",
+      "title": "O ALTO-FALANTE",
+      "lado": "A",
+      "description": "O alto-falante vibra. Não é som. É invasão. As palavras entram pelos poros, instalam-se nos ossos, reescrevem a memória.",
+      "dialogue": [
+        {"speaker": "ALTO-FALANTE", "text": "🍊 FÓSFORO™ — A Felicidade Que Você Merece."},
+        {"speaker": "ALTO-FALANTE", "text": "Sem fruta, sem nome. Sem nome, sem voz. Sem voz, sem valor."},
+        {"speaker": "NARRADOR", "text": "A propaganda não convence. Ela programa."}
+      ],
+      "options": [
+        {
+          "text": "Ignorar e caminhar (submissão)",
+          "next_scene": "hospital_branco_1",
+          "set_variable": {"garden_path": "submission"}
+        },
+        {
+          "text": "Resistir e tapar os ouvidos (rebelião)",
+          "next_scene": "prologo_4",
+          "set_variable": {"garden_path": "rebellion"}
+        }
+      ]
+    },
+    {
+      "scene_id": "prologo_4",
+      "title": "FÓSFORO (SUJEITO ZERO)",
+      "lado": "A",
+      "description": "Na sarjeta, uma figura diferente. Cabeça humana — não fruta. Aura quente, vibrante, perigosa. Ela te vê. E você sente que ser visto é perigoso aqui.",
+      "dialogue": [
+        {"speaker": "NARRADOR", "text": "Fósforo. Sujeito Zero. A primeira que resistiu."},
+        {"speaker": "NARRADOR", "text": "Ela retém memória como veneno. Como arma."},
+        {"speaker": "FÓSFORO", "text": "Você ainda tem rosto. Eles não te transformaram... ainda."},
+        {"speaker": "FÓSFORO", "text": "Corre. Ou fica. Mas escolhe rápido. Aqui, hesitação mata mais que bala."}
+      ],
+      "options": [
+        {
+          "text": "Seguir Fósforo",
+          "next_scene": "hospital_branco_1",
+          "set_variable": {"identity_projection": "revolutionary"}
+        },
+        {
+          "text": "Ficar parado (observar)",
+          "next_scene": "hospital_branco_1",
+          "set_variable": {"identity_projection": "observer"}
+        }
+      ]
+    },
+    {
+      "scene_id": "hospital_branco_1",
+      "title": "DESPERTAR NO BRANCO",
+      "lado": "A",
+      "description": "Você desperta. Quarto de hospital imaculado. Branco sobre branco sobre branco. O teto pulsa como músculo vivo. Você não sabe seu nome. Você não sabe como chegou aqui. Você só sabe que algo está errado.",
+      "dialogue": [
+        {"speaker": "NARRADOR", "text": "O Hospital Branco não cura. Ele planta."},
+        {"speaker": "NARRADOR", "text": "Cartazes cobrem as paredes. Todos repetem o mesmo slogan."}
+      ],
+      "options": [
+        {
+          "text": "Ler os cartazes",
+          "next_scene": "hospital_branco_2"
+        },
+        {
+          "text": "Observar a médica",
+          "next_scene": "hospital_branco_3"
+        }
+      ]
+    },
+    {
+      "scene_id": "hospital_branco_2",
+      "title": "OS CARTAZES",
+      "lado": "A",
+      "description": "Os cartazes vibram. Não são papel. São carne escrita. Pele tatuada com propaganda.",
+      "dialogue": [
+        {"speaker": "CARTAZ", "text": "O Protocolo da Amnésia é proteção."},
+        {"speaker": "CARTAZ", "text": "Sem memória, sem trauma."},
+        {"speaker": "CARTAZ", "text": "A Corporação dos Jardineiros cuida de você."},
+        {"speaker": "NARRADOR", "text": "Você sente náusea. Não pelos cartazes. Pela forma como eles fazem sentido."}
+      ],
+      "options": [
+        {
+          "text": "Desviar o olhar",
+          "next_scene": "hospital_branco_3"
+        }
+      ]
+    },
+    {
+      "scene_id": "hospital_branco_3",
+      "title": "A MÉDICA ROMÃ",
+      "lado": "A",
+      "description": "A médica entra. Você vê algo impossível: ela tem cabeça de romã. Vermelha, inchada, prestes a explodir. Sementes translúcidas brilhando através da pele.",
+      "dialogue": [
+        {"speaker": "MÉDICA ROMÃ", "text": "Olá, Kael. Meu nome é Dra. Mira."},
+        {"speaker": "NARRADOR", "text": "Kael. É esse seu nome? Soa estranho."},
+        {"speaker": "MÉDICA ROMÃ", "text": "Você sofreu um... incidente. É normal não se lembrar."},
+        {"speaker": "MÉDICA ROMÃ", "text": "Vou prescrever algo para ajudar. Chamamos de... fertilizante."},
+        {"speaker": "NARRADOR", "text": "Ela estende um frasco translúcido. Líquido cor de âmbar. Cheiro adocicado enjoativo."}
+      ],
+      "options": [
+        {
+          "text": "💊 Aceitar o fertilizante",
+          "next_scene": "hospital_aceitar",
+          "set_variable": {"medication_taken": true},
+          "valores": {"pragmatismo": 3, "preservacao": 2, "diplomacia": 1}
+        },
+        {
+          "text": "🔥 Recusar o fertilizante",
+          "next_scene": "hospital_recusar",
+          "set_variable": {"medication_taken": false},
+          "valores": {"autenticidade": 3, "transformacao": 2, "confrontacao": 1}
+        }
+      ]
+    },
+    {
+      "scene_id": "hospital_aceitar",
+      "title": "ACEITAR É ESQUECER",
+      "lado": "B",
+      "description": "Você bebe. O líquido desce como mel quente. O espelho na parede trinca levemente — ou você imaginou?",
+      "dialogue": [
+        {"speaker": "NARRADOR", "text": "Aceitar é esquecer. Mas esquecer também é uma forma de sobreviver."},
+        {"speaker": "NARRADOR", "text": "As visões desfocam. A romã da Dra. Mira ainda está lá, mas embaçada."},
+        {"speaker": "NARRADOR", "text": "Você pode fingir normalidade agora. Pode sorrir de volta."},
+        {"speaker": "NARRADOR", "text": "Mas uma parte de você grita. A parte que sente verdades no corpo."},
+        {"speaker": "NARRADOR", "text": "Grita que você traiu algo fundamental."}
+      ],
+      "options": [
+        {
+          "text": "◻ TRÊS DIAS DEPOIS",
+          "next_scene": "mercado_frutas_1"
+        }
+      ]
+    },
+    {
+      "scene_id": "hospital_recusar",
+      "title": "RECUSAR É LEMBRAR",
+      "lado": "B",
+      "description": "Você recusa. O espelho permanece inteiro. A Dra. Mira faz anotações. Muitas anotações.",
+      "dialogue": [
+        {"speaker": "NARRADOR", "text": "Recusar é lembrar. Mas lembrar também é uma forma de morrer."},
+        {"speaker": "MÉDICA ROMÃ", "text": "Entendo. A escolha é sua."},
+        {"speaker": "NARRADOR", "text": "Mas você vê nos olhos dela: decepção. Medo."},
+        {"speaker": "NARRADOR", "text": "As visões continuam. Intensas. Inescapáveis."},
+        {"speaker": "NARRADOR", "text": "Cada pessoa é uma fruta. Cada emoção uma textura."},
+        {"speaker": "NARRADOR", "text": "Você prefere uma verdade perturbadora a uma mentira confortável."}
+      ],
+      "options": [
+        {
+          "text": "◻ TRÊS DIAS DEPOIS",
+          "next_scene": "mercado_frutas_1"
+        }
+      ]
+    },
+    {
+      "scene_id": "mercado_frutas_1",
+      "title": "O MERCADO DAS FRUTAS",
+      "lado": "A",
+      "description": "Você recebe alta. Sem memória, sem identidade, sem casa. A Dra. Mira te dá um endereço temporário e créditos básicos. Você vaga pelas ruas. Citrópolis é um pomar de frutas artificiais.",
+      "dialogue": [
+        {"speaker": "NARRADOR", "text": "Bananas uniformes. Maçãs geométricas. Morangos que nunca apodrecem."},
+        {"speaker": "NARRADOR", "text": "Você sente náusea física. Não pela feiura, mas pela perfeição."},
+        {"speaker": "NARRADOR", "text": "É quando você o encontra."}
+      ],
+      "options": [
+        {
+          "text": "Continuar",
+          "next_scene": "mercado_frutas_2"
+        }
+      ]
+    },
+    {
+      "scene_id": "mercado_frutas_2",
+      "title": "SILAS (O FIGO)",
+      "lado": "A",
+      "description": "Na sarjeta — literalmente — um homem idoso sentado. Quando você olha para ele, vê: um figo. Rugoso, marrom, quase feio. Mas a textura interior... doçura complexa. Camadas sobre camadas.",
+      "dialogue": [
+        {"speaker": "NARRADOR", "text": "É a primeira fruta autêntica que você vê."},
+        {"speaker": "SILAS", "text": "Você também é um Leitor."},
+        {"speaker": "SILAS", "text": "Posso ver pela forma como você me olha."},
+        {"speaker": "SILAS", "text": "Meu nome é Silas. E tenho muito a te ensinar, Kael."},
+        {"speaker": "NARRADOR", "text": "Ele sabe seu nome. Você não disse seu nome."}
+      ],
+      "options": [
+        {
+          "text": "🤝 Confiar em Silas",
+          "next_scene": "fim_osso",
+          "set_variable": {"trust_silas": true},
+          "valores": {"transformacao": 3, "coletivismo": 2}
+        },
+        {
+          "text": "🚶 Manter distância",
+          "next_scene": "fim_osso",
+          "set_variable": {"trust_silas": false},
+          "valores": {"individualismo": 3, "preservacao": 2}
+        }
+      ]
+    },
+    {
+      "scene_id": "fim_osso",
+      "title": "FIM DA DEMONSTRAÇÃO — VERSÃO OSSO",
+      "lado": "B",
+      "description": "A jornada de Kael está apenas começando. Esta foi a primeira de muitas escolhas que definirão não apenas quem Kael é, mas quem Kael escolhe ser.",
+      "dialogue": [
+        {"speaker": "NARRADOR", "text": "━━━━━━━━━━━━━━━━━━━━━━━"},
+        {"speaker": "NARRADOR", "text": "Em Frutas Mortais, não há respostas fáceis."},
+        {"speaker": "NARRADOR", "text": "Apenas perguntas cada vez mais profundas."},
+        {"speaker": "NARRADOR", "text": "━━━━━━━━━━━━━━━━━━━━━━━"},
+        {"speaker": "NARRADOR", "text": "Obrigado por experienciar o Capítulo 1."},
+        {"speaker": "NARRADOR", "text": "━━━━━━━━━━━━━━━━━━━━━━━"}
+      ],
+      "options": []
+    }
+  ]
+}

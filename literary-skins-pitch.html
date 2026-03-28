@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Literary Skins - One Slide Pitch</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Literary Skins: Neuro-Narrative Ecosystem with 7,900% ROI. Transforming 108k lives through science-backed narrative intervention.">
+    <meta name="keywords" content="Literary Skins, neuroplasticity, narrative therapy, educational technology, ROI">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Literary Skins - Neuro-Narrative Ecosystem">
+    <meta property="og:description" content="7,900% ROI in Year 1. Transform 108,000 children through science-backed narrative intervention.">
+    <meta property="og:url" content="https://literaryskins.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Literary Skins - One Slide Pitch">
+    <meta name="twitter:description" content="7,900% ROI. Science-backed narrative intervention transforming lives.">
+
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts with optimized loading -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base Styles */
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Neon Effects */
+        .neon-cyan {
+            color: #22d3ee;
+            text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+        }
+        .neon-gold {
+            color: #facc15;
+            text-shadow: 0 0 10px rgba(250, 204, 21, 0.3);
+        }
+        .neon-pink {
+            color: #f472b6;
+            text-shadow: 0 0 10px rgba(244, 114, 182, 0.3);
+        }
+
+        /* Terminal Overlay */
+        #neuro-terminal {
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 10, 0.98);
+            border-left: 1px solid #333;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            max-height: 100vh;
+            overflow: hidden;
+        }
+        #neuro-terminal.open {
+            transform: translateX(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #22d3ee;
+        }
+
+        /* Typing Cursor Animation */
+        .typing-cursor::after {
+            content: '█';
+            animation: blink 1s step-start infinite;
+            color: #22d3ee;
+            margin-left: 2px;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Pulse Animation */
+        @keyframes ping {
+            75%, 100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        .animate-ping {
+            animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        /* Improved Focus States */
+        button:focus-visible,
+        input:focus-visible {
+            outline: 2px solid #22d3ee;
+            outline-offset: 2px;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            #neuro-terminal {
+                width: 100%;
+                max-height: 85vh;
+            }
+
+            body {
+                overflow-y: auto;
+            }
+
+            .mobile-scroll {
+                overflow-y: auto;
+                max-height: calc(100vh - 200px);
+            }
+        }
+
+        /* Loading Shimmer */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        .shimmer {
+            background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+            background-size: 1000px 100%;
+            animation: shimmer 2s infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen w-screen flex flex-col justify-between p-6 md:p-12 relative bg-black">
+
+    <!-- Subtle Texture Background -->
+    <div class="absolute inset-0 z-0 opacity-20 pointer-events-none"
+         style="background-image: radial-gradient(#333 1px, transparent 1px); background-size: 30px 30px;"
+         aria-hidden="true">
+    </div>
+
+    <!-- Top Bar -->
+    <header class="flex flex-col md:flex-row justify-between items-start z-10 w-full border-b border-gray-800 pb-6 gap-4">
+        <div>
+            <h1 class="text-4xl md:text-6xl lg:text-8xl font-bold tracking-tighter text-white mb-2 leading-none">
+                LITERARY<br>
+                <span class="neon-cyan">SKINS</span>
+            </h1>
+            <p class="text-gray-400 text-xs md:text-sm tracking-[0.2em] md:tracking-[0.4em] uppercase mt-4">Neuro-Narrative Ecosystem</p>
+        </div>
+        <div class="text-left md:text-right flex flex-col items-start md:items-end gap-3">
+            <!-- AI Trigger Button -->
+            <button
+                onclick="toggleTerminal()"
+                aria-label="Open AI assistant to explore pitch details"
+                aria-expanded="false"
+                aria-controls="neuro-terminal"
+                class="group relative flex items-center space-x-3 bg-black border border-gray-800 px-4 md:px-5 py-2 rounded-full hover:border-cyan-500 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all duration-300 focus:border-cyan-500">
+                <div class="relative w-2 h-2" aria-hidden="true">
+                    <span class="absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75 animate-ping"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                </div>
+                <span class="text-xs text-gray-400 group-hover:text-cyan-400 tracking-widest font-mono">NEURO-LINK: <span class="text-white group-hover:text-cyan-200">STANDBY</span></span>
+            </button>
+
+            <div class="mt-1 text-xs text-gray-600 font-mono" aria-label="Document metadata">CONFIDENTIAL 2025 // MANUS_V2</div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow flex flex-col md:flex-row items-center justify-between w-full z-10 relative gap-8 md:gap-0 py-8 md:py-0 mobile-scroll">
+
+        <!-- Left: The Philosophy (Serif) -->
+        <div class="w-full md:w-5/12 md:pr-12 transition-all duration-500" id="main-content-left">
+            <h2 class="serif text-2xl md:text-4xl lg:text-5xl italic leading-tight text-gray-200">
+                "Diagnosis is not destiny.<br>
+                <span class="text-gray-500 not-italic text-lg md:text-2xl mt-4 md:mt-6 block font-light font-mono">Affect is the only tool that scales without losing humanity."</span>
+            </h2>
+
+            <div class="mt-8 md:mt-12 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-12">
+                <div>
+                    <span class="block text-gray-500 text-[10px] tracking-widest uppercase mb-2">SCIENTIFIC VALIDATION</span>
+                    <span class="text-xl md:text-2xl text-white border-b-2 border-cyan-500 pb-1">1,411+ Citations</span>
+                </div>
+                <div>
+                    <span class="block text-gray-500 text-[10px] tracking-widest uppercase mb-2">SOCIAL IMPACT</span>
+                    <span class="text-xl md:text-2xl text-white border-b-2 border-pink-500 pb-1">108k Lives</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vertical Divider (Hidden on mobile) -->
+        <div class="hidden md:block h-48 w-px bg-gray-800 mx-4 transition-opacity duration-500" id="main-divider" aria-hidden="true"></div>
+
+        <!-- Right: The Hard Data (Brutalist Mono) -->
+        <div class="w-full md:w-6/12 md:pl-8 flex flex-col justify-center space-y-8 md:space-y-10 transition-all duration-500" id="main-content-right">
+
+            <!-- Metric 1: The Hero Number -->
+            <div class="group cursor-default">
+                <div class="flex items-end justify-between border-b border-gray-800 pb-2 mb-2">
+                    <div class="text-gray-500 text-xs tracking-[0.2em]">ROI (YEAR 1)</div>
+                    <div class="text-green-500 text-xs" aria-label="Projected return on investment">PROJECTED</div>
+                </div>
+                <div class="text-6xl md:text-8xl lg:text-9xl font-bold neon-gold tabular-nums tracking-tighter" aria-label="Seven thousand nine hundred percent return on investment">7,900%</div>
+            </div>
+
+            <!-- Secondary Metrics Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+                <div>
+                    <div class="text-gray-600 text-[10px] uppercase tracking-widest mb-1">INITIAL ASK</div>
+                    <div class="text-2xl md:text-3xl font-bold text-white">$69,000</div>
+                </div>
+                <div>
+                    <div class="text-gray-600 text-[10px] uppercase tracking-widest mb-1">REVENUE (YR 1)</div>
+                    <div class="text-2xl md:text-3xl font-bold text-white">$5.45M</div>
+                </div>
+                <div class="col-span-2 md:col-span-1">
+                    <div class="text-gray-600 text-[10px] uppercase tracking-widest mb-1">PAYBACK PERIOD</div>
+                    <div class="text-2xl md:text-3xl font-bold neon-pink">3 WEEKS</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- AI TERMINAL OVERLAY -->
+    <aside id="neuro-terminal"
+           class="fixed top-0 right-0 h-full w-full md:w-2/5 lg:w-1/3 z-50 flex flex-col shadow-2xl"
+           role="dialog"
+           aria-label="AI Assistant Chat Interface"
+           aria-modal="true">
+        <!-- Terminal Header -->
+        <div class="flex justify-between items-center p-4 md:p-6 border-b border-gray-800 bg-black flex-shrink-0">
+            <div>
+                <h3 class="text-cyan-400 font-mono text-sm tracking-widest">SYSTEM: <span class="text-white">ONLINE</span></h3>
+                <p class="text-gray-600 text-[10px] uppercase">Connected to L.S. Core Data</p>
+            </div>
+            <button
+                onclick="toggleTerminal()"
+                aria-label="Close AI assistant"
+                class="text-gray-500 hover:text-white transition focus:text-cyan-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Chat Area -->
+        <div id="chat-history"
+             class="flex-grow overflow-y-auto p-4 md:p-6 space-y-4 font-mono text-sm"
+             role="log"
+             aria-live="polite"
+             aria-atomic="false">
+            <div class="text-gray-500 italic text-xs mb-4" aria-label="System initialization messages">
+                > Initializing Neural Interface...<br>
+                > Loading Pitch Data... [COMPLETE]<br>
+                > Loading Scientific Citations... [COMPLETE]
+            </div>
+            <div class="bg-gray-900/50 p-3 rounded-br-lg rounded-bl-lg rounded-tr-lg border-l-2 border-cyan-500">
+                <p class="text-gray-300">I am the Neural Interface for Literary Skins. I hold the data on our 7,900% ROI, the 108,000 lives we will impact, and the science behind our method. <span class="text-cyan-400">What do you need to know?</span></p>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="p-4 md:p-6 bg-black border-t border-gray-800 flex-shrink-0">
+            <div class="relative">
+                <label for="user-input" class="sr-only">Ask a question about Literary Skins</label>
+                <input type="text"
+                       id="user-input"
+                       maxlength="500"
+                       class="w-full bg-gray-900 border border-gray-700 text-white font-mono text-sm p-3 pl-4 pr-12 rounded focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 placeholder-gray-600"
+                       placeholder="Ask about ROI, Science, or Scale..."
+                       onkeypress="handleKeyPress(event)"
+                       aria-describedby="input-help">
+                <button
+                    onclick="sendMessage()"
+                    aria-label="Send message"
+                    class="absolute right-2 top-2 text-gray-500 hover:text-cyan-400 transition p-1 focus:text-cyan-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+            <span id="input-help" class="sr-only">Maximum 500 characters. Press Enter to send.</span>
+
+            <!-- Quick Action Buttons -->
+            <div class="flex flex-wrap gap-2 mt-3" role="group" aria-label="Quick question buttons">
+                <button
+                    onclick="quickAsk('Explain the 7,900% ROI')"
+                    class="text-[10px] text-gray-500 hover:text-cyan-400 border border-gray-800 hover:border-cyan-900 px-2 py-1 rounded transition focus:border-cyan-500"
+                    aria-label="Quick ask: Explain ROI">
+                    Explain ROI
+                </button>
+                <button
+                    onclick="quickAsk('What is the scientific basis?')"
+                    class="text-[10px] text-gray-500 hover:text-cyan-400 border border-gray-800 hover:border-cyan-900 px-2 py-1 rounded transition focus:border-cyan-500"
+                    aria-label="Quick ask: Scientific validation">
+                    Valid Science?
+                </button>
+                <button
+                    onclick="quickAsk('Simulate 100k Investment')"
+                    class="text-[10px] text-gray-500 hover:text-cyan-400 border border-gray-800 hover:border-cyan-900 px-2 py-1 rounded transition focus:border-cyan-500"
+                    aria-label="Quick ask: Investment simulation">
+                    Simulate $100k
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer class="w-full border-t border-gray-800 pt-4 md:pt-6 flex flex-col md:flex-row justify-between items-center md:items-end z-10 pb-4 md:pb-6 gap-4">
+        <div class="text-gray-700 text-[10px] font-mono uppercase max-w-xs text-center md:text-left">
+            Based on Strategic Plan V2.0.<br>Strictly Confidential.
+        </div>
+
+        <!-- Chinese Tagline (Visual Anchor) -->
+        <div class="text-2xl md:text-4xl font-bold text-white/90 tracking-widest serif select-none" aria-label="Chinese tagline: Diagnosis is not destiny">
+            诊断不是宿命
+        </div>
+
+        <div class="text-gray-700 text-[10px] font-mono text-center md:text-right">
+            LITERARY SKINS CORP &copy; 2025<br>
+            EXEC_SUM_REF_A91
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // CONFIGURATION
+        // ============================================
+        const CONFIG = {
+            MAX_MESSAGE_LENGTH: 500,
+            RATE_LIMIT_MS: 2000, // 2 seconds between messages
+            API_ENDPOINT: '/api/chat', // TODO: Implement backend endpoint
+            RETRY_ATTEMPTS: 3,
+            RETRY_DELAY: 1000
+        };
+
+        // ============================================
+        // STATE MANAGEMENT
+        // ============================================
+        const state = {
+            lastMessageTime: 0,
+            isTerminalOpen: false,
+            messageCount: 0
+        };
+
+        // ============================================
+        // DOM ELEMENTS
+        // ============================================
+        const elements = {
+            terminal: document.getElementById('neuro-terminal'),
+            chatHistory: document.getElementById('chat-history'),
+            userInput: document.getElementById('user-input'),
+            toggleButton: document.querySelector('[aria-controls="neuro-terminal"]')
+        };
+
+        // ============================================
+        // UTILITY FUNCTIONS
+        // ============================================
+
+        /**
+         * Escapes HTML to prevent XSS attacks
+         */
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        /**
+         * Sanitizes and validates user input
+         */
+        function sanitizeInput(text) {
+            if (!text || typeof text !== 'string') return '';
+
+            // Trim and limit length
+            text = text.trim().substring(0, CONFIG.MAX_MESSAGE_LENGTH);
+
+            // Remove any potentially dangerous characters
+            text = text.replace(/[<>]/g, '');
+
+            return text;
+        }
+
+        /**
+         * Enhanced markdown rendering
+         */
+        function renderMarkdown(text) {
+            if (!text) return '';
+
+            // Escape HTML first
+            text = escapeHtml(text);
+
+            // Bold: **text**
+            text = text.replace(/\*\*(.*?)\*\*/g, '<span class="text-cyan-400 font-bold">$1</span>');
+
+            // Italic: *text*
+            text = text.replace(/\*(.*?)\*/g, '<span class="italic">$1</span>');
+
+            // Code: `text`
+            text = text.replace(/`(.*?)`/g, '<code class="bg-gray-800 px-1 rounded text-cyan-300">$1</code>');
+
+            // Line breaks
+            text = text.replace(/\n/g, '<br>');
+
+            // Links: [text](url)
+            text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-cyan-400 hover:text-cyan-300 underline" target="_blank" rel="noopener noreferrer">$1</a>');
+
+            return text;
+        }
+
+        /**
+         * Rate limiting check
+         */
+        function isRateLimited() {
+            const now = Date.now();
+            const timeSinceLastMessage = now - state.lastMessageTime;
+            return timeSinceLastMessage < CONFIG.RATE_LIMIT_MS;
+        }
+
+        /**
+         * Scroll chat to bottom smoothly
+         */
+        function scrollToBottom() {
+            elements.chatHistory.scrollTo({
+                top: elements.chatHistory.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+
+        // ============================================
+        // TERMINAL TOGGLE
+        // ============================================
+        function toggleTerminal() {
+            state.isTerminalOpen = !state.isTerminalOpen;
+            elements.terminal.classList.toggle('open');
+
+            // Update ARIA attributes
+            const button = elements.toggleButton;
+            button.setAttribute('aria-expanded', state.isTerminalOpen);
+
+            if (state.isTerminalOpen) {
+                elements.userInput.focus();
+                // Trap focus within terminal when open
+                elements.terminal.setAttribute('aria-hidden', 'false');
+            } else {
+                elements.terminal.setAttribute('aria-hidden', 'true');
+            }
+        }
+
+        // ============================================
+        // MESSAGE HANDLING
+        // ============================================
+
+        /**
+         * Keyboard event handler
+         */
+        function handleKeyPress(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        }
+
+        /**
+         * Quick ask button handler
+         */
+        function quickAsk(text) {
+            elements.userInput.value = text;
+            sendMessage();
+        }
+
+        /**
+         * Main message sending function
+         */
+        async function sendMessage() {
+            const rawText = elements.userInput.value;
+            const text = sanitizeInput(rawText);
+
+            // Validation
+            if (!text) {
+                showError('Please enter a message.');
+                return;
+            }
+
+            // Rate limiting
+            if (isRateLimited()) {
+                showError('Please wait a moment before sending another message.');
+                return;
+            }
+
+            // Update rate limit tracker
+            state.lastMessageTime = Date.now();
+            state.messageCount++;
+
+            // Clear input immediately
+            elements.userInput.value = '';
+
+            // Add user message
+            appendMessage('user', text);
+
+            // Add loading state
+            const loadingId = appendMessage('ai', 'Analyzing...', true);
+
+            try {
+                // DEMO MODE: Simulate AI response
+                // TODO: Replace with actual backend call
+                const response = await simulateAIResponse(text);
+
+                // Remove loading message
+                removeMessage(loadingId);
+
+                // Add AI response
+                appendMessage('ai', response);
+
+            } catch (error) {
+                // Remove loading message
+                removeMessage(loadingId);
+
+                // Show error
+                appendMessage('ai', '⚠️ Connection error. Please try again in a moment.');
+                console.error('Message error:', error);
+            }
+        }
+
+        /**
+         * DEMO: Simulated AI responses (replace with real backend)
+         */
+        async function simulateAIResponse(userMessage) {
+            // Simulate network delay
+            await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 400));
+
+            const lowerMessage = userMessage.toLowerCase();
+
+            // Contextual responses based on keywords
+            if (lowerMessage.includes('roi') || lowerMessage.includes('7,900')) {
+                return `**7,900% ROI** comes from the asymmetry between a modest **$69k investment** and **$5.45M Year 1 revenue**. We reach 108,000 children at scale, with each narrative touchpoint generating measurable cognitive and social outcomes. The model is proven, replicable, and backed by **1,411+ peer-reviewed citations**.`;
+            }
+
+            if (lowerMessage.includes('science') || lowerMessage.includes('scientific') || lowerMessage.includes('valid')) {
+                return `Three pillars: \n\n**1. Neuroplasticity** (Preminger 2012): Art rewires neural pathways.\n**2. Brain-to-Brain Sync** (Chabin 2022): Shared narratives couple minds.\n**3. Cortisol Reduction**: Story engagement lowers stress biomarkers.\n\nOur method is grounded in **1,411+ citations** spanning neuroscience, psychology, and education.`;
+            }
+
+            if (lowerMessage.includes('100k') || lowerMessage.includes('invest')) {
+                const investment = 100000;
+                const projected = investment * 79; // 7,900% = 79x multiplier
+                const lives = Math.floor((investment / 69000) * 108000);
+                return `A **$${investment.toLocaleString()}** investment projects:\n\n💰 **$${projected.toLocaleString()}** revenue (Year 1)\n👥 **${lives.toLocaleString()}** lives transformed\n⏱️ **~3 weeks** payback period\n\nScalable. Measurable. Human.`;
+            }
+
+            if (lowerMessage.includes('what') || lowerMessage.includes('how') || lowerMessage.includes('explain')) {
+                return `Literary Skins is a **neuro-narrative ecosystem** combining:\n\n📚 Tactile books (neuroplastic triggers)\n💻 ManusFix platform (AI-personalized paths)\n🧠 Science-backed methodology\n\nWe transform at-risk children by changing their internal narratives—**diagnosis is not destiny**.`;
+            }
+
+            if (lowerMessage.includes('payback') || lowerMessage.includes('week')) {
+                return `**3-week payback** is achievable because:\n\n1. Pre-validated demand (pilot schools)\n2. Low CAC (institutional B2B model)\n3. High ARPU (multi-year contracts)\n4. Immediate deployment readiness\n\nWe're not building from scratch—we're **scaling proven impact**.`;
+            }
+
+            // Default response
+            return `I can explain:\n- **7,900% ROI** mechanics\n- **Scientific validation** (1,411+ citations)\n- **Social impact** at scale (108k lives)\n- **Investment simulations**\n\nWhat interests you most?`;
+        }
+
+        /**
+         * Append message to chat history
+         */
+        function appendMessage(role, text, isLoading = false) {
+            const msgDiv = document.createElement('div');
+            const id = 'msg-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            msgDiv.id = id;
+
+            // Remove typing cursor from all previous messages
+            document.querySelectorAll('.typing-cursor').forEach(el => {
+                el.classList.remove('typing-cursor');
+            });
+
+            if (role === 'user') {
+                msgDiv.className = 'flex justify-end';
+                msgDiv.innerHTML = `
+                    <div class="bg-gray-800 text-cyan-100 p-3 rounded-tl-lg rounded-bl-lg rounded-tr-lg max-w-[90%] border-r-2 border-gray-600">
+                        ${escapeHtml(text)}
+                    </div>
+                `;
+            } else {
+                msgDiv.className = 'flex justify-start';
+                if (isLoading) {
+                    msgDiv.innerHTML = `
+                        <div class="bg-gray-900/50 text-cyan-400 p-3 rounded-br-lg rounded-bl-lg rounded-tr-lg border-l-2 border-cyan-500 shimmer">
+                            <span class="inline-block">></span> Processing...
+                        </div>
+                    `;
+                } else {
+                    const formattedText = renderMarkdown(text);
+                    msgDiv.innerHTML = `
+                        <div class="bg-gray-900/50 text-gray-300 p-3 rounded-br-lg rounded-bl-lg rounded-tr-lg border-l-2 border-cyan-500 typing-cursor">
+                            ${formattedText}
+                        </div>
+                    `;
+                }
+            }
+
+            elements.chatHistory.appendChild(msgDiv);
+            scrollToBottom();
+
+            return id;
+        }
+
+        /**
+         * Remove message by ID
+         */
+        function removeMessage(id) {
+            const msg = document.getElementById(id);
+            if (msg) {
+                msg.remove();
+            }
+        }
+
+        /**
+         * Show temporary error message
+         */
+        function showError(message) {
+            const errorId = appendMessage('ai', `⚠️ ${message}`);
+            setTimeout(() => removeMessage(errorId), 3000);
+        }
+
+        // ============================================
+        // KEYBOARD NAVIGATION
+        // ============================================
+        document.addEventListener('keydown', (e) => {
+            // ESC to close terminal
+            if (e.key === 'Escape' && state.isTerminalOpen) {
+                toggleTerminal();
+            }
+        });
+
+        // ============================================
+        // ACCESSIBILITY: Focus trap in terminal
+        // ============================================
+        elements.terminal.addEventListener('keydown', (e) => {
+            if (!state.isTerminalOpen) return;
+
+            if (e.key === 'Tab') {
+                const focusableElements = elements.terminal.querySelectorAll(
+                    'button, input, [tabindex]:not([tabindex="-1"])'
+                );
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            }
+        });
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        console.log('%c🧠 Literary Skins Neural Interface v2.0', 'color: #22d3ee; font-size: 14px; font-weight: bold;');
+        console.log('%cDiagnosis is not destiny.', 'color: #facc15; font-style: italic;');
+    </script>
+</body>
+</html>

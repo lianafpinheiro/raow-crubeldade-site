@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CÓDICE 1403: Timeline de Checkpoints de Auditoria">
+    <meta name="robots" content="noindex, nofollow">
+    <title>CÓDICE 1403 | Checkpoints de Auditoria</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #0A0A0A;
+            background: #FAFAFA;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Header */
+        .page-header {
+            margin-bottom: 3rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #555;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: #0A0A0A;
+        }
+
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header .subtitle {
+            color: #555;
+            font-size: 1rem;
+        }
+
+        /* Progress Summary */
+        .progress-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .progress-card {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .progress-card .number {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #0A0A0A;
+            line-height: 1;
+        }
+
+        .progress-card .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #777;
+            margin-top: 0.5rem;
+        }
+
+        .progress-card.highlight {
+            border-color: #0A0A0A;
+            background: #0A0A0A;
+        }
+
+        .progress-card.highlight .number,
+        .progress-card.highlight .label {
+            color: #fff;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #eee;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 3rem;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -3rem;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            transform: translateX(-11px);
+        }
+
+        .timeline-item.completed .timeline-marker {
+            background: #0A0A0A;
+            border-color: #0A0A0A;
+            color: #fff;
+        }
+
+        .timeline-item.current .timeline-marker {
+            background: #fff8e1;
+            border-color: #f57c00;
+            color: #f57c00;
+            animation: pulse 2s infinite;
+        }
+
+        .timeline-item.pending .timeline-marker {
+            background: #f5f5f5;
+            border-color: #ddd;
+            color: #999;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(245, 124, 0, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(245, 124, 0, 0); }
+        }
+
+        .timeline-content {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 1.5rem 2rem;
+        }
+
+        .timeline-item.current .timeline-content {
+            border-color: #f57c00;
+            border-left-width: 3px;
+        }
+
+        .timeline-item.completed .timeline-content {
+            opacity: 0.7;
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .timeline-phase {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #999;
+        }
+
+        .timeline-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin-top: 0.25rem;
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            color: #555;
+            text-align: right;
+        }
+
+        .timeline-date strong {
+            display: block;
+            font-weight: 500;
+        }
+
+        .timeline-description {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Checklist */
+        .checkpoint-checklist {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .checkpoint-checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-top: 1px solid #f5f5f5;
+            font-size: 0.9rem;
+        }
+
+        .checkpoint-checklist li:first-child {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .check-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .check-done {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .check-pending {
+            background: #f5f5f5;
+            color: #999;
+            border: 1px solid #eee;
+        }
+
+        .check-blocked {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-complete {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-in-progress {
+            background: #fff8e1;
+            color: #f57c00;
+        }
+
+        .status-upcoming {
+            background: #f5f5f5;
+            color: #757575;
+        }
+
+        .status-blocked {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        /* Gate Requirements */
+        .gate-requirements {
+            background: #fafafa;
+            border: 1px solid #eee;
+            padding: 1.25rem;
+            margin-top: 1rem;
+        }
+
+        .gate-requirements h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #777;
+            margin-bottom: 0.75rem;
+        }
+
+        .gate-requirements p {
+            font-size: 0.85rem;
+            color: #555;
+            margin: 0;
+        }
+
+        /* Approvers */
+        .approvers {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .approver-tag {
+            font-size: 0.75rem;
+            padding: 0.375rem 0.75rem;
+            background: #f5f5f5;
+            color: #555;
+        }
+
+        .approver-tag.approved {
+            background: #0A0A0A;
+            color: #fff;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding: 1.5rem;
+            background: #fff;
+            border: 1px solid #eee;
+            margin-bottom: 3rem;
+            font-size: 0.85rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+
+            .timeline-marker {
+                left: -2rem;
+                width: 20px;
+                height: 20px;
+                transform: translateX(-9px);
+            }
+
+            .timeline-content {
+                padding: 1.25rem;
+            }
+
+            .timeline-header {
+                flex-direction: column;
+            }
+
+            .timeline-date {
+                text-align: left;
+            }
+
+            .progress-summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="page-header">
+            <a href="dossie.html" class="back-link">← Voltar ao Dossiê</a>
+            <h1>Checkpoints de Auditoria</h1>
+            <p class="subtitle">Marcos de verificação obrigatórios para aprovação de fases</p>
+        </header>
+
+        <!-- Progress Summary -->
+        <div class="progress-summary">
+            <div class="progress-card">
+                <div class="number">2</div>
+                <div class="label">Concluídos</div>
+            </div>
+            <div class="progress-card highlight">
+                <div class="number">1</div>
+                <div class="label">Em Andamento</div>
+            </div>
+            <div class="progress-card">
+                <div class="number">4</div>
+                <div class="label">Pendentes</div>
+            </div>
+            <div class="progress-card">
+                <div class="number">7</div>
+                <div class="label">Total</div>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item">
+                <span class="check-icon check-done">✓</span>
+                <span>Verificado e Aprovado</span>
+            </div>
+            <div class="legend-item">
+                <span class="check-icon check-pending">○</span>
+                <span>Pendente</span>
+            </div>
+            <div class="legend-item">
+                <span class="check-icon check-blocked">!</span>
+                <span>Bloqueado</span>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline">
+            <!-- Checkpoint 1 - Completed -->
+            <div class="timeline-item completed">
+                <div class="timeline-marker">✓</div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div>
+                            <span class="timeline-phase">Fase 1 — Conceitual</span>
+                            <h3 class="timeline-title">CP-01: Aprovação do Códice</h3>
+                        </div>
+                        <div class="timeline-date">
+                            <strong>15 Jan 2025</strong>
+                            <span class="status-badge status-complete">Concluído</span>
+                        </div>
+                    </div>
+                    <p class="timeline-description">
+                        Validação dos princípios fundacionais, paleta de materiais e linguagem estética.
+                        Documento base para todas as decisões subsequentes.
+                    </p>
+                    <ul class="checkpoint-checklist">
+                        <li><span class="check-icon check-done">✓</span> Princípios fundacionais documentados</li>
+                        <li><span class="check-icon check-done">✓</span> Paleta de materiais aprovada</li>
+                        <li><span class="check-icon check-done">✓</span> Interdições formalizadas</li>
+                        <li><span class="check-icon check-done">✓</span> Assinatura da Autora Conceitual</li>
+                    </ul>
+                    <div class="approvers">
+                        <span class="approver-tag approved">Autora ✓</span>
+                        <span class="approver-tag approved">Arq. Executora ✓</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkpoint 2 - Completed -->
+            <div class="timeline-item completed">
+                <div class="timeline-marker">✓</div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div>
+                            <span class="timeline-phase">Fase 1 — Conceitual</span>
+                            <h3 class="timeline-title">CP-02: Aprovação do Layout</h3>
+                        </div>
+                        <div class="timeline-date">
+                            <strong>22 Jan 2025</strong>
+                            <span class="status-badge status-complete">Concluído</span>
+                        </div>
+                    </div>
+                    <p class="timeline-description">
+                        Validação da planta de layout com posicionamento de móveis, circulação e hierarquia espacial.
+                    </p>
+                    <ul class="checkpoint-checklist">
+                        <li><span class="check-icon check-done">✓</span> Planta de layout finalizada</li>
+                        <li><span class="check-icon check-done">✓</span> Fluxos de circulação validados</li>
+                        <li><span class="check-icon check-done">✓</span> Posicionamento de mobiliário aprovado</li>
+                        <li><span class="check-icon check-done">✓</span> Conformidade com Códice verificada</li>
+                    </ul>
+                    <div class="approvers">
+                        <span class="approver-tag approved">Autora ✓</span>
+                        <span class="approver-tag approved">Arq. Executora ✓</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkpoint 3 - Current -->
+            <div class="timeline-item current">
+                <div class="timeline-marker">3</div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div>
+                            <span class="timeline-phase">Fase 2 — Detalhamento</span>
+                            <h3 class="timeline-title">CP-03: Aprovação da Marcenaria</h3>
+                        </div>
+                        <div class="timeline-date">
+                            <strong>Prazo: 12 Fev 2025</strong>
+                            <span class="status-badge status-in-progress">Em Andamento</span>
+                        </div>
+                    </div>
+                    <p class="timeline-description">
+                        Revisão completa da Matriz de Marcenaria V2. Inclui medidas, materiais, ferragens e detalhes construtivos.
+                    </p>
+                    <ul class="checkpoint-checklist">
+                        <li><span class="check-icon check-done">✓</span> Matriz de Marcenaria V2 entregue</li>
+                        <li><span class="check-icon check-done">✓</span> Medidas conferidas em campo</li>
+                        <li><span class="check-icon check-pending">○</span> Especificação de ferragens validada</li>
+                        <li><span class="check-icon check-pending">○</span> Acabamentos aprovados com amostras físicas</li>
+                        <li><span class="check-icon check-pending">○</span> Orçamento final do fornecedor</li>
+                    </ul>
+                    <div class="gate-requirements">
+                        <h4>Requisito de Aprovação</h4>
+                        <p>Todos os itens devem estar verificados. Aprovação bloqueada até resolução de RFI-1403-007 (altura do nicho).</p>
+                    </div>
+                    <div class="approvers">
+                        <span class="approver-tag">Autora</span>
+                        <span class="approver-tag">Arq. Executora</span>
+                        <span class="approver-tag">Fornecedor</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkpoint 4 - Pending -->
+            <div class="timeline-item pending">
+                <div class="timeline-marker">4</div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div>
+                            <span class="timeline-phase">Fase 2 — Detalhamento</span>
+                            <h3 class="timeline-title">CP-04: Aprovação da Iluminação</h3>
+                        </div>
+                        <div class="timeline-date">
+                            <strong>Previsto: 20 Fev 2025</strong>
+                            <span class="status-badge status-upcoming">Aguardando</span>
+                        </div>
+                    </div>
+                    <p class="timeline-description">
+                        Projeto luminotécnico completo com especificação de luminárias, cenas programadas e pontos elétricos.
+                    </p>
+                    <ul class="checkpoint-checklist">
+                        <li><span class="check-icon check-pending">○</span> Projeto luminotécnico entregue</li>
+                        <li><span class="check-icon check-pending">○</span> Simulação de cenas aprovada</li>
+                        <li><span class="check-icon check-pending">○</span> Compatibilização com elétrica</li>
+                        <li><span class="check-icon check-pending">○</span> Especificação de dimmers e automação</li>
+                    </ul>
+                    <div class="approvers">
+                        <span class="approver-tag">Autora</span>
+                        <span class="approver-tag">Arq. Executora</span>
+                        <span class="approver-tag">Fornecedor Ilum.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkpoint 5 - Pending -->
+            <div class="timeline-item pending">
+                <div class="timeline-marker">5</div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div>
+                            <span class="timeline-phase">Fase 3 — Execução</span>
+                            <h3 class="timeline-title">CP-05: Liberação para Obra</h3>
+                        </div>
+                        <div class="timeline-date">
+                            <strong>Previsto: 01 Mar 2025</strong>
+                            <span class="status-badge status-upcoming">Aguardando</span>
+                        </div>
+                    </div>
+                    <p class="timeline-description">
+                        Verificação final antes do início da execução. Todos os projetos compatibilizados e contratos assinados.
+                    </p>
+                    <ul class="checkpoint-checklist">
+                        <li><span class="check-icon check-pending">○</span> Projeto executivo completo</li>
+                        <li><span class="check-icon check-pending">○</span> Compatibilização multidisciplinar</li>
+                        <li><span class="check-icon check-pending">○</span> Contratos com fornecedores</li>
+                        <li><span class="check-icon check-pending">○</span> Cronograma de obra aprovado</li>
+                        <li><span class="check-icon check-pending">○</span> ART/RRT emitidos</li>
+                    </ul>
+                    <div class="approvers">
+                        <span class="approver-tag">Autora</span>
+                        <span class="approver-tag">Arq. Executora</span>
+                        <span class="approver-tag">Construtora</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkpoint 6 - Pending -->
+            <div class="timeline-item pending">
+                <div class="timeline-marker">6</div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div>
+                            <span class="timeline-phase">Fase 3 — Execução</span>
+                            <h3 class="timeline-title">CP-06: Vistoria de Meio de Obra</h3>
+                        </div>
+                        <div class="timeline-date">
+                            <strong>Previsto: 15 Abr 2025</strong>
+                            <span class="status-badge status-upcoming">Aguardando</span>
+                        </div>
+                    </div>
+                    <p class="timeline-description">
+                        Inspeção intermediária para validar execução conforme projeto. Ponto de não-retorno para alterações estruturais.
+                    </p>
+                    <ul class="checkpoint-checklist">
+                        <li><span class="check-icon check-pending">○</span> Instalações elétricas conferidas</li>
+                        <li><span class="check-icon check-pending">○</span> Instalações hidráulicas conferidas</li>
+                        <li><span class="check-icon check-pending">○</span> Estrutura de marcenaria verificada</li>
+                        <li><span class="check-icon check-pending">○</span> Registro fotográfico completo</li>
+                    </ul>
+                    <div class="approvers">
+                        <span class="approver-tag">Arq. Executora</span>
+                        <span class="approver-tag">Construtora</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkpoint 7 - Pending -->
+            <div class="timeline-item pending">
+                <div class="timeline-marker">7</div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div>
+                            <span class="timeline-phase">Fase 4 — Entrega</span>
+                            <h3 class="timeline-title">CP-07: Aceite Final</h3>
+                        </div>
+                        <div class="timeline-date">
+                            <strong>Previsto: 30 Mai 2025</strong>
+                            <span class="status-badge status-upcoming">Aguardando</span>
+                        </div>
+                    </div>
+                    <p class="timeline-description">
+                        Vistoria final com checklist de entrega. Aprovação libera pagamento final e encerra responsabilidades de obra.
+                    </p>
+                    <ul class="checkpoint-checklist">
+                        <li><span class="check-icon check-pending">○</span> Checklist de entrega 100% verificado</li>
+                        <li><span class="check-icon check-pending">○</span> Pendências de obra resolvidas</li>
+                        <li><span class="check-icon check-pending">○</span> Manual de uso entregue</li>
+                        <li><span class="check-icon check-pending">○</span> Garantias documentadas</li>
+                        <li><span class="check-icon check-pending">○</span> Termo de aceite assinado</li>
+                    </ul>
+                    <div class="gate-requirements">
+                        <h4>Requisito de Aceite</h4>
+                        <p>Assinatura da Autora Conceitual obrigatória. Conformidade com CÓDICE é critério de aceite.</p>
+                    </div>
+                    <div class="approvers">
+                        <span class="approver-tag">Autora</span>
+                        <span class="approver-tag">Arq. Executora</span>
+                        <span class="approver-tag">Construtora</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
