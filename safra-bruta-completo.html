@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SÀFRA BRUTA — A Liturgia da Terra</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --screen-bg: #faf8f3;
+      --terra: #8b4513;
+      --basalto: #2c2c2c;
+      --black: #1a1a1a;
+      --white: #ffffff;
+      --green: #16a34a;
+    }
+
+    body {
+      background: var(--screen-bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--black);
+      line-height: 1.7;
+    }
+
+    .font-brutal {
+      font-family: 'Space Grotesk', sans-serif;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-50;
+      background: white;
+      border-bottom: 2px solid var(--terra);
+      padding: 16px 0;
+    }
+
+    .nav-container {
+      max-width: 90rem;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      font-size: 0.875rem;
+    }
+
+    .nav-sigla {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-lei {
+      flex: 1;
+      text-align: center;
+      font-style: italic;
+      color: #666;
+    }
+
+    .secao-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--terra);
+      letter-spacing: 0.1em;
+      margin-bottom: 32px;
+      display: block;
+      border-left: 3px solid var(--terra);
+      padding-left: 12px;
+    }
+
+    section {
+      max-width: 60rem;
+      margin: 80px auto;
+      padding: 0 16px;
+    }
+
+    .abertura {
+      text-align: center;
+      margin-top: 120px;
+      margin-bottom: 160px;
+    }
+
+    .abertura-epigraph {
+      font-size: 0.875rem;
+      color: #999;
+      margin-bottom: 32px;
+      font-style: italic;
+    }
+
+    .abertura-titulo {
+      font-size: 4rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .abertura-titulo em {
+      display: block;
+      font-size: 1.2rem;
+      font-weight: 400;
+      font-style: italic;
+      margin-top: 16px;
+      text-transform: none;
+    }
+
+    .abertura-subtitulo {
+      font-size: 1.125rem;
+      color: #555;
+      margin-top: 32px;
+      max-width: 50rem;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+
+    .abertura-linha {
+      display: block;
+      margin-top: 40px;
+      font-size: 0.875rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .lei {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .lei-numero {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--terra);
+      margin-bottom: 8px;
+      letter-spacing: 0.1em;
+    }
+
+    .lei-enunciado {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 12px;
+      color: var(--black);
+    }
+
+    .lei-enunciado em {
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    .lei-corpo {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .personagem {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .personagem-nome {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .personagem-funcao {
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--terra);
+      margin-bottom: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    .personagem-assinatura {
+      font-size: 1rem;
+      color: #333;
+      line-height: 1.6;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .personagem-ph {
+      font-size: 0.875rem;
+      color: #999;
+      font-style: italic;
+    }
+
+    .bloco-item {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .bloco-romano {
+      display: inline-block;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-right: 20px;
+      color: var(--terra);
+    }
+
+    .bloco-titulo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .bloco-talian {
+      font-size: 1rem;
+      font-style: italic;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    .bloco-caps {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--terra);
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .bloco-descricao {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .coda {
+      text-align: center;
+      margin-top: 120px;
+      margin-bottom: 100px;
+      padding: 80px 16px;
+    }
+
+    .coda-frase {
+      font-size: 1.5rem;
+      line-height: 2;
+      color: var(--basalto);
+      font-weight: 400;
+      margin-bottom: 60px;
+    }
+
+    .coda-frase em {
+      display: block;
+      margin-top: 12px;
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .coda-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      max-width: 50rem;
+      margin: 0 auto;
+    }
+
+    .coda-meta-item {
+      text-align: left;
+    }
+
+    .coda-meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--terra);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .coda-meta-valor {
+      font-size: 1rem;
+      color: #333;
+      font-weight: 500;
+    }
+
+    footer {
+      background: var(--basalto);
+      color: white;
+      text-align: center;
+      padding: 40px 16px;
+      font-size: 0.875rem;
+      border-top: 1px solid #444;
+    }
+
+    .footer-autoria {
+      display: block;
+      margin-bottom: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-selo {
+      display: block;
+      font-style: italic;
+      color: #ccc;
+    }
+
+    /* Sistema de Avaliação */
+    .avaliacao-container {
+      background: white;
+      border-left: 4px solid var(--terra);
+      padding: 32px;
+      margin-top: 40px;
+      border-radius: 4px;
+    }
+
+    .custom-checkbox {
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border: 2px solid #cbd5e1;
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+      background: #fff;
+      flex-shrink: 0;
+    }
+
+    .custom-checkbox:checked {
+      background-color: var(--green);
+      border-color: var(--green);
+    }
+
+    .custom-checkbox:checked::after {
+      content: '✓';
+      color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    textarea {
+      resize: vertical;
+      font-family: 'Inter', monospace;
+    }
+
+    @media print {
+      nav { display: none; }
+      footer { display: none; }
+      .no-print { display: none; }
+      .avaliacao-container { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-container">
+      <span class="nav-sigla">SÀFRA BRUTA · Violeta Wilde</span>
+      <span class="nav-lei">Nada termina em pureza.</span>
+    </div>
+  </nav>
+
+  <section class="abertura">
+    <p class="abertura-epigraph">No resta gnente · Resta la tera</p>
+
+    <h1 class="abertura-titulo">
+      SÀFRA<br>BRUTA
+      <em>A Liturgia da Terra</em>
+    </h1>
+
+    <p class="abertura-subtitulo">
+      A casa não acolhe. A casa lê. Nada termina em pureza. O que entra já chega tarde e quase sempre chama de escolha o que já estava em curso.
+    </p>
+
+    <span class="abertura-linha">Basalto · borra · retenção · safra</span>
+  </section>
+
+  <section>
+    <span class="secao-label">Regime Canónico</span>
+
+    <div class="lei">
+      <p class="lei-numero">01 / 06</p>
+      <h2 class="lei-enunciado">Nomear cedo demais<br><em>já é falhar.</em></h2>
+      <p class="lei-corpo">Quem chama de origem o que é apenas pressão atrasada já entrou tarde no problema.</p>
+    </div>
+
+    <div class="lei">
+      <p class="lei-numero">02 / 06</p>
+      <h2 class="lei-enunciado">A matéria não responde.<br><em>Continua.</em></h2>
+      <p class="lei-corpo">O humano chama de falha aquilo que só mudou de regime sem pedir autorização.</p>
+    </div>
+
+    <div class="lei">
+      <p class="lei-numero">03 / 06</p>
+      <h2 class="lei-enunciado">A casa não acolhe. A casa não rejeita.<br><em>A casa lê.</em></h2>
+      <p class="lei-corpo">Basalto, junta, reboco, madeira: tudo regista antes de responder. O toque chega depois da leitura.</p>
+    </div>
+
+    <div class="lei">
+      <p class="lei-numero">04 / 06</p>
+      <h2 class="lei-enunciado">O erro produz mais<br><em>do que o método.</em></h2>
+      <p class="lei-corpo">Quando a técnica falha, a matéria não entra em crise. Só encontra via melhor.</p>
+    </div>
+
+    <div class="lei">
+      <p class="lei-numero">05 / 06</p>
+      <h2 class="lei-enunciado">O mercado não corrige.<br><em>Captura.</em></h2>
+      <p class="lei-corpo">A ruína muda de nome, ganha rótulo, sobe de preço e continua estragando por dentro.</p>
+    </div>
+
+    <div class="lei">
+      <p class="lei-numero">06 / 06</p>
+      <h2 class="lei-enunciado">Nada termina limpo.<br><em>Troca de substrato.</em></h2>
+      <p class="lei-corpo">O que sobra volta em borra, rastro, água, parede, corpo, produto e repetição.</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="secao-label">Forças em Regime</span>
+
+    <div class="personagem">
+      <h3 class="personagem-nome">Lúcia</h3>
+      <p class="personagem-funcao">Técnica · Assepsia em Ruína</p>
+      <p class="personagem-assinatura">Não é mártir. Não é eleita. É mediana, ofendida, aplicada, arrogante, autoiludida. Quanto menos controla, mais central se imagina.</p>
+      <p class="personagem-ph">cortisol elevado · mão em tremor · protocolo falho</p>
+    </div>
+
+    <div class="personagem">
+      <h3 class="personagem-nome">Rosa</h3>
+      <p class="personagem-funcao">Leitura Funcional · Cozinha</p>
+      <p class="personagem-assinatura">Mede mais do que fala. Não consola. Não teoriza. Reconhece matéria, tempo, cheiro, fundo e mentira sem precisar de relatório.</p>
+      <p class="personagem-ph">fumaça · gordura · acidez certa</p>
+    </div>
+
+    <div class="personagem">
+      <h3 class="personagem-nome">Duarte</h3>
+      <p class="personagem-funcao">Escuta · Infraestrutura</p>
+      <p class="personagem-assinatura">Toca, escuta, testa, paga. Não profetiza. Lê pressão, conduíte, desvio, retenção. O corpo dele é custo operacional da casa.</p>
+      <p class="personagem-ph">basalto húmido · cobre · frequência baixa</p>
+    </div>
+
+    <div class="personagem">
+      <h3 class="personagem-nome">Vittorio</h3>
+      <p class="personagem-funcao">Captura · Operador Semântico</p>
+      <p class="personagem-assinatura">Não é caricatura. Instrumentaliza pertencimento, linguagem e herança. Quando não consegue habitar a matéria, empacota a narrativa.</p>
+      <p class="personagem-ph">perfume deslocado · branding · etiqueta</p>
+    </div>
+
+    <div class="personagem">
+      <h3 class="personagem-nome">Elias</h3>
+      <p class="personagem-funcao">Medição · Ciência em Ruína</p>
+      <p class="personagem-assinatura">Mede para não afogar. O corpo dele registra o que o aparelho já não consegue organizar. Tremor é leitura, não detalhe.</p>
+      <p class="personagem-ph">2.8–3.2 Hz · papel grosso · pânico contido</p>
+    </div>
+
+    <div class="personagem">
+      <h3 class="personagem-nome">Dona Nona</h3>
+      <p class="personagem-funcao">Passagem · Continuidade</p>
+      <p class="personagem-assinatura">Prepara, distribui, não sentimentaliza. O que nela sobrevive não depende de biografia limpa nem de bênção institucional.</p>
+      <p class="personagem-ph">grão vivo · café escuro · mão exacta</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="secao-label">Estrutura Canónica</span>
+
+    <div class="bloco-item">
+      <span class="bloco-romano">I</span>
+      <h3 class="bloco-titulo">O Sedimento</h3>
+      <p class="bloco-talian">Soto de Tutto</p>
+      <p class="bloco-caps">Prólogo · Cap. 1–2</p>
+      <p class="bloco-descricao">Fundar a soberania da Madre. O humano entra achando que controla. Já chegou tarde. A casa reconhece antes de ser reconhecida.</p>
+    </div>
+
+    <div class="bloco-item">
+      <span class="bloco-romano">II</span>
+      <h3 class="bloco-titulo">A Pressão</h3>
+      <p class="bloco-talian">Crudar o Sangue</p>
+      <p class="bloco-caps">Cap. 3–10</p>
+      <p class="bloco-descricao">Cobrar o corpo. Aqui começa a tarifa. O corte abre mais do que separa. O sistema humano já reage em atraso.</p>
+    </div>
+
+    <div class="bloco-item">
+      <span class="bloco-romano">III</span>
+      <h3 class="bloco-titulo">A Retenção</h3>
+      <p class="bloco-talian">L'Oscuro de Pipa</p>
+      <p class="bloco-caps">Cap. 11–16</p>
+      <p class="bloco-descricao">Sequestro temporal e transmutação. O vinho deixa de obedecer à linguagem da pureza. O humano continua nomeando em falso.</p>
+    </div>
+
+    <div class="bloco-item">
+      <span class="bloco-romano">IV</span>
+      <h3 class="bloco-titulo">A Captura</h3>
+      <p class="bloco-talian">La Morte de Forme</p>
+      <p class="bloco-caps">Cap. 17–20</p>
+      <p class="bloco-descricao">O sistema absorve o erro, empacota a ruína e chama isso de valor. O poder muda de lugar. O controle continua ilusório.</p>
+    </div>
+
+    <div class="bloco-item">
+      <span class="bloco-romano">V</span>
+      <h3 class="bloco-titulo">A Dispersão</h3>
+      <p class="bloco-talian">El Retorno a Terra</p>
+      <p class="bloco-caps">Cap. 21–24 · Epílogo</p>
+      <p class="bloco-descricao">Nada termina. O rastro muda de escala. O mercado vende superfície. A matéria continua por baixo, por dentro e depois.</p>
+    </div>
+  </section>
+
+  <section class="coda">
+    <div class="coda-frase">
+      A superfície vende.<br>
+      A matéria continua.<br>
+      A borra lembra.
+      <em>Até à próxima safra.</em>
+    </div>
+
+    <div class="coda-meta">
+      <div class="coda-meta-item">
+        <p class="coda-meta-label">Autora</p>
+        <p class="coda-meta-valor">Violeta Wilde</p>
+      </div>
+      <div class="coda-meta-item">
+        <p class="coda-meta-label">Território</p>
+        <p class="coda-meta-valor">Serra Gaúcha · basalto · adega · subsolo</p>
+      </div>
+      <div class="coda-meta-item">
+        <p class="coda-meta-label">Regime</p>
+        <p class="coda-meta-valor">realismo microbiológico · sem consolo</p>
+      </div>
+      <div class="coda-meta-item">
+        <p class="coda-meta-label">Matéria</p>
+        <p class="coda-meta-valor">borra · rastro · retenção · repetição</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-autoria">© Violeta Wilde · SÀFRA BRUTA · A Liturgia da Terra</span>
+    <span class="footer-selo">A casa tem fome.</span>
+  </footer>
+
+</body>
+</html>
