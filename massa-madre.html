@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Massa Madre | Sistema de Revisão</title>
+  <title>SÀFRA BRUTA — A Liturgia da Terra</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -14,22 +14,27 @@
 
   <style>
     :root {
-      --screen-bg: #f1f5f9;
+      --screen-bg: #faf8f3;
       --green: #16a34a;
-      --red: #dc2626;
+      --terra: #8b4513;
       --yellow: #ca8a04;
-      --black: #000000;
+      --black: #1a1a1a;
       --white: #ffffff;
+      --basalto: #2c2c2c;
     }
 
     body {
       background: var(--screen-bg);
       font-family: 'Inter', sans-serif;
+      color: var(--black);
+      line-height: 1.6;
     }
 
     .font-brutal {
       font-family: 'Space Grotesk', sans-serif;
       text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
     }
 
     .custom-checkbox {
@@ -37,7 +42,7 @@
       width: 24px;
       height: 24px;
       border: 2px solid #cbd5e1;
-      border-radius: 4px;
+      border-radius: 2px;
       outline: none;
       cursor: pointer;
       position: relative;
@@ -62,13 +67,51 @@
       line-height: 1;
     }
 
-    .poster-grid {
-      background-image: radial-gradient(rgba(255,255,255,.16) 1.5px, transparent 1.5px);
-      background-size: 30px 30px;
+    .margem {
+      border-left: 3px solid var(--terra);
+      padding-left: 16px;
+      font-size: 0.875rem;
+      color: #666;
+    }
+
+    .lei-numero {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--terra);
+      margin-bottom: 8px;
+      letter-spacing: 0.1em;
+    }
+
+    .organismo-tag {
+      display: inline-block;
+      background: var(--terra);
+      color: white;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 0;
+      margin-right: 8px;
+    }
+
+    .coda-frase {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      color: var(--basalto);
+      font-weight: 500;
+      margin: 40px 0;
+    }
+
+    .coda-frase em {
+      display: block;
+      margin-top: 12px;
+      font-style: italic;
     }
 
     textarea {
       resize: vertical;
+      font-family: 'Inter', monospace;
     }
 
     @page {
@@ -80,239 +123,273 @@
       body { background: white !important; }
       .no-print { display: none !important; }
       .print-exact { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-
-      #view-mesa,
-      #view-poster,
-      #view-auditoria {
-        max-width: none !important;
-        margin: 0 !important;
-        padding: 0 !important;
-      }
-
-      .audit-card,
-      .meta-block,
-      .decision-block,
-      .report-block {
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-
-      #poster-mural {
-        border: 8px solid black !important;
-        color: black !important;
-        background: white !important;
-        box-shadow: none !important;
-      }
-
-      #poster-mural .print-invert-black {
-        background: black !important;
-        color: white !important;
-      }
-
-      #poster-mural .print-invert-red {
-        background: #dc2626 !important;
-        color: white !important;
-      }
-
-      #poster-mural .print-border {
-        border-color: black !important;
-      }
-
-      #poster-mural .poster-grid {
-        opacity: .04 !important;
-        background-image: radial-gradient(rgba(0,0,0,.22) 1.5px, transparent 1.5px) !important;
-      }
     }
   </style>
 </head>
 <body class="min-h-screen pb-20">
 
-  <div class="no-print sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm p-4 mb-8">
-    <div class="max-w-6xl mx-auto flex flex-col lg:flex-row justify-between items-center gap-4">
-      <h1 class="text-xl font-bold text-slate-800">Massa Madre</h1>
+  <div class="no-print sticky top-0 z-50 bg-white border-b-2 border-terra p-4 mb-8">
+    <div class="max-w-5xl mx-auto">
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-6">
+        <div>
+          <p class="text-xs font-brutal text-terra mb-1">SÀFRA BRUTA · A Liturgia da Terra</p>
+          <h1 class="text-2xl font-brutal text-black">Massa Madre</h1>
+          <p class="text-sm text-gray-600 mt-2">© Violeta Wilde · Sàfra Bruta · A Liturgia da Terra</p>
+        </div>
 
-      <div class="flex flex-wrap gap-2 p-1 bg-slate-100 rounded-lg">
-        <button type="button" onclick="showView('mesa')" id="btn-mesa"
-          class="px-4 py-2 rounded-md font-medium text-sm transition-colors bg-white shadow-sm text-slate-800">
-          <i class="ph ph-desktop mr-2"></i>Mesa
-        </button>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" onclick="generateCleanReport()"
+            class="px-4 py-2 bg-green-700 hover:bg-green-800 text-white rounded font-bold text-sm transition-colors flex items-center">
+            <i class="ph ph-file-text mr-2"></i>Gerar parecer
+          </button>
 
-        <button type="button" onclick="showView('poster')" id="btn-poster"
-          class="px-4 py-2 rounded-md font-medium text-sm transition-colors text-slate-500 hover:text-slate-800">
-          <i class="ph ph-wall mr-2"></i>Pôster
-        </button>
+          <button type="button" onclick="resetAudit()"
+            class="px-4 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded font-bold text-sm transition-colors flex items-center">
+            <i class="ph ph-arrow-counter-clockwise mr-2"></i>Resetar
+          </button>
 
-        <button type="button" onclick="showView('auditoria')" id="btn-auditoria"
-          class="px-4 py-2 rounded-md font-medium text-sm transition-colors text-slate-500 hover:text-slate-800">
-          <i class="ph ph-clipboard-text mr-2"></i>Auditoria
-        </button>
-      </div>
-
-      <div class="flex flex-wrap gap-2">
-        <button type="button" onclick="generateCleanReport()"
-          class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md font-medium text-sm transition-colors flex items-center shadow-sm">
-          <i class="ph ph-file-text mr-2 text-lg"></i>Gerar parecer limpo
-        </button>
-
-        <button type="button" onclick="resetAudit()"
-          class="px-4 py-2 bg-slate-700 hover:bg-slate-800 text-white rounded-md font-medium text-sm transition-colors flex items-center shadow-sm">
-          <i class="ph ph-arrow-counter-clockwise mr-2 text-lg"></i>Resetar
-        </button>
-
-        <button type="button" onclick="window.print()"
-          class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md font-medium text-sm transition-colors flex items-center shadow-sm">
-          <i class="ph ph-printer mr-2 text-lg"></i>Imprimir / PDF
-        </button>
+          <button type="button" onclick="window.print()"
+            class="px-4 py-2 bg-basalto hover:bg-black text-white rounded font-bold text-sm transition-colors flex items-center">
+            <i class="ph ph-printer mr-2"></i>Imprimir / PDF
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
-  <section id="view-mesa" class="max-w-3xl mx-auto px-4 print-exact">
-    <div class="bg-white p-8 sm:p-12 shadow-md border border-slate-200 rounded-sm">
-      <header class="border-b-2 border-slate-800 pb-6 mb-8 text-center sm:text-left">
-        <p class="text-sm font-bold tracking-widest text-slate-400 uppercase mb-1">Fluxograma de Revisão</p>
-        <h2 class="text-4xl font-black text-slate-900 tracking-tight">Massa Madre</h2>
-        <p class="text-slate-500 mt-2 text-sm">Protocolo linear para análise de texto.</p>
-      </header>
+  <section id="view-prologo" class="max-w-3xl mx-auto px-4 py-12 print-exact">
+    <div class="bg-white p-8 sm:p-12 border-l-4 border-terra">
+      <div class="margem mb-8">
+        <p class="lei-numero">Prólogo</p>
+      </div>
 
-      <div class="relative">
-        <div class="absolute left-[39px] top-10 bottom-20 w-0.5 bg-slate-200 z-0"></div>
-        <ul id="mesa-list" class="space-y-8 relative z-10"></ul>
+      <div class="space-y-6 text-lg leading-relaxed">
+        <p>Eu não espero. O tempo não me atravessa. Ele se acumula em mim como matéria esquecida.</p>
+
+        <p>O que vocês chamam de início é apenas o ponto onde começaram a notar a minha pressão. Eu já estava aqui quando a primeira raiz rachou a pedra. Já estava aqui quando o primeiro homem decidiu nomear o que não compreendia.</p>
+
+        <p><strong>Nomear é a primeira forma de falhar.</strong></p>
+
+        <p>Vocês dizem <em>terra</em>. Eu digo: tecido. Vocês dizem <em>vinha</em>. Eu digo: superfície de extração. Vocês dizem <em>casa</em>. Eu digo: cavidade útil.</p>
+
+        <p>Nada do que entra permanece intacto. Não por escolha. Por função.</p>
+
+        <p><strong>Eu não escolho. Eu colonizo.</strong></p>
+
+        <p class="text-sm text-gray-600 mt-8">Os textos que entram aqui já chegam tarde. Já foram tocados. O protocolo não consola. Apenas metaboliza.</p>
       </div>
     </div>
   </section>
 
-  <section id="view-poster" class="hidden max-w-[800px] mx-auto px-4 print-exact">
-    <div id="poster-mural" class="bg-black text-white p-8 sm:p-12 font-brutal border-8 border-black shadow-2xl relative overflow-hidden">
-      <div class="poster-grid absolute inset-0 opacity-[0.08] pointer-events-none"></div>
-
-      <header class="border-b-8 border-white print-border pb-6 mb-12 relative z-10 text-center">
-        <h1 class="text-5xl sm:text-7xl font-black tracking-tighter leading-none mb-2">MASSA MADRE</h1>
-        <div class="bg-white text-black inline-block px-4 py-2 text-xl sm:text-2xl font-bold tracking-widest mt-2 print-invert-black">
-          FLUXOGRAMA DE REVISÃO
-        </div>
-      </header>
-
-      <div id="poster-steps" class="flex flex-col gap-6 relative z-10"></div>
-
-      <div class="mt-8 border-8 border-white print-border bg-white text-black p-6 flex items-center justify-center gap-6 relative z-10 print-invert-black">
-        <i class="ph ph-check-circle text-6xl"></i>
-        <h2 class="text-4xl sm:text-5xl font-black tracking-tighter">APROVADA</h2>
+  <section id="view-leis" class="max-w-3xl mx-auto px-4 py-12 print-exact">
+    <div class="bg-white p-8 sm:p-12 border-l-4 border-terra">
+      <div class="margem mb-12">
+        <p class="lei-numero">Lei da Obra · V8.1</p>
       </div>
+
+      <div id="leis-list" class="space-y-12"></div>
     </div>
   </section>
 
-  <section id="view-auditoria" class="hidden max-w-6xl mx-auto px-4 print-exact">
-    <div class="bg-white p-8 sm:p-10 shadow-md border border-slate-200 rounded-sm">
-      <header class="border-b-2 border-slate-800 pb-6 mb-8">
-        <p class="text-sm font-bold tracking-widest text-slate-400 uppercase mb-1">Ficha Editorial</p>
-        <h2 class="text-4xl font-black text-slate-900 tracking-tight">Modo Auditoria</h2>
-        <p class="text-slate-500 mt-2 text-sm">Avaliação registrada, persistente e imprimível.</p>
-      </header>
+  <section id="view-organismos" class="max-w-3xl mx-auto px-4 py-12 print-exact">
+    <div class="bg-white p-8 sm:p-12 border-l-4 border-terra">
+      <div class="margem mb-12">
+        <p class="lei-numero">Organismos em Campo</p>
+      </div>
 
-      <div class="meta-block grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
+      <div id="organismos-list" class="space-y-10"></div>
+    </div>
+  </section>
+
+  <section id="view-auditoria" class="max-w-4xl mx-auto px-4 py-12 print-exact">
+    <div class="bg-white p-8 sm:p-12 border-l-4 border-terra">
+      <div class="margem mb-8">
+        <p class="lei-numero">Ficha de Avaliação</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div>
-          <label class="block text-sm font-bold text-slate-800 mb-2" for="meta-title">Nome do texto</label>
-          <input id="meta-title" type="text" class="w-full border border-slate-300 rounded-lg p-3 text-sm"
-            placeholder="Ex.: Capítulo 7 / Prólogo / Manuscrito X" />
+          <label class="text-xs font-bold uppercase text-terra block mb-2">Nome do texto</label>
+          <input id="meta-title" type="text" class="w-full border border-gray-300 rounded p-3 text-sm"
+            placeholder="Título ou descrição" />
         </div>
 
         <div>
-          <label class="block text-sm font-bold text-slate-800 mb-2" for="meta-version">Versão</label>
-          <input id="meta-version" type="text" class="w-full border border-slate-300 rounded-lg p-3 text-sm"
-            placeholder="Ex.: v3.2 / revisão 5" />
+          <label class="text-xs font-bold uppercase text-terra block mb-2">Versão</label>
+          <input id="meta-version" type="text" class="w-full border border-gray-300 rounded p-3 text-sm"
+            placeholder="v1.0 / revisão 1" />
         </div>
 
         <div>
-          <label class="block text-sm font-bold text-slate-800 mb-2" for="meta-reviewer">Parecerista</label>
-          <input id="meta-reviewer" type="text" class="w-full border border-slate-300 rounded-lg p-3 text-sm"
-            placeholder="Nome de quem avaliou" />
+          <label class="text-xs font-bold uppercase text-terra block mb-2">Avaliador</label>
+          <input id="meta-reviewer" type="text" class="w-full border border-gray-300 rounded p-3 text-sm"
+            placeholder="Nome" />
         </div>
 
         <div>
-          <label class="block text-sm font-bold text-slate-800 mb-2" for="meta-date">Data</label>
-          <input id="meta-date" type="date" class="w-full border border-slate-300 rounded-lg p-3 text-sm" />
+          <label class="text-xs font-bold uppercase text-terra block mb-2">Data</label>
+          <input id="meta-date" type="date" class="w-full border border-gray-300 rounded p-3 text-sm" />
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
-        <div class="bg-slate-50 border border-slate-200 p-5 rounded-lg">
-          <p class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-2">Aprovados</p>
-          <p id="approved-count" class="text-4xl font-black text-slate-900">0/8</p>
-        </div>
-
-        <div class="bg-slate-50 border border-slate-200 p-5 rounded-lg">
-          <p class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-2">Status geral</p>
-          <p id="overall-status" class="text-2xl font-black text-yellow-600">Em análise</p>
-        </div>
-
-        <div class="bg-slate-50 border border-slate-200 p-5 rounded-lg lg:col-span-2">
-          <p class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-2">Síntese automática</p>
-          <p id="overall-summary" class="text-sm text-slate-600 leading-relaxed">Nenhum parecer registrado ainda.</p>
-        </div>
-      </div>
-
-      <div id="audit-list" class="space-y-6"></div>
-
-      <div class="decision-block mt-10 pt-8 border-t border-slate-200 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 py-6 border-t-2 border-b-2 border-gray-200">
         <div>
-          <label class="block text-sm font-bold text-slate-800 mb-2" for="final-decision">Decisão final</label>
-          <select id="final-decision" class="w-full border border-slate-300 rounded-lg p-3 text-sm">
-            <option value="">Selecione</option>
-            <option value="aprovado">Aprovar</option>
-            <option value="aprovado_com_cortes">Aprovar com cortes</option>
-            <option value="reprovado">Reprovar</option>
-          </select>
+          <p class="text-xs font-bold uppercase text-terra mb-2">Leis Aprovadas</p>
+          <p id="approved-count" class="text-3xl font-bold text-black">0/6</p>
         </div>
 
-        <div class="lg:col-span-2">
-          <label class="block text-sm font-bold text-slate-800 mb-2" for="final-note">Parecer final</label>
-          <textarea id="final-note" rows="6"
-            class="w-full border border-slate-300 rounded-lg p-4 text-sm text-slate-800"
-            placeholder="Escreva a conclusão final da auditoria..."></textarea>
+        <div>
+          <p class="text-xs font-bold uppercase text-terra mb-2">Status</p>
+          <p id="overall-status" class="text-lg font-bold text-yellow-700">Em análise</p>
+        </div>
+
+        <div>
+          <p class="text-xs font-bold uppercase text-terra mb-2">Organismo Detectado</p>
+          <p id="detected-organism" class="text-lg font-bold text-terra">—</p>
         </div>
       </div>
 
-      <div class="report-block mt-10 pt-8 border-t border-slate-200">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+      <div id="audit-list" class="space-y-8 mb-12"></div>
+
+      <div class="border-t-2 border-gray-200 pt-8 mb-8">
+        <h3 class="text-lg font-bold mb-4">Decisão Final</h3>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div>
-            <h3 class="text-2xl font-black text-slate-900 tracking-tight">Parecer limpo</h3>
-            <p class="text-sm text-slate-500">Bloco final pronto para copiar e colar.</p>
+            <label class="text-xs font-bold uppercase text-terra block mb-2">Decisão</label>
+            <select id="final-decision" class="w-full border border-gray-300 rounded p-3 text-sm">
+              <option value="">Selecione</option>
+              <option value="absorvido">A Madre Absorve</option>
+              <option value="absorvido_com_cortes">Absorve com Cortes</option>
+              <option value="rejeitado">Rejeitado</option>
+            </select>
           </div>
 
+          <div>
+            <label class="text-xs font-bold uppercase text-terra block mb-2">Regime da Obra</label>
+            <input id="regime-obra" type="text" class="w-full border border-gray-300 rounded p-3 text-sm"
+              placeholder="Ex: realismo microbiológico · sem consolo" />
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <label class="text-xs font-bold uppercase text-terra block mb-2">Parecer da Madre</label>
+          <textarea id="final-note" rows="8"
+            class="w-full border border-gray-300 rounded p-4 text-sm text-black"
+            placeholder="A Madre fala. O que ela absorve? O que rejeita? Por quê?"></textarea>
+        </div>
+      </div>
+
+      <div class="border-t-2 border-gray-200 pt-8">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+          <h3 class="text-lg font-bold">Parecer Limpo</h3>
           <button type="button" onclick="copyCleanReport()"
-            class="px-4 py-2 bg-slate-900 hover:bg-black text-white rounded-md font-medium text-sm transition-colors flex items-center shadow-sm w-fit">
-            <i class="ph ph-copy mr-2 text-lg"></i>Copiar parecer
+            class="px-4 py-2 bg-black hover:bg-basalto text-white rounded font-bold text-sm transition-colors flex items-center w-fit">
+            <i class="ph ph-copy mr-2"></i>Copiar
           </button>
         </div>
 
-        <textarea id="clean-report-output" rows="18"
-          class="w-full border border-slate-300 rounded-lg p-4 text-sm text-slate-800 bg-slate-50"
-          placeholder="Clique em "Gerar parecer limpo" para montar o texto final."
+        <textarea id="clean-report-output" rows="20"
+          class="w-full border border-gray-300 rounded p-4 text-sm bg-gray-50 font-mono"
+          placeholder="Clique em Gerar parecer para montar o texto final."
           readonly></textarea>
       </div>
     </div>
   </section>
 
-  <script>
-    const STORAGE_KEY = 'massa-madre-auditoria-v3';
+  <footer class="max-w-5xl mx-auto px-4 py-8 text-center text-sm text-gray-600 border-t border-gray-200 mt-16 no-print">
+    <p>© Violeta Wilde · <strong>SÀFRA BRUTA</strong> · A Liturgia da Terra</p>
+    <p class="mt-2 font-italic">Nada termina em pureza.</p>
+  </footer>
 
-    const steps = [
-      { icon: 'ph-microscope', short: 'Nasce de matéria?', description: 'O texto nasce de matéria e não de abstração?' },
-      { icon: 'ph-hammer', short: 'Arrogância operativa?', description: 'Identifique e corte excessos e afetações do autor.' },
-      { icon: 'ph-magnifying-glass', short: 'Evita generalizações e slogans?', description: 'O texto foge de clichês de publicidade ou fórmulas prontas?' },
-      { icon: 'ph-hand-pointing', short: 'Uso de "vocês" só com gesto concreto?', description: 'A interpelação ao leitor vem acompanhada de ação real?' },
-      { icon: 'ph-trophy', short: 'Jargão humano ironizado?', description: 'Termos corporativos ou acadêmicos são expostos como ridículos?' },
-      { icon: 'ph-shield', short: 'Técnica aumenta materialidade ou ameaça?', description: 'O vocabulário técnico serve para dar soberania e peso ao texto?' },
-      { icon: 'ph-prohibit', short: 'Evita vícios narrativos?', description: 'Sem heroísmo limpo, técnica escolar de redação ou final de consolo.' },
-      { icon: 'ph-eye', short: 'A frase revela a narradora?', description: 'A perspectiva expõe quem conta a história em sua vulnerabilidade ou força?' }
+  <script>
+    const STORAGE_KEY = 'massa-madre-safra-v1';
+
+    const leis = [
+      {
+        numero: '01 / 06',
+        enunciado: 'A obra não descreve.',
+        énfase: 'A obra metaboliza.',
+        corpo: 'Quem nomeia cedo demais tenta estancar o fluxo. Quem estanca cria a pressão que alimenta o erro.'
+      },
+      {
+        numero: '02 / 06',
+        enunciado: 'Ninguém vence moralmente.',
+        énfase: 'A matéria vence funcionalmente.',
+        corpo: 'A vitória mais séria não grita. Infiltra. Assenta. Retém. Continua quando o humano já chamou de fim.'
+      },
+      {
+        numero: '03 / 06',
+        enunciado: 'A casa não acolhe. A casa não rejeita.',
+        énfase: 'A casa lê.',
+        corpo: 'Basalto, junta, reboco, madeira: tudo regista antes de responder. O corpo entra achando que toca. Já foi tocado.'
+      },
+      {
+        numero: '04 / 06',
+        enunciado: 'A Madre não simboliza.',
+        énfase: 'Age.',
+        corpo: 'Não consola. Não explica. Adere. Infiltra. Retém. O que ela faz não precisa de alegoria para funcionar.'
+      },
+      {
+        numero: '05 / 06',
+        enunciado: 'O erro produz mais',
+        énfase: 'do que a competência.',
+        corpo: 'Quando o método falha, a matéria não entra em crise. Só muda de regime e continua trabalhando.'
+      },
+      {
+        numero: '06 / 06',
+        enunciado: 'Nada recomeça.',
+        énfase: 'Muda de substrato.',
+        corpo: 'O que volta nunca volta limpo. Volta em borra, em resto, em rastro, em produto, em ruína vendida.'
+      }
+    ];
+
+    const organismos = [
+      {
+        nome: 'Lúcia',
+        funcao: 'Técnica · Assepsia em Ruína',
+        assinatura: 'Não é mártir. Não é eleita. É mediana, ofendida, aplicada, arrogante, autoiludida. Quanto menos controla, mais central se imagina.',
+        ph: 'cortisol elevado · mão em tremor · protocolo falho'
+      },
+      {
+        nome: 'Rosa',
+        funcao: 'Leitura Funcional · Cozinha',
+        assinatura: 'Mede mais do que fala. Não consola. Não teoriza. Reconhece matéria, tempo, cheiro, fundo e mentira sem precisar de relatório.',
+        ph: 'fumaça · gordura · acidez certa'
+      },
+      {
+        nome: 'Duarte',
+        funcao: 'Escuta · Infraestrutura',
+        assinatura: 'Toca, escuta, testa, paga. Não profetiza. Lê pressão, conduíte, desvio, retenção. O corpo dele é custo operacional da casa.',
+        ph: 'basalto húmido · cobre · frequência baixa'
+      },
+      {
+        nome: 'Vittorio',
+        funcao: 'Captura · Operador Semântico',
+        assinatura: 'Não é caricatura. Instrumentaliza pertencimento, linguagem e herança. Quando não consegue habitar a matéria, empacota a narrativa.',
+        ph: 'perfume deslocado · branding · etiqueta'
+      },
+      {
+        nome: 'Elias',
+        funcao: 'Medição · Ciência em Ruína',
+        assinatura: 'Mede para não afogar. O corpo dele registra o que o aparelho já não consegue organizar. Tremor é leitura, não detalhe.',
+        ph: '2.8–3.2 Hz · papel grosso · pânico contido'
+      },
+      {
+        nome: 'Dona Nona',
+        funcao: 'Passagem · Continuidade',
+        assinatura: 'Prepara, distribui, não sentimentaliza. O que nela sobrevive não depende de biografia limpa nem de bênção institucional.',
+        ph: 'grão vivo · café escuro · mão exacta'
+      }
     ];
 
     let auditState = {
-      checks: Array(steps.length).fill(false),
-      notes: Array(steps.length).fill(''),
+      checks: Array(leis.length).fill(false),
+      notes: Array(leis.length).fill(''),
       finalNote: '',
       finalDecision: '',
+      detectedOrganism: '',
+      regimeObra: '',
       cleanReport: '',
       meta: {
         title: '',
@@ -329,10 +406,12 @@
         const parsed = JSON.parse(raw);
         if (parsed) {
           auditState = {
-            checks: Array.isArray(parsed.checks) ? parsed.checks.slice(0, steps.length) : Array(steps.length).fill(false),
-            notes: Array.isArray(parsed.notes) ? parsed.notes.slice(0, steps.length) : Array(steps.length).fill(''),
+            checks: Array.isArray(parsed.checks) ? parsed.checks.slice(0, leis.length) : Array(leis.length).fill(false),
+            notes: Array.isArray(parsed.notes) ? parsed.notes.slice(0, leis.length) : Array(leis.length).fill(''),
             finalNote: parsed.finalNote || '',
             finalDecision: parsed.finalDecision || '',
+            detectedOrganism: parsed.detectedOrganism || '',
+            regimeObra: parsed.regimeObra || '',
             cleanReport: parsed.cleanReport || '',
             meta: {
               title: parsed.meta?.title || '',
@@ -342,8 +421,8 @@
             }
           };
 
-          while (auditState.checks.length < steps.length) auditState.checks.push(false);
-          while (auditState.notes.length < steps.length) auditState.notes.push('');
+          while (auditState.checks.length < leis.length) auditState.checks.push(false);
+          while (auditState.notes.length < leis.length) auditState.notes.push('');
         }
       } catch (error) {
         console.error('Erro ao carregar estado:', error);
@@ -356,10 +435,12 @@
 
     function resetAudit() {
       auditState = {
-        checks: Array(steps.length).fill(false),
-        notes: Array(steps.length).fill(''),
+        checks: Array(leis.length).fill(false),
+        notes: Array(leis.length).fill(''),
         finalNote: '',
         finalDecision: '',
+        detectedOrganism: '',
+        regimeObra: '',
         cleanReport: '',
         meta: { title: '', version: '', reviewer: '', date: '' }
       };
@@ -378,9 +459,9 @@
 
     function formatDecision(value) {
       const map = {
-        aprovado: 'Aprovar',
-        aprovado_com_cortes: 'Aprovar com cortes',
-        reprovado: 'Reprovar'
+        absorvido: 'A Madre Absorve',
+        absorvido_com_cortes: 'Absorve com Cortes',
+        rejeitado: 'Rejeitado'
       };
       return map[value] || 'Não definido';
     }
@@ -394,29 +475,43 @@
 
     function getOverallStatusData() {
       const approved = auditState.checks.filter(Boolean).length;
-      const total = steps.length;
+      const total = leis.length;
 
       if (approved === total) {
         return {
-          label: 'Aprovado',
-          className: 'text-2xl font-black text-green-700',
-          summary: 'Todos os critérios foram aprovados. O texto sustenta o protocolo integral.'
+          label: 'Absorvido',
+          className: 'text-lg font-bold text-green-700',
+          summary: 'Todas as leis foram honradas. A Madre metaboliza este texto em sua totalidade.'
         };
       }
 
-      if (approved >= Math.ceil(total * 0.6)) {
+      if (approved >= Math.ceil(total * 0.5)) {
         return {
-          label: 'Ajustável',
-          className: 'text-2xl font-black text-yellow-600',
-          summary: 'O texto tem sustentação, mas ainda exige cortes e correções pontuais.'
+          label: 'Absorvido com Cortes',
+          className: 'text-lg font-bold text-yellow-700',
+          summary: 'O texto tem sustentação material, mas exige remoções e ajustes para metabolização completa.'
         };
       }
 
       return {
-        label: 'Reprovado',
-        className: 'text-2xl font-black text-red-600',
-        summary: 'O texto falha em critérios centrais. Precisa de reestruturação, não cosmética.'
+        label: 'Rejeitado',
+        className: 'text-lg font-bold text-terra',
+        summary: 'O texto falha em leis centrais. É superfície, não matéria. Precisa de reestruturação radical.'
       };
+    }
+
+    function detectOrganism() {
+      // Heurística simples baseada em notas
+      const notes = auditState.notes.join(' ').toLowerCase();
+
+      if (notes.includes('técnica') || notes.includes('protocolo') || notes.includes('falha')) return 'Lúcia';
+      if (notes.includes('função') || notes.includes('matéria') || notes.includes('real')) return 'Rosa';
+      if (notes.includes('infra') || notes.includes('estrutura') || notes.includes('custo')) return 'Duarte';
+      if (notes.includes('semântica') || notes.includes('narrativa') || notes.includes('empaco')) return 'Vittorio';
+      if (notes.includes('medição') || notes.includes('tremor') || notes.includes('registro')) return 'Elias';
+      if (notes.includes('continuidade') || notes.includes('passagem') || notes.includes('distribu')) return 'Dona Nona';
+
+      return '';
     }
 
     function toggleCheck(index, checked) {
@@ -427,6 +522,7 @@
 
     function updateNote(index, value) {
       auditState.notes[index] = value;
+      auditState.detectedOrganism = detectOrganism();
       saveState();
       renderAudit();
     }
@@ -447,199 +543,149 @@
       renderAuditSummary();
     }
 
-    function getStatusLabel(index) {
-      const checked = auditState.checks[index];
-      const note = auditState.notes[index]?.trim();
-
-      if (checked) return { text: 'Aprovado', color: 'text-green-700 bg-green-50 border-green-200' };
-      if (note) return { text: 'Pendente com observação', color: 'text-yellow-700 bg-yellow-50 border-yellow-200' };
-      return { text: 'Não avaliado', color: 'text-slate-600 bg-slate-50 border-slate-200' };
+    function updateRegimeObra(value) {
+      auditState.regimeObra = value;
+      saveState();
     }
 
-    function renderMesa() {
-      const list = document.getElementById('mesa-list');
-      list.innerHTML = '';
-
-      steps.forEach((step, index) => {
-        const isRed = index === 1 || index === 6;
-        const li = document.createElement('li');
-        li.className = 'flex items-start gap-6';
-        li.innerHTML = `
-          <div class="w-20 h-20 rounded-full bg-slate-50 border ${isRed ? 'border-red-200' : 'border-slate-200'} flex items-center justify-center flex-shrink-0 shadow-sm">
-            <i class="ph ${step.icon} text-3xl ${isRed ? 'text-red-600' : 'text-slate-700'}"></i>
-          </div>
-          <div class="flex-1 pt-3 ${index < steps.length - 1 ? 'border-b border-slate-100' : ''} pb-6 flex justify-between items-center gap-4">
-            <div>
-              <h3 class="text-lg font-bold ${index === 1 ? 'text-red-600' : 'text-slate-800'}">${step.short}</h3>
-              <p class="text-sm text-slate-500 mt-1">${step.description}</p>
-            </div>
-            <input type="checkbox" class="custom-checkbox" ${auditState.checks[index] ? 'checked' : ''} onchange="toggleCheck(${index}, this.checked)" />
-          </div>
-        `;
-        list.appendChild(li);
-      });
-
-      const finalLi = document.createElement('li');
-      finalLi.className = 'flex items-center gap-6 pt-4';
-      finalLi.innerHTML = `
-        <div class="w-20 h-20 rounded-full bg-green-600 border border-green-700 flex items-center justify-center flex-shrink-0 shadow-lg relative z-10">
-          <i class="ph ph-check text-4xl text-white font-bold"></i>
-        </div>
-        <div class="flex-1">
-          <h3 class="text-2xl font-black text-green-700 tracking-tight">TEXTO APROVADO</h3>
-        </div>
-      `;
-      list.appendChild(finalLi);
-    }
-
-    function renderPosterSteps() {
-      const container = document.getElementById('poster-steps');
+    function renderLeis() {
+      const container = document.getElementById('leis-list');
       container.innerHTML = '';
 
-      steps.forEach((step, index) => {
-        const block = document.createElement('div');
-        block.className = 'border-4 border-white print-border p-4 flex flex-col sm:flex-row items-stretch bg-black print-invert-black';
-        block.innerHTML = `
-          <div class="flex items-center justify-center p-4 border-b-4 sm:border-b-0 sm:border-r-4 border-white print-border sm:min-w-[110px]">
-            <i class="ph ${step.icon} text-5xl"></i>
-          </div>
-          <div class="flex-1 flex flex-col justify-center px-4 py-3">
-            <h2 class="text-2xl sm:text-3xl font-black tracking-tight leading-tight">${step.short.toUpperCase()}</h2>
-          </div>
-          <div class="flex flex-row sm:flex-col border-t-4 sm:border-t-0 sm:border-l-4 border-white print-border min-w-[150px]">
-            <div class="flex-1 bg-black text-white print-invert-black flex items-center justify-center font-bold text-lg sm:text-xl p-3 border-r-4 sm:border-r-0 sm:border-b-4 border-white print-border">
-              SIM ↓
+      leis.forEach((lei, index) => {
+        const div = document.createElement('div');
+        div.className = 'pb-8 border-b border-gray-200';
+        div.innerHTML = `
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <div>
+              <p class="lei-numero">${lei.numero}</p>
+              <h3 class="text-xl font-bold text-black">${lei.enunciado}</h3>
+              <p class="text-lg font-bold text-terra mt-1">${lei.énfase}</p>
             </div>
-            <div class="flex-1 bg-red-600 text-white print-invert-red flex items-center justify-center font-black text-lg sm:text-xl p-3 text-center">
-              NÃO → CORTE
+            <div class="flex items-center gap-3">
+              <label class="text-xs font-bold uppercase text-gray-600">Honrada</label>
+              <input type="checkbox" class="custom-checkbox" ${auditState.checks[index] ? 'checked' : ''}
+                onchange="toggleCheck(${index}, this.checked)" />
             </div>
+          </div>
+          <p class="text-sm text-gray-700 mb-4">${lei.corpo}</p>
+          <div>
+            <label class="text-xs font-bold uppercase text-terra block mb-2">Observação</label>
+            <textarea class="w-full border border-gray-300 rounded p-3 text-sm" rows="3"
+              placeholder="Como a obra honra ou falha nesta lei?"
+              oninput="updateNote(${index}, this.value)">${escapeHtml(auditState.notes[index] || '')}</textarea>
           </div>
         `;
-        container.appendChild(block);
+        container.appendChild(div);
+      });
+    }
 
-        if (index < steps.length - 1) {
-          const arrow = document.createElement('div');
-          arrow.className = 'flex justify-center -my-2';
-          arrow.innerHTML = `<i class="ph ph-arrow-down text-4xl text-white bg-black print-invert-black px-2 z-10"></i>`;
-          container.appendChild(arrow);
-        }
+    function renderOrganismos() {
+      const container = document.getElementById('organismos-list');
+      container.innerHTML = '';
+
+      organismos.forEach(org => {
+        const div = document.createElement('div');
+        div.className = 'pb-8 border-b border-gray-200';
+        div.innerHTML = `
+          <h3 class="text-lg font-bold text-black mb-2">${org.nome}</h3>
+          <p class="organismo-tag">${org.funcao}</p>
+          <p class="text-sm text-gray-700 mt-4 mb-3"><strong>${org.assinatura}</strong></p>
+          <p class="text-xs text-gray-500 font-mono">${org.ph}</p>
+        `;
+        container.appendChild(div);
       });
     }
 
     function renderAudit() {
-      const container = document.getElementById('audit-list');
-      container.innerHTML = '';
-
-      steps.forEach((step, index) => {
-        const status = getStatusLabel(index);
-        const card = document.createElement('article');
-        card.className = 'audit-card border border-slate-200 rounded-xl p-5 bg-slate-50';
-
-        card.innerHTML = `
-          <div class="flex flex-col lg:flex-row lg:items-start gap-5">
-            <div class="flex items-start gap-4 flex-1">
-              <div class="w-14 h-14 rounded-xl bg-white border border-slate-200 flex items-center justify-center flex-shrink-0 shadow-sm">
-                <i class="ph ${step.icon} text-2xl text-slate-700"></i>
-              </div>
-
-              <div class="flex-1">
-                <div class="flex flex-wrap items-center gap-3 mb-2">
-                  <h3 class="text-lg font-bold text-slate-900">${index + 1}. ${step.short}</h3>
-                  <span class="inline-flex items-center px-3 py-1 rounded-full border text-xs font-bold ${status.color}">
-                    ${status.text}
-                  </span>
-                </div>
-                <p class="text-sm text-slate-600">${step.description}</p>
-              </div>
-            </div>
-
-            <div class="flex items-center gap-3">
-              <label class="text-sm font-medium text-slate-700">Aprovar</label>
-              <input type="checkbox" class="custom-checkbox" ${auditState.checks[index] ? 'checked' : ''} onchange="toggleCheck(${index}, this.checked)" />
-            </div>
-          </div>
-
-          <div class="mt-4">
-            <label for="note-${index}" class="block text-sm font-bold text-slate-800 mb-2">Observação</label>
-            <textarea id="note-${index}" rows="4"
-              class="w-full border border-slate-300 rounded-lg p-3 text-sm text-slate-800 bg-white"
-              placeholder="Registre aqui o problema, corte, defesa ou ajuste necessário..."
-              oninput="updateNote(${index}, this.value)">${escapeHtml(auditState.notes[index] || '')}</textarea>
-          </div>
-        `;
-
-        container.appendChild(card);
-      });
-
       document.getElementById('meta-title').value = auditState.meta.title;
       document.getElementById('meta-version').value = auditState.meta.version;
       document.getElementById('meta-reviewer').value = auditState.meta.reviewer;
       document.getElementById('meta-date').value = auditState.meta.date;
       document.getElementById('final-note').value = auditState.finalNote;
       document.getElementById('final-decision').value = auditState.finalDecision;
+      document.getElementById('regime-obra').value = auditState.regimeObra;
       document.getElementById('clean-report-output').value = auditState.cleanReport || '';
+      document.getElementById('detected-organism').textContent = auditState.detectedOrganism || '—';
 
       renderAuditSummary();
     }
 
     function renderAuditSummary() {
       const approved = auditState.checks.filter(Boolean).length;
-      const total = steps.length;
+      const total = leis.length;
       const statusData = getOverallStatusData();
 
       document.getElementById('approved-count').textContent = `${approved}/${total}`;
 
       const overallStatus = document.getElementById('overall-status');
-      const overallSummary = document.getElementById('overall-summary');
-
       overallStatus.textContent = statusData.label;
       overallStatus.className = statusData.className;
-      overallSummary.textContent = statusData.summary;
     }
 
     function generateCleanReport() {
-      const approvedItems = [];
+      const absorvedItems = [];
       const notedItems = [];
 
-      steps.forEach((step, index) => {
+      leis.forEach((lei, index) => {
         const note = (auditState.notes[index] || '').trim();
 
         if (auditState.checks[index]) {
-          approvedItems.push(`- ${step.short}`);
+          absorvedItems.push(`${lei.numero} · ${lei.enunciado} ${lei.énfase}`);
         }
 
         if (note) {
-          notedItems.push(`- ${step.short}: ${note}`);
+          notedItems.push(`${lei.numero} · ${lei.enunciado}\n→ ${note}`);
         }
       });
 
       const approved = auditState.checks.filter(Boolean).length;
-      const total = steps.length;
+      const total = leis.length;
       const statusData = getOverallStatusData();
 
       const report = [
-        'PARECER EDITORIAL',
+        '═══════════════════════════════════════════',
+        'PARECER DA MADRE',
+        '═══════════════════════════════════════════',
         '',
-        `Texto: ${auditState.meta.title || 'Não informado'}`,
+        `Texto: ${auditState.meta.title || 'Sem título'}`,
         `Versão: ${auditState.meta.version || 'Não informada'}`,
-        `Parecerista: ${auditState.meta.reviewer || 'Não informado'}`,
+        `Avaliador: ${auditState.meta.reviewer || 'Não identificado'}`,
         `Data: ${formatDisplayDate(auditState.meta.date)}`,
+        `Regime da Obra: ${auditState.regimeObra || 'Não especificado'}`,
         '',
-        `Decisão final: ${formatDecision(auditState.finalDecision)}`,
-        `Status geral: ${statusData.label}`,
-        `Critérios aprovados: ${approved}/${total}`,
+        '───────────────────────────────────────────',
+        'DECISÃO',
+        '───────────────────────────────────────────',
+        `${formatDecision(auditState.finalDecision)}`,
+        `Leis honradas: ${approved}/${total}`,
+        `Status: ${statusData.label}`,
+        `Organismo detectado: ${auditState.detectedOrganism || '—'}`,
         '',
-        'CRITÉRIOS APROVADOS',
-        approvedItems.length ? approvedItems.join('\n') : '- Nenhum critério aprovado.',
+        '───────────────────────────────────────────',
+        'LEIS HONRADAS',
+        '───────────────────────────────────────────',
+        absorvedItems.length ? absorvedItems.join('\n') : '(nenhuma lei foi honrada)',
         '',
-        'CRITÉRIOS COM OBSERVAÇÃO',
-        notedItems.length ? notedItems.join('\n') : '- Nenhuma observação registrada.',
+        '───────────────────────────────────────────',
+        'LEIS COM OBSERVAÇÃO',
+        '───────────────────────────────────────────',
+        notedItems.length ? notedItems.join('\n\n') : '(nenhuma observação registrada)',
         '',
+        '───────────────────────────────────────────',
         'SÍNTESE AUTOMÁTICA',
+        '───────────────────────────────────────────',
         statusData.summary,
         '',
+        '───────────────────────────────────────────',
         'PARECER FINAL',
-        (auditState.finalNote || '').trim() || 'Sem parecer final registrado.'
+        '───────────────────────────────────────────',
+        (auditState.finalNote || '').trim() || '(sem parecer registrado)',
+        '',
+        '═══════════════════════════════════════════',
+        'A superfície vende. A matéria continua.',
+        'A borra lembra. Até à próxima safra.',
+        '═══════════════════════════════════════════'
       ].join('\n');
 
       auditState.cleanReport = report;
@@ -647,8 +693,6 @@
 
       const output = document.getElementById('clean-report-output');
       output.value = report;
-
-      showView('auditoria');
       output.focus();
       output.select();
     }
@@ -665,29 +709,11 @@
 
       try {
         await navigator.clipboard.writeText(finalText);
+        alert('Parecer copiado para a área de transferência.');
       } catch (error) {
         document.getElementById('clean-report-output').focus();
         document.getElementById('clean-report-output').select();
       }
-    }
-
-    function showView(view) {
-      const views = ['mesa', 'poster', 'auditoria'];
-
-      views.forEach((name) => {
-        const viewEl = document.getElementById(`view-${name}`);
-        const btnEl = document.getElementById(`btn-${name}`);
-
-        if (name === view) {
-          viewEl.classList.remove('hidden');
-          btnEl.classList.add('bg-white', 'shadow-sm', 'text-slate-800');
-          btnEl.classList.remove('text-slate-500', 'hover:text-slate-800', 'bg-transparent');
-        } else {
-          viewEl.classList.add('hidden');
-          btnEl.classList.remove('bg-white', 'shadow-sm', 'text-slate-800');
-          btnEl.classList.add('text-slate-500', 'hover:text-slate-800', 'bg-transparent');
-        }
-      });
     }
 
     function bindMeta() {
@@ -695,13 +721,14 @@
       document.getElementById('meta-version').addEventListener('input', (e) => updateMeta('version', e.target.value));
       document.getElementById('meta-reviewer').addEventListener('input', (e) => updateMeta('reviewer', e.target.value));
       document.getElementById('meta-date').addEventListener('input', (e) => updateMeta('date', e.target.value));
+      document.getElementById('regime-obra').addEventListener('input', (e) => updateRegimeObra(e.target.value));
       document.getElementById('final-note').addEventListener('input', (e) => updateFinalNote(e.target.value));
       document.getElementById('final-decision').addEventListener('change', (e) => updateFinalDecision(e.target.value));
     }
 
     function renderAll() {
-      renderMesa();
-      renderPosterSteps();
+      renderLeis();
+      renderOrganismos();
       renderAudit();
     }
 
