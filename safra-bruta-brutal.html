@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SÀFRA BRUTA — A Liturgia da Terra</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --pedra: #0a0908;
+      --basalto: #11100f;
+      --argila: #171411;
+      --cortico: #211c18;
+      --ferrugem: #5a2a1d;
+      --acido: #6e3a16;
+      --ambar: #9b6424;
+      --ouro-velho: #a67a28;
+      --palha: #bda27b;
+      --cal: #ddd1bc;
+      --neve: #ebe4d8;
+      --vinho: #351018;
+      --mofo: #253025;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--pedra);
+      color: var(--cal);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: crosshair;
+      letter-spacing: 0.002em;
+      text-rendering: optimizeLegibility;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.28;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 35% at 78% 22%, rgba(90, 42, 29, 0.035) 0%, transparent 72%),
+        radial-gradient(ellipse 30% 50% at 16% 84%, rgba(37, 48, 37, 0.03) 0%, transparent 64%);
+      pointer-events: none;
+      z-index: 0;
+      animation: pressao 70s ease-in-out infinite alternate;
+    }
+
+    @keyframes pressao {
+      0% {
+        opacity: 0.85;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(8px);
+      }
+    }
+
+    @keyframes emerge {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes crescer {
+      from {
+        height: 0;
+      }
+      to {
+        height: 120px;
+      }
+    }
+
+    @keyframes pulso {
+      0%, 100% {
+        opacity: 0.08;
+      }
+      50% {
+        opacity: 0.14;
+      }
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.1rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(189, 162, 123, 0.08);
+      background: rgba(10, 9, 8, 0.94);
+      backdrop-filter: blur(2px);
+    }
+
+    .nav-sigla {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      color: var(--palha);
+      text-transform: uppercase;
+      opacity: 0.62;
+    }
+
+    .nav-lei {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.56rem;
+      letter-spacing: 0.14em;
+      color: var(--ferrugem);
+      opacity: 0.58;
+      font-style: normal;
+    }
+
+    section {
+      max-width: 1320px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    .abertura {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 7rem 3rem 3rem 3rem;
+      overflow: hidden;
+    }
+
+    .linha-acida {
+      width: 1px;
+      height: 0;
+      background: linear-gradient(to bottom, rgba(189, 162, 123, 0.55), transparent);
+      position: absolute;
+      left: 3rem;
+      top: 4rem;
+      animation: crescer 2.2s ease-out 0.8s forwards;
+    }
+
+    .abertura-epigraph {
+      font-size: 0.875rem;
+      color: #999;
+      margin-bottom: 32px;
+      font-style: italic;
+      opacity: 0;
+      animation: emerge 1.5s ease-out 0.3s forwards;
+    }
+
+    .abertura-titulo {
+      font-size: clamp(3.8rem, 9vw, 8.8rem);
+      font-weight: 300;
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      color: var(--neve);
+      margin-bottom: 0.8rem;
+      opacity: 0;
+      animation: emerge 1.9s ease-out 0.6s forwards;
+    }
+
+    .abertura-titulo em {
+      display: block;
+      font-size: 1rem;
+      font-weight: 300;
+      font-style: italic;
+      margin-top: 12px;
+      text-transform: none;
+    }
+
+    .abertura-subtitulo {
+      margin-top: 2.4rem;
+      max-width: 34ch;
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--cal);
+      line-height: 1.78;
+      opacity: 0;
+      animation: emerge 1.5s ease-out 1s forwards;
+    }
+
+    .abertura-linha {
+      display: block;
+      margin-top: 40px;
+      font-size: 0.875rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0;
+      animation: emerge 1.5s ease-out 1.4s forwards;
+    }
+
+    .secao {
+      padding: 5rem 3rem;
+      position: relative;
+    }
+
+    .secao-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.32em;
+      color: var(--ferrugem);
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+      display: block;
+      border-left: 3px solid var(--ferrugem);
+      padding-left: 12px;
+      opacity: 0.74;
+    }
+
+    .lei {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(189, 162, 123, 0.06);
+    }
+
+    .lei-numero {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--ferrugem);
+      margin-bottom: 8px;
+      letter-spacing: 0.1em;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .lei-enunciado {
+      font-size: 1.45rem;
+      font-weight: 300;
+      line-height: 1.22;
+      color: var(--neve);
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.015em;
+    }
+
+    .lei-enunciado em {
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    .lei-corpo {
+      font-size: 0.88rem;
+      color: var(--cal);
+      line-height: 1.72;
+      opacity: 0.7;
+      max-width: 38ch;
+    }
+
+    .personagem {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(189, 162, 123, 0.06);
+    }
+
+    .personagem-nome {
+      font-size: 1.55rem;
+      font-weight: 300;
+      color: var(--neve);
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.015em;
+    }
+
+    .personagem-funcao {
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--ferrugem);
+      margin-bottom: 12px;
+      letter-spacing: 0.05em;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .personagem-assinatura {
+      font-size: 0.86rem;
+      color: var(--cal);
+      line-height: 1.68;
+      opacity: 0.68;
+      font-style: normal;
+      margin-bottom: 8px;
+      font-weight: 400;
+    }
+
+    .personagem-ph {
+      font-size: 0.75rem;
+      color: #999;
+      font-style: italic;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .bloco-item {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(189, 162, 123, 0.06);
+    }
+
+    .bloco-romano {
+      display: inline-block;
+      font-size: 2rem;
+      font-weight: 300;
+      margin-right: 20px;
+      color: var(--ferrugem);
+    }
+
+    .bloco-titulo {
+      display: inline;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--neve);
+    }
+
+    .bloco-talian {
+      display: block;
+      font-size: 1rem;
+      font-style: italic;
+      color: #666;
+      margin: 8px 0 12px 0;
+    }
+
+    .bloco-caps {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--ferrugem);
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .bloco-descricao {
+      font-size: 1rem;
+      color: var(--cal);
+      line-height: 1.7;
+      opacity: 0.8;
+    }
+
+    .coda {
+      text-align: center;
+      margin-top: 120px;
+      margin-bottom: 100px;
+      padding: 6rem 3rem 4.5rem;
+      max-width: 1320px;
+    }
+
+    .coda-frase {
+      font-size: clamp(1.9rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.12;
+      color: var(--neve);
+      letter-spacing: -0.025em;
+      margin-bottom: 60px;
+    }
+
+    .coda-frase em {
+      display: block;
+      margin-top: 12px;
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    .coda-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      max-width: 50rem;
+      margin: 0 auto;
+    }
+
+    .coda-meta-item {
+      text-align: left;
+    }
+
+    .coda-meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--ferrugem);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .coda-meta-valor {
+      font-size: 1rem;
+      color: var(--cal);
+      font-weight: 300;
+    }
+
+    footer {
+      border-top: 1px solid rgba(189, 162, 123, 0.06);
+      padding: 1.6rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1320px;
+      margin: 0 auto;
+      font-size: 0.875rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer-autoria {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.22em;
+      color: var(--ferrugem);
+      opacity: 0.46;
+      text-transform: uppercase;
+    }
+
+    .footer-selo {
+      font-size: 0.78rem;
+      color: var(--palha);
+      opacity: 0.34;
+      font-style: normal;
+    }
+
+    .linha-viva {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(189, 162, 123, 0.28), transparent);
+      opacity: 0.08;
+      animation: pulso 18s ease-in-out infinite;
+      margin: 3rem 0;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 12px;
+        padding: 1rem 1.5rem;
+      }
+
+      .abertura {
+        padding: 5rem 1.5rem 2rem;
+      }
+
+      .secao {
+        padding: 3rem 1.5rem;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .coda-meta {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-sigla">SÀFRA BRUTA · Violeta Wilde</span>
+    <span class="nav-lei">Nada termina em pureza.</span>
+  </nav>
+
+  <section class="abertura">
+    <div class="linha-acida"></div>
+
+    <p class="abertura-epigraph">No resta gnente · Resta la tera</p>
+
+    <h1 class="abertura-titulo">
+      SÀFRA<br>BRUTA
+      <em>A Liturgia da Terra</em>
+    </h1>
+
+    <p class="abertura-subtitulo">
+      A casa não acolhe. A casa lê. Nada termina em pureza. O que entra já chega tarde e quase sempre chama de escolha o que já estava em curso.
+    </p>
+
+    <span class="abertura-linha">Basalto · borra · retenção · safra</span>
+  </section>
+
+  <section class="secao">
+    <span class="secao-label">Regime Canónico</span>
+
+    <div class="lei">
+      <p class="lei-numero">01 / 06</p>
+      <h2 class="lei-enunciado">Nomear cedo demais<br><em>já é falhar.</em></h2>
+      <p class="lei-corpo">Quem chama de origem o que é apenas pressão atrasada já entrou tarde no problema.</p>
+    </div>
+
+    <div class="lei">
+      <p class="lei-numero">02 / 06</p>
+      <h2 class="lei-enunciado">A matéria não responde.<br><em>Continua.</em></h2>
+      <p class="lei-corpo">O humano chama de falha aquilo que só mudou de regime sem pedir autorização.</p>
+    </div>
+
+    <div class="lei">
+      <p class="lei-numero">03 / 06</p>
+      <h2 class="lei-enunciado">A casa não acolhe. A casa não rejeita.<br><em>A casa lê.</em></h2>
+      <p class="lei-corpo">Basalto, junta, reboco, madeira: tudo regista antes de responder. O toque chega depois da leitura.</p>
+    </div>
+
+    <div class="lei">
+      <p class="lei-numero">04 / 06</p>
+      <h2 class="lei-enunciado">O erro produz mais<br><em>do que o método.</em></h2>
+      <p class="lei-corpo">Quando a técnica falha, a matéria não entra em crise. Só encontra via melhor.</p>
+    </div>
+
+    <div class="lei">
+      <p class="lei-numero">05 / 06</p>
+      <h2 class="lei-enunciado">O mercado não corrige.<br><em>Captura.</em></h2>
+      <p class="lei-corpo">A ruína muda de nome, ganha rótulo, sobe de preço e continua estragando por dentro.</p>
+    </div>
+
+    <div class="lei">
+      <p class="lei-numero">06 / 06</p>
+      <h2 class="lei-enunciado">Nada termina limpo.<br><em>Troca de substrato.</em></h2>
+      <p class="lei-corpo">O que sobra volta em borra, rastro, água, parede, corpo, produto e repetição.</p>
+    </div>
+  </section>
+
+  <div class="linha-viva"></div>
+
+  <section class="secao">
+    <span class="secao-label">Forças em Regime</span>
+
+    <div class="personagem">
+      <h3 class="personagem-nome">Lúcia</h3>
+      <p class="personagem-funcao">Técnica · Assepsia em Ruína</p>
+      <p class="personagem-assinatura">Não é mártir. Não é eleita. É mediana, ofendida, aplicada, arrogante, autoiludida. Quanto menos controla, mais central se imagina.</p>
+      <p class="personagem-ph">cortisol elevado · mão em tremor · protocolo falho</p>
+    </div>
+
+    <div class="personagem">
+      <h3 class="personagem-nome">Rosa</h3>
+      <p class="personagem-funcao">Leitura Funcional · Cozinha</p>
+      <p class="personagem-assinatura">Mede mais do que fala. Não consola. Não teoriza. Reconhece matéria, tempo, cheiro, fundo e mentira sem precisar de relatório.</p>
+      <p class="personagem-ph">fumaça · gordura · acidez certa</p>
+    </div>
+
+    <div class="personagem">
+      <h3 class="personagem-nome">Duarte</h3>
+      <p class="personagem-funcao">Escuta · Infraestrutura</p>
+      <p class="personagem-assinatura">Toca, escuta, testa, paga. Não profetiza. Lê pressão, conduíte, desvio, retenção. O corpo dele é custo operacional da casa.</p>
+      <p class="personagem-ph">basalto húmido · cobre · frequência baixa</p>
+    </div>
+
+    <div class="personagem">
+      <h3 class="personagem-nome">Vittorio</h3>
+      <p class="personagem-funcao">Captura · Operador Semântico</p>
+      <p class="personagem-assinatura">Não é caricatura. Instrumentaliza pertencimento, linguagem e herança. Quando não consegue habitar a matéria, empacota a narrativa.</p>
+      <p class="personagem-ph">perfume deslocado · branding · etiqueta</p>
+    </div>
+
+    <div class="personagem">
+      <h3 class="personagem-nome">Elias</h3>
+      <p class="personagem-funcao">Medição · Ciência em Ruína</p>
+      <p class="personagem-assinatura">Mede para não afogar. O corpo dele registra o que o aparelho já não consegue organizar. Tremor é leitura, não detalhe.</p>
+      <p class="personagem-ph">2.8–3.2 Hz · papel grosso · pânico contido</p>
+    </div>
+
+    <div class="personagem">
+      <h3 class="personagem-nome">Dona Nona</h3>
+      <p class="personagem-funcao">Passagem · Continuidade</p>
+      <p class="personagem-assinatura">Prepara, distribui, não sentimentaliza. O que nela sobrevive não depende de biografia limpa nem de bênção institucional.</p>
+      <p class="personagem-ph">grão vivo · café escuro · mão exacta</p>
+    </div>
+  </section>
+
+  <section class="secao">
+    <span class="secao-label">Estrutura Canónica</span>
+
+    <div class="bloco-item">
+      <span class="bloco-romano">I</span>
+      <h3 class="bloco-titulo">O Sedimento</h3>
+      <p class="bloco-talian">Soto de Tutto</p>
+      <p class="bloco-caps">Prólogo · Cap. 1–2</p>
+      <p class="bloco-descricao">Fundar a soberania da Madre. O humano entra achando que controla. Já chegou tarde. A casa reconhece antes de ser reconhecida.</p>
+    </div>
+
+    <div class="bloco-item">
+      <span class="bloco-romano">II</span>
+      <h3 class="bloco-titulo">A Pressão</h3>
+      <p class="bloco-talian">Crudar o Sangue</p>
+      <p class="bloco-caps">Cap. 3–10</p>
+      <p class="bloco-descricao">Cobrar o corpo. Aqui começa a tarifa. O corte abre mais do que separa. O sistema humano já reage em atraso.</p>
+    </div>
+
+    <div class="bloco-item">
+      <span class="bloco-romano">III</span>
+      <h3 class="bloco-titulo">A Retenção</h3>
+      <p class="bloco-talian">L'Oscuro de Pipa</p>
+      <p class="bloco-caps">Cap. 11–16</p>
+      <p class="bloco-descricao">Sequestro temporal e transmutação. O vinho deixa de obedecer à linguagem da pureza. O humano continua nomeando em falso.</p>
+    </div>
+
+    <div class="bloco-item">
+      <span class="bloco-romano">IV</span>
+      <h3 class="bloco-titulo">A Captura</h3>
+      <p class="bloco-talian">La Morte de Forme</p>
+      <p class="bloco-caps">Cap. 17–20</p>
+      <p class="bloco-descricao">O sistema absorve o erro, empacota a ruína e chama isso de valor. O poder muda de lugar. O controle continua ilusório.</p>
+    </div>
+
+    <div class="bloco-item">
+      <span class="bloco-romano">V</span>
+      <h3 class="bloco-titulo">A Dispersão</h3>
+      <p class="bloco-talian">El Retorno a Terra</p>
+      <p class="bloco-caps">Cap. 21–24 · Epílogo</p>
+      <p class="bloco-descricao">Nada termina. O rastro muda de escala. O mercado vende superfície. A matéria continua por baixo, por dentro e depois.</p>
+    </div>
+  </section>
+
+  <section class="coda">
+    <div class="coda-frase">
+      A superfície vende.<br>
+      A matéria continua.<br>
+      A borra lembra.
+      <em>Até à próxima safra.</em>
+    </div>
+
+    <div class="coda-meta">
+      <div class="coda-meta-item">
+        <p class="coda-meta-label">Autora</p>
+        <p class="coda-meta-valor">Violeta Wilde</p>
+      </div>
+      <div class="coda-meta-item">
+        <p class="coda-meta-label">Território</p>
+        <p class="coda-meta-valor">Serra Gaúcha · basalto · adega · subsolo</p>
+      </div>
+      <div class="coda-meta-item">
+        <p class="coda-meta-label">Regime</p>
+        <p class="coda-meta-valor">realismo microbiológico · sem consolo</p>
+      </div>
+      <div class="coda-meta-item">
+        <p class="coda-meta-label">Matéria</p>
+        <p class="coda-meta-valor">borra · rastro · retenção · repetição</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-autoria">© Violeta Wilde · SÀFRA BRUTA · A Liturgia da Terra</span>
+    <span class="footer-selo">A casa tem fome.</span>
+  </footer>
+
+</body>
+</html>
