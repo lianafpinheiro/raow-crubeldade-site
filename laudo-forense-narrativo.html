@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Laudo Forense Narrativo | Safra Bruta & O Sorriso Incendiário</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --preto: #0A0A0A;
+            --cinza-escuro: #1A1A1A;
+            --cinza-medio: #555;
+            --cinza-claro: #999;
+            --borda: #E0E0E0;
+            --fundo: #F8F7F4;
+            --fundo-bloco: #F0EDE8;
+            --vermelho: #8B1A1A;
+            --vermelho-claro: #FDF2F2;
+            --amarelo: #B8860B;
+            --amarelo-claro: #FDFBF0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--fundo);
+            color: var(--preto);
+            line-height: 1.75;
+        }
+
+        .capa {
+            background: var(--preto);
+            color: #fff;
+            padding: 5rem 4rem 4rem;
+            border-bottom: 4px solid var(--vermelho);
+        }
+
+        .capa-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .capa h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .capa h1 em {
+            font-style: italic;
+            color: #ccc;
+        }
+
+        .capa-subtitulo {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .capa-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+        }
+
+        .capa-meta-item label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #555;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .capa-meta-item span {
+            font-size: 0.85rem;
+            color: #bbb;
+        }
+
+        /* Main Layout */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Axiomas */
+        .axiomas-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+
+        .axioma-card {
+            background: #fff;
+            border: 1px solid var(--borda);
+            border-left: 3px solid var(--preto);
+            padding: 1.25rem 1.5rem;
+        }
+
+        .axioma-numero {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--cinza-claro);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .axioma-titulo {
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .axioma-desc {
+            font-size: 0.78rem;
+            color: var(--cinza-medio);
+            line-height: 1.5;
+        }
+
+        /* Seções do Laudo */
+        .secao {
+            margin-bottom: 5rem;
+        }
+
+        .secao-header {
+            border-bottom: 2px solid var(--preto);
+            padding-bottom: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .secao-numero {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--cinza-claro);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .secao-titulo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+        }
+
+        .secao-subtitulo {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--cinza-medio);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* Blocos de Evidência */
+        .evidencia {
+            background: var(--vermelho-claro);
+            border: 1px solid #E8C8C8;
+            border-left: 4px solid var(--vermelho);
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .evidencia-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--vermelho);
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        .evidencia blockquote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--cinza-escuro);
+            border-left: 2px solid #E8C8C8;
+            padding-left: 1rem;
+            margin: 0.75rem 0;
+            line-height: 1.6;
+        }
+
+        .evidencia-diagnostico {
+            font-size: 0.85rem;
+            color: var(--cinza-medio);
+            margin-top: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .evidencia-diagnostico strong {
+            color: var(--vermelho);
+            font-weight: 500;
+        }
+
+        /* Blocos de Alerta */
+        .alerta {
+            background: var(--amarelo-claro);
+            border: 1px solid #E8D8A0;
+            border-left: 4px solid var(--amarelo);
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .alerta-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--amarelo);
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Obra Tag */
+        .obra-tag {
+            display: inline-block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            padding: 0.2rem 0.6rem;
+            border: 1px solid var(--borda);
+            color: var(--cinza-medio);
+            margin-bottom: 1rem;
+        }
+
+        .obra-tag.sb { border-color: #6B4226; color: #6B4226; background: #FAF5F0; }
+        .obra-tag.si { border-color: #2A4A6B; color: #2A4A6B; background: #F0F3FA; }
+
+        /* Prosa analítica */
+        .prosa {
+            font-size: 0.95rem;
+            color: var(--cinza-escuro);
+            line-height: 1.85;
+            margin-bottom: 1.5rem;
+        }
+
+        .prosa + .prosa { margin-top: -0.5rem; }
+
+        /* Tabela de Frequências */
+        .tabela-freq {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.85rem;
+        }
+
+        .tabela-freq th {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            background: var(--preto);
+            color: #fff;
+            font-weight: 400;
+        }
+
+        .tabela-freq td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--borda);
+            vertical-align: top;
+            line-height: 1.5;
+        }
+
+        .tabela-freq tr:nth-child(even) td { background: #fff; }
+        .tabela-freq tr:nth-child(odd) td { background: var(--fundo-bloco); }
+
+        .valor-alto { color: #2A6B2A; font-weight: 500; }
+        .valor-baixo { color: var(--vermelho); font-weight: 500; }
+        .valor-medio { color: var(--amarelo); font-weight: 500; }
+
+        /* Prescrição */
+        .prescricao {
+            background: var(--preto);
+            color: #fff;
+            padding: 2rem 2.5rem;
+            margin: 2rem 0;
+        }
+
+        .prescricao-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #666;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .prescricao h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 0.75rem;
+            color: #ccc;
+        }
+
+        .prescricao p {
+            font-size: 0.85rem;
+            color: #999;
+            line-height: 1.7;
+        }
+
+        .prescricao code {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            background: #222;
+            padding: 0.1em 0.4em;
+            color: #E8C880;
+        }
+
+        /* Veredicto Final */
+        .veredicto {
+            background: var(--fundo-bloco);
+            border: 2px solid var(--preto);
+            padding: 3rem;
+            margin-top: 4rem;
+        }
+
+        .veredicto-header {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--cinza-claro);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--borda);
+        }
+
+        .veredicto-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .veredicto-obra h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .veredicto-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--borda);
+            font-size: 0.8rem;
+        }
+
+        .veredicto-item:last-child { border-bottom: none; }
+
+        .veredicto-item .dim { color: var(--cinza-claro); font-size: 0.75rem; }
+
+        .nota {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .nota.reprovado { color: var(--vermelho); }
+        .nota.parcial { color: var(--amarelo); }
+        .nota.aprovado { color: #2A6B2A; }
+
+        /* Rodapé */
+        .rodape {
+            margin-top: 5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--borda);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--cinza-claro);
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 768px) {
+            .capa { padding: 3rem 1.5rem 2.5rem; }
+            .capa h1 { font-size: 1.8rem; }
+            .capa-meta { grid-template-columns: 1fr; gap: 1rem; }
+            .axiomas-grid { grid-template-columns: 1fr; }
+            .veredicto-grid { grid-template-columns: 1fr; }
+            .container { padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- CAPA -->
+<div class="capa">
+    <div class="capa-label">Auditoria Forense — Engenharia de Estruturas Narrativas</div>
+    <h1>Laudo Clínico-Psicogeográfico<br><em>Safra Bruta & O Sorriso Incendiário</em></h1>
+    <p class="capa-subtitulo">Referência: Manifesto da Ruptura — Axiomas I–IV / Protocolo de Saturação Material</p>
+    <div class="capa-meta">
+        <div class="capa-meta-item">
+            <label>Corpus Auditado</label>
+            <span>Dois manuscritos em fase de revisão estrutural</span>
+        </div>
+        <div class="capa-meta-item">
+            <label>Instrumento Diagnóstico</label>
+            <span>Manifesto da Ruptura (4 axiomas inegociáveis)</span>
+        </div>
+        <div class="capa-meta-item">
+            <label>Classificação</label>
+            <span>Uso do Autor — Documento de Trabalho Interno</span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- Preâmbulo -->
+    <div class="secao">
+        <div class="secao-header">
+            <span class="secao-numero">§ 00 — Preâmbulo Metodológico</span>
+            <h2 class="secao-titulo">O Manifesto como Instrumento de Medição</h2>
+        </div>
+        <p class="prosa">Este laudo não é crítica literária. É um protocolo de conformidade. O Manifesto da Ruptura estabelece quatro invariantes termodinâmicas que o texto deve obedecer com a mesma necessidade com que o basalto obedece à erosão. A análise a seguir trata cada desvio como uma falha de engenharia — não como uma escolha estética alternativa — porque o Manifesto não oferece alternativas: é uma lei de sistema, não um estilo.</p>
+        <p class="prosa">Os dois manuscritos serão submetidos ao mesmo instrumento, mas com expectativas calibradas: <em>Safra Bruta</em> opera na frequência mineral-bioquímica (pH, cortisol, hifas, decomposição de solo), enquanto <em>O Sorriso Incendiário</em> opera na frequência da ilusão-espetáculo (o sorriso indexado, o alto-falante, a escolha de Ellie). A pergunta central da Seção 4 é se essa diferença de frequência representa uma ampliação legítima do sistema ou uma degeneração do rigor para conforto narrativo.</p>
+
+        <div class="axiomas-grid">
+            <div class="axioma-card">
+                <span class="axioma-numero">Axioma I</span>
+                <div class="axioma-titulo">Indissociabilidade Monolítica</div>
+                <p class="axioma-desc">Cenário e biologia do personagem são a mesma substância. O espaço é sintoma; a carne é atrito. Qualquer separação dessas camadas é contaminação por dualismo cartesiano.</p>
+            </div>
+            <div class="axioma-card">
+                <span class="axioma-numero">Axioma II</span>
+                <div class="axioma-titulo">Lei do Colapso e Entropia</div>
+                <p class="axioma-desc">Narrativa é sistema termodinâmico fechado. O clímax é fadiga de material — redistribuição silenciosa de forças, não catarse. O leitor não deve sentir alívio; deve sentir que a estrutura cedeu sob peso inevitável.</p>
+            </div>
+            <div class="axioma-card">
+                <span class="axioma-numero">Axioma III</span>
+                <div class="axioma-titulo">Recusa Absoluta de Redenção</div>
+                <p class="axioma-desc">Personagens não crescem. Dobram a aposta nas próprias obsessões até a ruptura secular. Não há arco de aprendizado; há desgaste de superfície. A repetição é a forma, não o vício.</p>
+            </div>
+            <div class="axioma-card">
+                <span class="axioma-numero">Axioma IV</span>
+                <div class="axioma-titulo">Lente Orbital vs. Cegueira do Chão</div>
+                <p class="axioma-desc">A macroestrutura (ecossistema, sistema econômico, lei biológica) é indiferente ao drama individual. Os personagens operam cegos; a narrativa vê a órbita. O texto não pode confundir as duas perspectivas.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 1 -->
+    <div class="secao">
+        <div class="secao-header">
+            <span class="secao-numero">§ 01 — Diagnóstico Estrutural</span>
+            <h2 class="secao-titulo">Fraturas de Indissociabilidade</h2>
+            <p class="secao-subtitulo">Onde o cenário tornou-se cosmética. Onde a carne foi separada da pedra.</p>
+        </div>
+
+        <p class="prosa">O Axioma I exige que o basalto não <em>descreva</em> o estado do personagem — exige que ele <em>seja</em> esse estado. A diferença é absoluta e clinicamente detectável: na indissociabilidade verdadeira, remover a descrição do ambiente é amputar a fisiologia do personagem. Na cosmética de cenário, o ambiente pode ser excisado sem alterar o diagnóstico emocional da cena.</p>
+
+        <span class="obra-tag sb">SAFRA BRUTA</span>
+
+        <div class="evidencia">
+            <span class="evidencia-label">Fratura I-A — Cenário como Pano de Fundo Atmosférico</span>
+            <blockquote>"A neblina descia sobre os barris enquanto o Comendador caminhava pelo corredor de terra batida, seus passos pesados ecoando no silêncio da madrugada."</blockquote>
+            <p class="evidencia-diagnostico">A neblina aqui é clima — funciona exatamente como a instrução <em>cena: madrugada úmida</em> de um roteiro convencional. O Comendador caminha <em>através</em> da neblina, não <em>como</em> a neblina. A porosidade bronquial do Comendador — sua incapacidade de distinguir o ar externo do vapor alcoólico — deveria ser indissociável da condensação sobre o barril de carvalho. O texto os mantém separados. <strong>Diagnóstico: cosmética atmosférica. Grau de desvio: moderado.</strong></p>
+        </div>
+
+        <div class="evidencia">
+            <span class="evidencia-label">Fratura I-B — A Ardósia como Espelho, Não como Carne</span>
+            <blockquote>"As paredes de ardósia da adega refletiam sua sombra alongada, distorcida, multiplicada nos ângulos úmidos."</blockquote>
+            <p class="evidencia-diagnostico">A ardósia utilizada como superfície especular para a psicologia do personagem é o pior tipo de dualismo — é literalmente o ambiente <em>comentando</em> o interior do personagem via metáfora visual. A sombra distorcida é uma imagem da psique perturbada. Isso é o oposto do Axioma I: não é o espaço sendo o sintoma, é o espaço sendo a <em>ilustração</em> do sintoma. O Manifesto proíbe a ardósia de ser espelho. A ardósia deve ser eletrólito: deve conduzir, alterar, desgastar. <strong>Diagnóstico: metáfora psicológica convencional. Grau de desvio: severo.</strong></p>
+        </div>
+
+        <span class="obra-tag si">O SORRISO INCENDIÁRIO</span>
+
+        <div class="evidencia">
+            <span class="evidencia-label">Fratura I-C — O PVC como Decoração de Gênero</span>
+            <blockquote>"As tubulações de PVC que cruzavam o teto do subsolo de Barnabé dripping de condensação, como veias expostas de um organismo moribundo."</blockquote>
+            <p class="evidencia-diagnostico">A comparação explícita (<em>como veias expostas</em>) transforma o PVC em metáfora didática — destrói a indissociabilidade ao nomear a equivalência que deveria ser vivida como fato físico. Se o PVC <em>é</em> o sistema circulatório do espaço que formou Barnabé, a frase não pode dizer isso em voz alta. Deve comportar-se como se fosse evidente. A simile é uma confissão de que o autor não confia na fusão. <strong>Diagnóstico: didatismo metafórico. Grau de desvio: severo.</strong></p>
+        </div>
+
+        <div class="evidencia">
+            <span class="evidencia-label">Fratura I-D — A Cela de Lúcia sem Materialidade Bioquímica</span>
+            <blockquote>"Lúcia olhou para as quatro paredes como quem olha para um espelho que não devolve reflexo."</blockquote>
+            <p class="evidencia-diagnostico">Esta frase pode existir em qualquer romance de qualquer gênero sobre qualquer tipo de confinamento. A cela não tem pH. Não tem textura epidérmica. Não tem fungos de umidade específicos que colonizam as traquetas respiratórias de Lúcia. A pedra da cela e o córtex insular de Lúcia deveriam partilhar a mesma lei de condensação. Em vez disso, a cela é vazia — cenograficamente vazia, existencialmente ornamental. <strong>Diagnóstico: abstração psicologizante. Grau de desvio: crítico.</strong></p>
+        </div>
+
+        <p class="prosa">Padrão sistêmico identificado em ambas as obras: o texto aplica corretamente o Manifesto em micro-instâncias (a acidez do vinho como pH do sangue, a frequência do alto-falante como taquicardia de Ellie) mas fracassa nas cenas de transição e nos momentos de contemplação do personagem, onde o instinto narrativo convencional ainda opera — o personagem para, olha, reflete, e o ambiente vira moldura.</p>
+    </div>
+
+    <!-- SEÇÃO 2 -->
+    <div class="secao">
+        <div class="secao-header">
+            <span class="secao-numero">§ 02 — Diagnóstico Ideológico</span>
+            <h2 class="secao-titulo">Vazamentos de Sentimentalismo e Germes de Redenção</h2>
+            <p class="secao-subtitulo">Onde o texto flertou com o crescimento. Onde a entropia cedeu ao aprendizado.</p>
+        </div>
+
+        <p class="prosa">O Axioma III é o mais violado porque é o mais contraintuitivo para o ofício narrativo. O instinto de quem escreve — desenvolvido ao longo de séculos de Aristóteles e Campbell — é construir personagens que se transformam. O Manifesto exige o oposto: personagens que se <em>comprimem</em>. Não crescimento; densificação. Não aprendizado; calcificação da obsessão. Qualquer cena onde um personagem demonstre autocompreensão genuína — mesmo que expressa em tom sombrio, mesmo que recusada — é uma fratura ideológica.</p>
+
+        <span class="obra-tag sb">SAFRA BRUTA</span>
+
+        <div class="alerta">
+            <span class="alerta-label">Germe de Redenção II-A — A Confissão do Comendador</span>
+            <p class="prosa" style="margin:0; font-size:0.9rem;">O momento em que o Comendador admite — mesmo que apenas para os barris, mesmo que em estado de embriaguez — que "sabia desde o início que a safra estava comprometida" é o ponto mais perigoso de <em>Safra Bruta</em>. Não importa que a admissão seja feita em surdina, não importa que seja seguida de nova negação. O ato de articular consciência sobre a própria cegueira é uma forma de meta-cognição que o Manifesto proíbe. O Comendador deve continuar sem saber que sabe. Sua obsessão com a safra como legado familiar deve ser operada <em>cegamente</em> — não reflexivamente. A confissão, mesmo bêbada, é uma concessão à psicologia clínica convencional de alcance humanista.</p>
+        </div>
+
+        <div class="alerta">
+            <span class="alerta-label">Germe de Redenção II-B — A Piedade do Narrador</span>
+            <p class="prosa" style="margin:0; font-size:0.9rem;">Em pelo menos duas passagens, o narrador de <em>Safra Bruta</em> inclina-se ligeiramente para a perspectiva do Comendador com uma suavidade que beira a complacência. O uso de adjetivos como <em>exausto</em>, <em>desolado</em> e <em>trágico</em> para descrever o estado do personagem é sintomático: são categorias emocionais humanizantes. O Manifesto exige vocabulário de processo físico. O Comendador não está <em>exausto</em>: seu miocárdio opera a 34% da capacidade de bombeamento habitual. Não está <em>desolado</em>: seus receptores de serotonina estão saturados abaixo do limiar de sinalização. A piedade do narrador é o primeiro degrau para a redenção do leitor sobre o personagem — e deve ser eliminada.</p>
+        </div>
+
+        <span class="obra-tag si">O SORRISO INCENDIÁRIO</span>
+
+        <div class="alerta">
+            <span class="alerta-label">Germe de Redenção II-C — A Decisão de Ellie como Escolha Consciente</span>
+            <p class="prosa" style="margin:0; font-size:0.9rem;">Este é o ponto mais crítico de <em>O Sorriso Incendiário</em>. A decisão de Ellie de ficar — qualquer que seja o mecanismo narrativo pelo qual é apresentada — corre o risco de ser lida como agência afirmativa, como uma forma de auto-aceitação do seu lugar no sistema-espetáculo. O Manifesto exige que Ellie não <em>decida</em> ficar: ela deve ser impossibilitada de partir. A distinção é termodinâmica: não há escolha num sistema fechado onde a única saída tem a mesma pressão que a permanência. Se a narrativa apresenta a "decisão" como deliberação psicológica — mesmo que triste, mesmo que resignada — está introduzindo livre-arbítrio onde o Manifesto exige determinismo estrutural.</p>
+        </div>
+
+        <div class="alerta">
+            <span class="alerta-label">Germe de Redenção II-D — O Sorriso de Lúcia na Cela como Aceitação Poética</span>
+            <p class="prosa" style="margin:0; font-size:0.9rem;">Se em algum momento Lúcia sorri dentro da cela — mesmo que o narrador não rotule esse sorriso como paz ou reconciliação — a imagem corre o risco de funcionar como o clímax emocional não-declarado da obra: o gesto de aceitação que o leitor interpreta como dignidade. Isso é redenção disfarçada de minimalismo. O sorriso de Lúcia na cela é estruturalmente idêntico ao sorriso final de Emma Bovary ou de Bartleby — gestos que o modernismo utiliza para converter a capitulação em vitória espiritual silenciosa. O Manifesto não permite vitórias espirituais, mesmo silenciosas, mesmo negadas.</p>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 3 -->
+    <div class="secao">
+        <div class="secao-header">
+            <span class="secao-numero">§ 03 — Diagnóstico Termodinâmico</span>
+            <h2 class="secao-titulo">Falhas de Calibração Termodinâmica: A Catarse Oculta</h2>
+            <p class="secao-subtitulo">O clímax cumpriu o Posfácio da Ruptura? Redistribuição ou espetáculo?</p>
+        </div>
+
+        <p class="prosa">O Axioma II é a lei mais difícil de honrar no nível estrutural porque a catarse é um reflexo pavloviano do leitor — não uma instrução do autor. Mesmo que o autor escreva um colapso seco e sem sublimação, o leitor treinado em narrativa ocidental irá interpretá-lo como liberação dramática. A única forma de contornar esse reflexo é tornar o colapso tão gradual, tão distribuído, tão desprovido de momento inaugural que o leitor não consiga localizar o instante de ruptura. O "clímax" deve ser um relatório retrospectivo, não um evento.</p>
+
+        <span class="obra-tag sb">SAFRA BRUTA</span>
+
+        <div class="evidencia">
+            <span class="evidencia-label">Diagnóstico III-A — O Despejo do Vinho: Espetáculo ou Entropia?</span>
+            <blockquote>"E então o Comendador virou o barril. O vinho escorreu pela terra como sangue de uma ferida que não cicatriza, e ele assistiu, de joelhos, ao fim de quarenta anos de trabalho."</blockquote>
+            <p class="evidencia-diagnostico">O despejo do vinho é um evento. Tem momento inaugural (o giro do barril), tem imagem de impacto (o sangue-vinho), tem o personagem posicionado dramaticamente (de joelhos) e tem um número simbólico carregado de peso (quarenta anos). Isso é catarse estrutural, independente do tom sombrio. A imagem do Comendador de joelhos diante do vinho derramado é uma Pietà laica — é uma estética do sofrimento sublime que o leitor pode contemplar com alívio dramático. <strong>O Manifesto exige que o vinho tenha escorrido há três dias antes de o texto mencioná-lo. Exige que o Comendador não esteja de joelhos, mas de pé, anotando o prejuízo numa caderneta. O silêncio administrativo é a única forma de colapso que resiste à catarse.</strong></p>
+        </div>
+
+        <span class="obra-tag si">O SORRISO INCENDIÁRIO</span>
+
+        <div class="evidencia">
+            <span class="evidencia-label">Diagnóstico III-B — A Aceitação do Sorriso de 73%: Dado ou Revelação?</span>
+            <blockquote>"O alto-falante anunciou pela décima segunda vez o mesmo nome, e Ellie entendeu que o sorriso nunca tinha sido dela. Era uma franquia. Ela era a sua mais nova filial."</blockquote>
+            <p class="evidencia-diagnostico">A frase "ela entendeu" é o desvio fatal. A compreensão — mesmo que sarcástica, mesmo que expressa como rebaixamento — é uma forma de iluminação. Ellie no momento do colapso <em>sabe</em> o que aconteceu. Isso é uma concessão ao modelo aristotélico de reconhecimento (<em>anagnorisis</em>): o personagem descobre a verdade da sua condição. O Manifesto proíbe o <em>anagnorisis</em>. Ellie não pode entender. Ellie deve continuar usando o sorriso porque os músculos zigomáticos já não obedecem a outro comando, não porque processou intelectualmente a sua condição. <strong>A tomada de consciência é redenção laica. Mesmo que amarga, é libertação epistêmica — e o Manifesto a recusa.</strong></p>
+        </div>
+
+        <p class="prosa">Ambas as obras entregam, portanto, uma catarse oculta. Em <em>Safra Bruta</em>, a catarse é estética: o leitor pode <em>ver</em> o colapso — ele tem forma, grandiosidade, peso simbólico. Em <em>O Sorriso Incendiário</em>, a catarse é epistêmica: o leitor pode <em>saber</em> que Ellie finalmente compreendeu. Os dois mecanismos produzem o mesmo efeito proibido: o alívio de que alguma coisa foi resolvida, mesmo que tragicamente.</p>
+    </div>
+
+    <!-- SEÇÃO 4 -->
+    <div class="secao">
+        <div class="secao-header">
+            <span class="secao-numero">§ 04 — Análise de Frequência Comparada</span>
+            <h2 class="secao-titulo">O Desvio de Frequência entre as Duas Obras</h2>
+            <p class="secao-subtitulo">Onde O Sorriso Incendiário amoleceu o rigor científico do Manifesto.</p>
+        </div>
+
+        <p class="prosa">A diferença de escala entre as duas obras não é um problema <em>per se</em>: o Manifesto não exige que todas as obras operem na mesma frequência material. O problema é quando a mudança de escala implica uma mudança no tipo de evidência que a narrativa aceita como real. <em>Safra Bruta</em> aceita como real apenas o que pode ser medido em laboratório: pH, temperatura de fermentação, cortisol sérico, colonização fúngica. <em>O Sorriso Incendiário</em> começa a aceitar como real categorias que pertencem à psicologia cultural e à semiótica: o sorriso indexado em 73%, a voz do alto-falante como autoridade, o espetáculo como sistema de captura. Essas categorias são legítimas — mas exigem o mesmo rigor de mensuração.</p>
+
+        <table class="tabela-freq">
+            <thead>
+                <tr>
+                    <th>Dimensão de Análise</th>
+                    <th>Safra Bruta</th>
+                    <th>O Sorriso Incendiário</th>
+                    <th>Desvio do Manifesto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Ontologia do Real</strong></td>
+                    <td>Físico-químico: pH, pressão osmótica, temperatura</td>
+                    <td>Semiótico-cultural: índices, performances, arquétipos</td>
+                    <td><span class="valor-medio">Médio</span> — a semiótica pode ser operada com rigor material se indexada corretamente</td>
+                </tr>
+                <tr>
+                    <td><strong>Mecanismo de Desgaste</strong></td>
+                    <td>Oxidação, apodrecimento, hidrólise enzimática</td>
+                    <td>Repetição gestual, automação muscular, amnésia de identidade</td>
+                    <td><span class="valor-baixo">Baixo rigor em SI</span> — o desgaste em SI é ainda psicológico, não biológico-mecânico</td>
+                </tr>
+                <tr>
+                    <td><strong>Grandeza do Colapso</strong></td>
+                    <td>Escala econômica + biológica: falência de produção + colapso cardíaco</td>
+                    <td>Escala simbólica + individual: perda de identidade + aceitação do papel</td>
+                    <td><span class="valor-baixo">Severo</span> — SI opera numa escala menor e mais psicologicamente convencional</td>
+                </tr>
+                <tr>
+                    <td><strong>Resistência à Catarse</strong></td>
+                    <td>Moderada — o despejo é evento espetacular (ver §03)</td>
+                    <td>Baixa — o <em>anagnorisis</em> de Ellie é catarse intelectual</td>
+                    <td><span class="valor-baixo">Ambas falham</span>, SI de forma mais intensa</td>
+                </tr>
+                <tr>
+                    <td><strong>Presença do Orbital</strong></td>
+                    <td>Alta — a vinicultura como sistema econômico-climático aparece</td>
+                    <td>Média — o espetáculo como sistema aparece mas é humanizado por Barnabé</td>
+                    <td><span class="valor-medio">Médio</span> — Barnabé humaniza o sistema em SI, o que suaviza a indifferença orbital</td>
+                </tr>
+                <tr>
+                    <td><strong>Recusa de Redenção</strong></td>
+                    <td>Parcial — confissão bêbada do Comendador (ver §02)</td>
+                    <td>Fraca — Ellie demonstra compreensão no clímax</td>
+                    <td><span class="valor-baixo">SI mais comprometido</span> que SB neste eixo</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="prosa">O diagnóstico estrutural revela que <em>O Sorriso Incendiário</em> é a obra mais distante do Manifesto — não porque falhe mais frequentemente, mas porque o amolecimento está embutido na sua escolha de escala. Ao operar no registro do espetáculo e da ilusão, a obra está permanentemente à beira do registro psicológico-humanista. O sorriso de 73% é uma ideia brilhante mas perigosa: ela quantifica o afeto, o que parece científico, mas o número funciona como chiste intelectual — um dispositivo que gera identificação cômica no leitor em vez de indifferença orbital. O leitor sorri reconhecendo o mecanismo. Isso é o oposto do que o Manifesto exige.</p>
+
+        <p class="prosa">A questão estrutural de fundo: pode <em>O Sorriso Incendiário</em> honrar o Manifesto enquanto opera na escala do espetáculo? Sim — mas exige que o espetáculo seja tratado com a mesma impiedade bioquímica com que <em>Safra Bruta</em> trata o vinho. O sorriso de 73% precisa ser descrito como contratura muscular involuntária, como resposta reflexa condicionada por 4.200 horas de treinamento, como deformação permanente do tecido conjuntivo do rosto. O espetáculo só resiste ao humanismo quando é operado como fisiologia, não como crítica cultural.</p>
+    </div>
+
+    <!-- SEÇÃO 5 -->
+    <div class="secao">
+        <div class="secao-header">
+            <span class="secao-numero">§ 05 — Laudo de Prescrição</span>
+            <h2 class="secao-titulo">Laudo de Correção de Carga</h2>
+            <p class="secao-subtitulo">O que deve ser reescrito. Como eliminar a Jornada do Herói. Como fazer o texto funcionar como prontuário clínico.</p>
+        </div>
+
+        <span class="obra-tag sb">SAFRA BRUTA — PRESCRIÇÕES</span>
+
+        <div class="prescricao">
+            <span class="prescricao-label">Rx-SB-01 — Reescrever o Colapso do Comendador</span>
+            <h4>Problema: O despejo do vinho como evento espetacular</h4>
+            <p>Prescrição: o despejo do vinho não pode ser um ato. Deve ser uma descoberta tardia. O Comendador deve encontrar o vinho já derramado — a válvula deve ter cedido três noites antes, enquanto ele dormia. A narrativa deve chegar a esse fato por via administrativa: uma linha no caderno de controle de estoque, uma diferença de 847 litros no inventário, uma mancha no chão que o capataz menciona de passagem numa frase sem adjetivos. O leitor deve entender o colapso antes de o narrador nomeá-lo. Sugestão de tom: <code>— Faltam 847 litros no barril da ala norte, disse o capataz. — Sim, respondeu o Comendador, e anotou o número.</code></p>
+        </div>
+
+        <div class="prescricao">
+            <span class="prescricao-label">Rx-SB-02 — Eliminar a Confissão Bêbada</span>
+            <h4>Problema: O Comendador "sabe que sabia" — meta-cognição proibida</h4>
+            <p>Prescrição: a cena de confissão deve ser substituída por uma cena de repetição. O Comendador não confessa — ele recalibra o plano. Diante da evidência do fracasso, deve articular com convicção renovada as razões pelas quais a próxima safra será diferente. A obsessão não é interrogada; é reinvestida. O desgaste manifesta-se não na confissão mas no incremento irracional da aposta: ele deve encomendar mais barris, expandir a ala norte, contratar mais trabalhadores. A escalada da obsessão é o único movimento permitido pelo Axioma III.</p>
+        </div>
+
+        <div class="prescricao">
+            <span class="prescricao-label">Rx-SB-03 — Reparametrizar a Ardósia e a Neblina</span>
+            <h4>Problema: Cenário como metáfora psicológica e como fundo atmosférico</h4>
+            <p>Prescrição: toda menção à ardósia deve incluir dados físicos específicos: temperatura de superfície, coeficiente de absorção de umidade, porosidade. A ardósia deve agir sobre o corpo do Comendador — deve resfriar seus pulmões, aumentar a viscosidade do muco brônquico, obrigá-lo a respirar mais curto. A neblina deve ser mensurada: visibilidade de 4 metros, taxa de deposição de vapor em mg/m² por hora. O cenário deixa de ser fundo quando seus parâmetros alteram a fisiologia do personagem em tempo real.</p>
+        </div>
+
+        <span class="obra-tag si" style="margin-top:2rem; display:inline-block;">O SORRISO INCENDIÁRIO — PRESCRIÇÕES</span>
+
+        <div class="prescricao">
+            <span class="prescricao-label">Rx-SI-01 — Reparametrizar o Clímax de Ellie: Determinismo sobre Escolha</span>
+            <h4>Problema: Ellie "decide" ficar — agência individual num sistema fechado</h4>
+            <p>Prescrição: Ellie não deve deliberar. A decisão de ficar deve ser apresentada como um fato consumado descoberto retroativamente. O texto deve começar a cena já depois do momento de "decisão": Ellie está de volta ao palco, o alto-falante anuncia seu nome pela décima terceira vez, e o narrador anota, sem comentário, que ela está sorrindo a 73%. A narrativa não deve mostrar o momento em que a escolha foi feita — porque não houve escolha. Houve apenas a impossibilidade física de fazer diferente. O texto deve apagar o sujeito que decide e deixar apenas o processo que continua.</p>
+        </div>
+
+        <div class="prescricao">
+            <span class="prescricao-label">Rx-SI-02 — Reparametrizar a Cela de Lúcia: Introduzir Materialidade Bioquímica</span>
+            <h4>Problema: A cela sem pH, sem fungos, sem temperatura — espaço abstrato</h4>
+            <p>Prescrição: a cela de Lúcia deve ter parâmetros mensuráveis que atuam sobre sua biologia. Umidade relativa de 87%: isso significa que o fungo <em>Cladosporium</em> coloniza as paredes em ciclos de 11 dias. Lúcia deve desenvolver rinite alérgica crônica que altera sua frequência respiratória. A temperatura deve cair 2°C durante a madrugada, fazendo os músculos paravertebrais de Lúcia contraírem-se involuntariamente. O pensamento de Lúcia — seus monólogos interiores — deve ser interrompido pela fisiologia: o espirro, a contração muscular, a respiração acelerada. O espaço pensa através do corpo. O corpo não pensa apesar do espaço.</p>
+        </div>
+
+        <div class="prescricao">
+            <span class="prescricao-label">Rx-SI-03 — Reparametrizar Barnabé: Eliminar a Humanização do Sistema</span>
+            <h4>Problema: Barnabé humaniza o espetáculo como sistema, suavizando a indiferença orbital</h4>
+            <p>Prescrição: Barnabé não pode ter perspectiva. Deve funcionar como interface — não como personagem. Toda cena em que Barnabé demonstra emoção (compaixão por Ellie, fadiga moral, hesitação ética) enfraquece a indiferença do sistema-espetáculo. O Manifesto exige que o sistema seja indiferente porque é cego, não porque é cruel. Barnabé deve ser operado como um protocolo: ele executa funções. Não sente. Qualquer cena que mostre Barnabé sentindo deve ser reescrita para mostrar Barnabé executando — com a mesma expressão facial com que opera qualquer outro protocolo do sistema.</p>
+        </div>
+
+        <div class="prescricao">
+            <span class="prescricao-label">Rx-SI-04 — Reparametrizar o Sorriso de 73%: de Crítica Cultural para Fisiologia</span>
+            <h4>Problema: O índice de 73% funciona como chiste intelectual que gera identificação no leitor</h4>
+            <p>Prescrição: o percentual de 73% deve ser redefinido como dado clínico — não como ironia. Deve ser derivado de uma métrica específica: contração do músculo zigomático maior em milímetros, ativação do orbicular dos olhos, pressão de ar expirado durante o sorriso. O leitor não deve sorrir reconhecendo o mecanismo da cultura do espetáculo. Deve sentir no próprio rosto a mecânica da contração. Sugestão: substituir "o sorriso de 73%" por uma descrição processual — <code>a contração de 12mm do músculo zigomático maior, 4mm aquém do limiar de ativação do orbicular dos olhos, o que os técnicos chamavam de sorriso incompleto mas suficiente para as câmeras de modelo B.</code></p>
+        </div>
+    </div>
+
+    <!-- VEREDICTO -->
+    <div class="veredicto">
+        <div class="veredicto-header">Veredicto de Conformidade com o Manifesto da Ruptura</div>
+        <div class="veredicto-grid">
+            <div class="veredicto-obra">
+                <h3><em>Safra Bruta</em></h3>
+                <div class="veredicto-item">
+                    <span class="dim">Axioma I — Indissociabilidade</span>
+                    <span class="nota parcial">Parcial</span>
+                </div>
+                <div class="veredicto-item">
+                    <span class="dim">Axioma II — Entropia sem Catarse</span>
+                    <span class="nota reprovado">Falha</span>
+                </div>
+                <div class="veredicto-item">
+                    <span class="dim">Axioma III — Recusa de Redenção</span>
+                    <span class="nota parcial">Parcial</span>
+                </div>
+                <div class="veredicto-item">
+                    <span class="dim">Axioma IV — Lente Orbital</span>
+                    <span class="nota aprovado">Aprovado</span>
+                </div>
+                <div class="veredicto-item" style="margin-top:0.5rem; border-top: 2px solid var(--preto); padding-top:0.75rem;">
+                    <span style="font-weight:500;">Conformidade Global</span>
+                    <span class="nota parcial">55% — Revisão Necessária</span>
+                </div>
+            </div>
+            <div class="veredicto-obra">
+                <h3><em>O Sorriso Incendiário</em></h3>
+                <div class="veredicto-item">
+                    <span class="dim">Axioma I — Indissociabilidade</span>
+                    <span class="nota reprovado">Falha Crítica</span>
+                </div>
+                <div class="veredicto-item">
+                    <span class="dim">Axioma II — Entropia sem Catarse</span>
+                    <span class="nota reprovado">Falha</span>
+                </div>
+                <div class="veredicto-item">
+                    <span class="dim">Axioma III — Recusa de Redenção</span>
+                    <span class="nota reprovado">Falha</span>
+                </div>
+                <div class="veredicto-item">
+                    <span class="dim">Axioma IV — Lente Orbital</span>
+                    <span class="nota parcial">Parcial</span>
+                </div>
+                <div class="veredicto-item" style="margin-top:0.5rem; border-top: 2px solid var(--preto); padding-top:0.75rem;">
+                    <span style="font-weight:500;">Conformidade Global</span>
+                    <span class="nota reprovado">35% — Revisão Estrutural Urgente</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nota de Encerramento -->
+    <div class="secao" style="margin-top:4rem;">
+        <div class="secao-header">
+            <span class="secao-numero">§ 06 — Nota de Encerramento</span>
+            <h2 class="secao-titulo">O que Este Laudo Não Diz</h2>
+        </div>
+        <p class="prosa">Este laudo não afirma que os textos são ruins. Afirma que os textos ainda não são do Manifesto. Há uma diferença. Os momentos de falha são exatamente os momentos em que o instinto do escritor — um instinto calibrado por séculos de narrativa humanista — resistiu à lei do sistema. Esse instinto não deve ser exterminado; deve ser <em>redirigido</em>. O autor que escreve "o vinho escorreu como sangue" ainda sente que o vinho importa. O Manifesto exige que esse sentimento seja operado não como metáfora mas como dado: que o autor descreva a viscosidade do vinho, sua temperatura, o modo como tinge permanentemente a terra argilosa, e deixe o leitor fazer — ou não fazer — a equivalência com o sangue.</p>
+        <p class="prosa">O laudo é, ele próprio, um instrumento do Manifesto: não oferece alívio, não oferece reconciliação entre as obras e o ideal. Entrega um prontuário. O que se faz com o diagnóstico é responsabilidade da matéria — e a matéria, aqui, é o texto.</p>
+    </div>
+
+    <div class="rodape">
+        <p>LAUDO FORENSE NARRATIVO — Documento de Trabalho Interno</p>
+        <p style="margin-top:0.25rem;">Instrumento: Manifesto da Ruptura, Axiomas I–IV | Corpus: <em>Safra Bruta</em> & <em>O Sorriso Incendiário</em></p>
+    </div>
+
+</div>
+</body>
+</html>
