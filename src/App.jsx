@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import KallyniVideoConvite from './components/KallyniVideoConvite';
 import FrutasMortais from './components/FrutasMortais';
 import ChecklistCores from './components/ChecklistCores';
+import HauntingThoughts from './components/HauntingThoughts';
 
 function App() {
   const [currentView, setCurrentView] = useState('home');
@@ -14,6 +15,8 @@ function App() {
         return <FrutasMortais />;
       case 'checklist-cores':
         return <ChecklistCores />;
+      case 'haunting-thoughts':
+        return <HauntingThoughts />;
       default:
         return (
           <div className="min-h-screen bg-gradient-to-br from-purple-900 via-black to-orange-900 text-white flex items-center justify-center p-4">
@@ -24,10 +27,17 @@ function App() {
 
               <div className="space-y-4">
                 <button
+                  onClick={() => setCurrentView('haunting-thoughts')}
+                  className="w-full bg-red-900 hover:bg-red-800 text-white font-bold py-6 px-8 rounded-lg transition-all transform hover:scale-105 text-xl"
+                >
+                  ☠ O Que Te Assombra?
+                </button>
+
+                <button
                   onClick={() => setCurrentView('kallyni')}
                   className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-6 px-8 rounded-lg transition-all transform hover:scale-105 text-xl"
                 >
-                  🎉 Convite - 15 Anos da Kallyni
+                  Convite - 15 Anos da Kallyni
                 </button>
 
                 <button
