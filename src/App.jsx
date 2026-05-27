@@ -4,6 +4,7 @@ import FrutasMortais from './components/FrutasMortais';
 import ChecklistCores from './components/ChecklistCores';
 import HauntingThoughts from './components/HauntingThoughts';
 import LillythApp from './components/LillythApp';
+import SistemaHeraldico from './components/SistemaHeraldico';
 
 function App() {
   const [currentView, setCurrentView] = useState('home');
@@ -20,6 +21,8 @@ function App() {
         return <HauntingThoughts />;
       case 'lillyth':
         return <LillythApp />;
+      case 'heraldico':
+        return <SistemaHeraldico />;
       default:
         return (
           <div className="min-h-screen bg-gradient-to-br from-purple-900 via-black to-orange-900 text-white flex items-center justify-center p-4">
@@ -29,6 +32,14 @@ function App() {
               </h1>
 
               <div className="space-y-4">
+                <button
+                  onClick={() => setCurrentView('heraldico')}
+                  className="w-full font-bold py-6 px-8 rounded-lg transition-all transform hover:scale-105 text-xl"
+                  style={{ background: 'linear-gradient(135deg, #1A1810, #2A2418)', color: '#C4A253', border: '1px solid #C4A25355', letterSpacing: '0.12em' }}
+                >
+                  ♛ THE GODLESS CROWN — Sistema Heráldico
+                </button>
+
                 <button
                   onClick={() => setCurrentView('lillyth')}
                   className="w-full font-bold py-6 px-8 rounded-lg transition-all transform hover:scale-105 text-xl"
