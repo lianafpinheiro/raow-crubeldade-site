@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SKSAM — Every Skin Remembers The Face It Replaced</title>
+  <meta name="description" content="Uma exposição sobre identidade, superfície e desaparecimento. 05.06–28.06.2025 · Galeria Origin · São Paulo">
+  <meta property="og:title" content="SKSAM — Every Skin Remembers The Face It Replaced">
+  <meta property="og:description" content="An Exhibition on Identity, Surface and Disappearance. Galeria Origin, São Paulo · SP">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Paleta 4: Preto Total + Ouro Cirúrgico ─── */
+    :root {
+      --preto:    #0B0B0B;
+      --carvao:   #141414;
+      --grafite:  #1E1E1E;
+      --onix:     #2A2A2A;
+      --ouro:     #D4AF37;
+      --ouro-dim: rgba(212,175,55,.55);
+      --ouro-glow:rgba(212,175,55,.15);
+      --osso:     #F2F0EB;
+      --texto:    #C8C4BC;
+      --branco:   #E8E4DC;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--preto);
+      color: var(--texto);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--preto); }
+    ::-webkit-scrollbar-thumb { background: var(--ouro-dim); }
+
+    /* ─── Utility ─── */
+    .cinzel { font-family: 'Cinzel', serif; }
+    .gold   { color: var(--ouro); }
+    .small-caps {
+      font-family: 'Cinzel', serif;
+      font-size: .7em;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+    }
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--ouro-dim);
+      display: block;
+      margin: 0 auto;
+    }
+    .divider-left { margin: 0; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 3rem;
+      background: linear-gradient(to bottom, rgba(11,11,11,.95) 0%, transparent 100%);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      text-decoration: none;
+    }
+
+    .nav-badge {
+      width: 36px;
+      height: 36px;
+      opacity: .85;
+    }
+
+    .nav-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .7rem;
+      font-weight: 400;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--texto);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav-link {
+      font-size: .65rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--texto);
+      text-decoration: none;
+      transition: color .25s;
+    }
+    .nav-link:hover { color: var(--ouro); }
+
+    .nav-cta {
+      font-size: .65rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--preto);
+      background: var(--ouro);
+      padding: .55rem 1.4rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background .25s;
+    }
+    .nav-cta:hover { background: #C9A227; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding: 8rem 2rem 4rem;
+    }
+
+    /* Subtle noise texture overlay */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(212,175,55,.04) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 80% at 20% 50%, rgba(30,30,30,.6) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 80% at 80% 50%, rgba(20,20,20,.6) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-presented {
+      font-size: .65rem;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--ouro-dim);
+      margin-bottom: 3rem;
+    }
+
+    /* The mirrored exhibition title */
+    .exhibit-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(4rem, 14vw, 11rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: .06em;
+      color: var(--branco);
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .exhibit-title .letter { display: inline-block; }
+    .exhibit-title .mirror { display: inline-block; transform: scaleX(-1); }
+    .exhibit-title .dot {
+      display: inline-block;
+      width: .15em;
+      height: .15em;
+      background: var(--ouro);
+      border-radius: 50%;
+      vertical-align: middle;
+      margin: 0 .1em;
+      position: relative;
+      top: -.05em;
+    }
+
+    /* Reflection */
+    .title-reflection {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(4rem, 14vw, 11rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: .06em;
+      color: transparent;
+      background: linear-gradient(to bottom, rgba(212,175,55,.12) 0%, transparent 70%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      transform: scaleY(-1);
+      filter: blur(2px);
+      margin-top: -1rem;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-rule {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 2.5rem auto;
+      max-width: 500px;
+    }
+    .hero-rule .line { flex: 1; height: 1px; background: var(--ouro-dim); }
+    .hero-rule .diamond {
+      width: 6px; height: 6px;
+      background: var(--ouro);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    .hero-tagline {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(.9rem, 2.5vw, 1.35rem);
+      font-weight: 400;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--branco);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .hero-sub {
+      font-size: .75rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--texto);
+      margin-bottom: 3.5rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0 2rem;
+      font-size: .7rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--ouro);
+    }
+    .hero-meta span { position: relative; }
+    .hero-meta span:not(:last-child)::after {
+      content: '·';
+      position: absolute;
+      right: -1.1rem;
+      color: var(--ouro-dim);
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 3.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      font-size: .65rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--preto);
+      background: var(--ouro);
+      border: none;
+      padding: .9rem 2.5rem;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background .25s, transform .15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: #C9A227; transform: translateY(-1px); }
+
+    .btn-secondary {
+      font-size: .65rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--ouro);
+      background: transparent;
+      border: 1px solid var(--ouro-dim);
+      padding: .9rem 2.5rem;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 400;
+      transition: border-color .25s, color .25s;
+      display: inline-block;
+    }
+    .btn-secondary:hover { border-color: var(--ouro); color: var(--branco); }
+
+    /* Scroll cue */
+    .scroll-cue {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+    }
+    .scroll-cue span {
+      font-size: .55rem;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--ouro-dim);
+    }
+    .scroll-cue-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--ouro-dim), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity: .4; }
+      50% { opacity: 1; }
+    }
+
+    /* ─── CONCEPT ─── */
+    .concept {
+      padding: 8rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .section-label {
+      font-size: .6rem;
+      letter-spacing: .45em;
+      text-transform: uppercase;
+      color: var(--ouro);
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .section-label::before,
+    .section-label::after {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 1px;
+      background: var(--ouro-dim);
+    }
+
+    .concept-quote {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--branco);
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .concept-quote::before {
+      content: '"';
+      position: absolute;
+      top: -.5em;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 4em;
+      color: var(--ouro-glow);
+      font-family: 'Cinzel', serif;
+      line-height: 1;
+    }
+
+    .concept-body {
+      font-size: .9rem;
+      line-height: 1.9;
+      color: var(--texto);
+      max-width: 640px;
+      margin: 0 auto 3rem;
+    }
+
+    .concept-keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      justify-content: center;
+      margin-top: 2.5rem;
+    }
+    .keyword {
+      font-size: .6rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--ouro-dim);
+      border: 1px solid var(--onix);
+      padding: .4rem 1rem;
+    }
+
+    /* ─── PILLARS ─── */
+    .pillars {
+      padding: 6rem 2rem;
+      background: var(--carvao);
+    }
+    .pillars-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
+      margin-top: 4rem;
+    }
+
+    .pillar {
+      background: var(--preto);
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background .3s;
+    }
+    .pillar:hover { background: var(--grafite); }
+    .pillar::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 2px;
+      height: 0;
+      background: var(--ouro);
+      transition: height .4s ease;
+    }
+    .pillar:hover::before { height: 100%; }
+
+    .pillar-num {
+      font-family: 'Cinzel', serif;
+      font-size: .65rem;
+      letter-spacing: .3em;
+      color: var(--ouro-dim);
+      margin-bottom: 1.5rem;
+    }
+    .pillar-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--branco);
+      margin-bottom: 1rem;
+    }
+    .pillar-body {
+      font-size: .82rem;
+      line-height: 1.8;
+      color: var(--texto);
+    }
+
+    /* ─── INFO BAND ─── */
+    .info-band {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 3rem 2rem;
+    }
+
+    .info-block { }
+    .info-label {
+      font-size: .6rem;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--ouro-dim);
+      margin-bottom: .75rem;
+    }
+    .info-value {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--branco);
+      line-height: 1.5;
+    }
+    .info-note {
+      font-size: .75rem;
+      color: var(--texto);
+      margin-top: .4rem;
+    }
+
+    /* ─── TICKET SECTION ─── */
+    .ticket-section {
+      background: var(--grafite);
+      padding: 6rem 2rem;
+    }
+    .ticket-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .ticket-card {
+      background: var(--carvao);
+      border: 1px solid var(--onix);
+      padding: 3.5rem;
+      margin: 3rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .ticket-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--ouro), transparent);
+    }
+    .ticket-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--ouro-dim), transparent);
+    }
+
+    .ticket-type {
+      font-size: .6rem;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--ouro);
+      margin-bottom: 1rem;
+    }
+    .ticket-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--branco);
+      margin-bottom: .5rem;
+    }
+    .ticket-desc {
+      font-size: .8rem;
+      color: var(--texto);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .ticket-details {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .ticket-detail { text-align: center; }
+    .ticket-detail .label {
+      font-size: .55rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--ouro-dim);
+      display: block;
+      margin-bottom: .3rem;
+    }
+    .ticket-detail .val {
+      font-family: 'Cinzel', serif;
+      font-size: .85rem;
+      color: var(--branco);
+    }
+
+    .ticket-sep {
+      width: 100%;
+      border: none;
+      border-top: 1px dashed var(--onix);
+      margin: 2rem 0;
+    }
+
+    .ticket-barcode {
+      display: flex;
+      justify-content: center;
+      gap: 2px;
+      margin-top: 1.5rem;
+    }
+    .barcode-bar {
+      background: var(--ouro-dim);
+      height: 30px;
+    }
+
+    /* ─── PALETTE STRIP ─── */
+    .palette-strip {
+      display: flex;
+      height: 4px;
+    }
+    .palette-strip div { flex: 1; }
+
+    /* ─── BRAND MARK SECTION ─── */
+    .brandmark {
+      padding: 8rem 2rem;
+      text-align: center;
+    }
+    .brandmark-inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .large-mark {
+      margin: 4rem auto;
+      width: 160px;
+      height: 160px;
+    }
+
+    .brand-statement {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 400;
+      line-height: 1.7;
+      color: var(--branco);
+      margin: 3rem 0 1.5rem;
+    }
+    .brand-manifesto {
+      font-size: .82rem;
+      line-height: 1.9;
+      color: var(--texto);
+    }
+
+    /* ─── OPENING NIGHT ─── */
+    .opening {
+      background: var(--carvao);
+      padding: 6rem 2rem;
+    }
+    .opening-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .opening-date {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 700;
+      color: var(--ouro);
+      letter-spacing: .05em;
+      line-height: 1;
+      margin: 2rem 0 .5rem;
+    }
+    .opening-time {
+      font-size: .7rem;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--texto);
+      margin-bottom: 2.5rem;
+    }
+
+    .opening-form {
+      display: flex;
+      gap: 0;
+      max-width: 440px;
+      margin: 2.5rem auto 0;
+    }
+    .opening-input {
+      flex: 1;
+      background: var(--preto);
+      border: 1px solid var(--onix);
+      border-right: none;
+      color: var(--branco);
+      padding: .9rem 1.2rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .75rem;
+      outline: none;
+    }
+    .opening-input::placeholder { color: var(--texto); opacity: .5; }
+    .opening-input:focus { border-color: var(--ouro-dim); }
+    .opening-submit {
+      background: var(--ouro);
+      border: none;
+      color: var(--preto);
+      padding: .9rem 1.5rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .6rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .25s;
+      white-space: nowrap;
+    }
+    .opening-submit:hover { background: #C9A227; }
+
+    .opening-note {
+      font-size: .65rem;
+      color: var(--texto);
+      opacity: .6;
+      margin-top: 1rem;
+      letter-spacing: .1em;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--onix);
+      padding: 4rem 3rem 3rem;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-col-title {
+      font-size: .6rem;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--ouro-dim);
+      margin-bottom: 1.2rem;
+    }
+    .footer-col p,
+    .footer-col a {
+      font-size: .78rem;
+      color: var(--texto);
+      line-height: 1.8;
+      display: block;
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-col a:hover { color: var(--ouro); }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid var(--onix);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-copy {
+      font-size: .65rem;
+      color: var(--texto);
+      opacity: .5;
+      letter-spacing: .1em;
+    }
+    .footer-tagline-small {
+      font-size: .65rem;
+      color: var(--ouro-dim);
+      letter-spacing: .15em;
+      font-style: italic;
+    }
+
+    /* ─── Animations ─── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── Mobile ─── */
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-right { gap: 1.2rem; }
+      .nav-link { display: none; }
+
+      .info-band { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+
+      .opening-form { flex-direction: column; }
+      .opening-input { border-right: 1px solid var(--onix); border-bottom: none; }
+
+      .pillar { padding: 2rem 1.5rem; }
+      .ticket-card { padding: 2.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Navigation ─────────────────────────────────── -->
+<nav>
+  <a href="#" class="nav-logo" aria-label="Literary Skins">
+    <svg class="nav-badge" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="30" cy="30" r="28" stroke="#D4AF37" stroke-width="1.2" opacity=".7"/>
+      <circle cx="30" cy="30" r="20" stroke="#D4AF37" stroke-width=".8" opacity=".5"/>
+      <circle cx="30" cy="30" r="12" stroke="#D4AF37" stroke-width=".8" opacity=".4"/>
+      <circle cx="30" cy="30" r="5"  stroke="#D4AF37" stroke-width="1.2" opacity=".8"/>
+      <line x1="30" y1="2"  x2="30" y2="18" stroke="#D4AF37" stroke-width=".8" opacity=".5"/>
+      <line x1="30" y1="42" x2="30" y2="58" stroke="#D4AF37" stroke-width=".8" opacity=".5"/>
+      <line x1="2"  y1="30" x2="18" y2="30" stroke="#D4AF37" stroke-width=".8" opacity=".5"/>
+      <line x1="42" y1="30" x2="58" y2="30" stroke="#D4AF37" stroke-width=".8" opacity=".5"/>
+      <path d="M30 10 L32 18 L30 25 L28 18 Z" fill="#D4AF37" opacity=".6"/>
+    </svg>
+    <span class="nav-name">Literary Skins</span>
+  </a>
+  <div class="nav-right">
+    <a href="#conceito" class="nav-link">Conceito</a>
+    <a href="#exposicao" class="nav-link">Exposição</a>
+    <a href="#vernissage" class="nav-link">Vernissage</a>
+    <a href="#vernissage" class="nav-cta">RSVP</a>
+  </div>
+</nav>
+
+<!-- ─── Hero ───────────────────────────────────────── -->
+<section class="hero" id="topo">
+  <p class="hero-presented">Literary Skins presents</p>
+
+  <h1 class="exhibit-title" aria-label="SKSAM">
+    <span class="mirror">S</span><!--
+    --><span class="letter">K</span><!--
+    --><span class="mirror">S</span><!--
+    --><span class="mirror" style="display:inline-block;transform:scaleX(-1);">&#x0222;</span><!--
+    --><span class="letter">M</span>
+  </h1>
+
+  <!-- Reflection echo -->
+  <div class="title-reflection" aria-hidden="true">SKSAM</div>
+
+  <div class="hero-rule" aria-hidden="true">
+    <span class="line"></span>
+    <span class="diamond"></span>
+    <span class="line"></span>
+  </div>
+
+  <p class="hero-tagline">
+    Every Skin Remembers<br>The Face It Replaced
+  </p>
+
+  <p class="hero-sub">An Exhibition on Identity, Surface and Disappearance</p>
+
+  <div class="hero-meta">
+    <span>05.06 — 28.06.2025</span>
+    <span>Galeria Origin</span>
+    <span>São Paulo · SP</span>
+  </div>
+
+  <div class="hero-cta-group">
+    <a href="#vernissage" class="btn-primary">Reservar Ingresso</a>
+    <a href="#conceito"   class="btn-secondary">Sobre a Exposição</a>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-cue-line"></div>
+  </div>
+</section>
+
+<!-- Palette accent strip -->
+<div class="palette-strip" aria-hidden="true">
+  <div style="background:#0B0B0B"></div>
+  <div style="background:#141414"></div>
+  <div style="background:#1E1E1E"></div>
+  <div style="background:#2A2A2A"></div>
+  <div style="background:#D4AF37"></div>
+</div>
+
+<!-- ─── Concept ────────────────────────────────────── -->
+<section class="concept" id="conceito">
+  <div class="section-label">Conceito</div>
+
+  <blockquote class="concept-quote fade-up">
+    Toda pele lembra o rosto que substituiu.
+  </blockquote>
+
+  <p class="concept-body fade-up">
+    SKSAM é uma investigação sobre o que permanece quando a superfície cede. Sobre as identidades que usamos para sobreviver — e as que destruímos ao fazê-lo. Sobre a memória impressa na matéria, a fratura como forma de revelação, e o que existe no espaço entre quem fomos e quem nos tornamos.
+  </p>
+
+  <p class="concept-body fade-up" style="margin-top:-1rem">
+    Reunindo obras em pintura, escultura, instalação e performance, esta exposição confronta o espectador com a natureza instável da identidade: sempre em processo, nunca completa, eternamente marcada pelas superfícies que habitou.
+  </p>
+
+  <span class="divider fade-up"></span>
+
+  <div class="concept-keywords fade-up">
+    <span class="keyword">Litúrgico</span>
+    <span class="keyword">Preciso</span>
+    <span class="keyword">Sombrio</span>
+    <span class="keyword">Luxuoso</span>
+    <span class="keyword">Eterno</span>
+    <span class="keyword">Ruptura</span>
+    <span class="keyword">Transcendência</span>
+    <span class="keyword">Silêncio</span>
+  </div>
+</section>
+
+<!-- ─── Three Pillars ──────────────────────────────── -->
+<section class="pillars" id="exposicao">
+  <div class="pillars-inner">
+    <div class="section-label">Eixos Temáticos</div>
+
+    <div class="pillars-grid">
+      <div class="pillar fade-up">
+        <div class="pillar-num">01 ·</div>
+        <div class="pillar-title">Identidade</div>
+        <p class="pillar-body">
+          Quem somos quando ninguém nos observa — e quem nos tornamos sob o peso do olhar alheio. A identidade como performance involuntária, construída camada a camada até tornar-se indistinguível da pele.
+        </p>
+      </div>
+
+      <div class="pillar fade-up" style="transition-delay:.1s">
+        <div class="pillar-num">02 ·</div>
+        <div class="pillar-title">Superfície</div>
+        <p class="pillar-body">
+          A superfície não é o oposto da profundidade — é o lugar onde a profundidade se manifesta. Cada cicatriz, cada marca, cada textura carrega a memória de uma pressão. A matéria como arquivo do vivido.
+        </p>
+      </div>
+
+      <div class="pillar fade-up" style="transition-delay:.2s">
+        <div class="pillar-num">03 ·</div>
+        <div class="pillar-title">Desaparecimento</div>
+        <p class="pillar-body">
+          O que resta quando alguém desaparece? Não o corpo — a impressão. O negativo no espaço. A exposição investiga o desaparecimento não como ausência, mas como forma de permanência invertida.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Info Band ──────────────────────────────────── -->
+<div class="info-band">
+  <div class="info-block fade-up">
+    <div class="info-label">Período</div>
+    <div class="info-value">05 Junho — 28 Junho 2025</div>
+    <div class="info-note">Terça a domingo · 11h–20h</div>
+  </div>
+  <div class="info-block fade-up" style="transition-delay:.1s">
+    <div class="info-label">Local</div>
+    <div class="info-value">Galeria Origin</div>
+    <div class="info-note">São Paulo · SP · Brasil</div>
+  </div>
+  <div class="info-block fade-up" style="transition-delay:.2s">
+    <div class="info-label">Entrada</div>
+    <div class="info-value">Gratuita</div>
+    <div class="info-note">Reserva recomendada para o vernissage</div>
+  </div>
+  <div class="info-block fade-up" style="transition-delay:.3s">
+    <div class="info-label">Vernissage</div>
+    <div class="info-value">05 Junho · 19h</div>
+    <div class="info-note">Convite necessário — vagas limitadas</div>
+  </div>
+</div>
+
+<!-- ─── Ticket ─────────────────────────────────────── -->
+<section class="ticket-section">
+  <div class="ticket-inner">
+    <div class="section-label">Credencial</div>
+    <h2 class="cinzel fade-up" style="font-size:1.8rem;color:var(--branco);font-weight:600;margin-top:.5rem">
+      Exhibition Ticket
+    </h2>
+    <p class="fade-up" style="font-size:.8rem;color:var(--texto);margin-top:.75rem;line-height:1.7">
+      Emita seu ingresso antecipado. Acesso livre durante todo o período da exposição, com prioridade de entrada no vernissage para portadores de convite.
+    </p>
+
+    <div class="ticket-card fade-up">
+      <div class="ticket-type">Admit One · Exposição SKSAM</div>
+      <div class="ticket-name">Š · KSAM</div>
+      <p class="ticket-desc">Every Skin Remembers The Face It Replaced<br>An Exhibition on Identity, Surface and Disappearance</p>
+
+      <div class="ticket-details">
+        <div class="ticket-detail">
+          <span class="label">Data</span>
+          <span class="val">05.06–28.06</span>
+        </div>
+        <div class="ticket-detail">
+          <span class="label">Local</span>
+          <span class="val">Galeria Origin</span>
+        </div>
+        <div class="ticket-detail">
+          <span class="label">Cidade</span>
+          <span class="val">São Paulo · SP</span>
+        </div>
+        <div class="ticket-detail">
+          <span class="label">Entrada</span>
+          <span class="val">Gratuita</span>
+        </div>
+      </div>
+
+      <hr class="ticket-sep">
+
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+        <div style="text-align:left">
+          <div style="font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ouro-dim);margin-bottom:.3rem">Presented by</div>
+          <div style="font-family:'Cinzel',serif;font-size:.85rem;color:var(--branco)">Literary Skins</div>
+        </div>
+        <div class="ticket-barcode" aria-hidden="true">
+          <!-- Decorative barcode bars -->
+          <div class="barcode-bar" style="width:2px"></div><div class="barcode-bar" style="width:1px;opacity:.4"></div>
+          <div class="barcode-bar" style="width:3px"></div><div class="barcode-bar" style="width:1px;opacity:.4"></div>
+          <div class="barcode-bar" style="width:2px"></div><div class="barcode-bar" style="width:2px;opacity:.4"></div>
+          <div class="barcode-bar" style="width:1px"></div><div class="barcode-bar" style="width:3px;opacity:.4"></div>
+          <div class="barcode-bar" style="width:2px"></div><div class="barcode-bar" style="width:1px;opacity:.4"></div>
+          <div class="barcode-bar" style="width:2px"></div><div class="barcode-bar" style="width:2px;opacity:.4"></div>
+          <div class="barcode-bar" style="width:1px"></div><div class="barcode-bar" style="width:3px;opacity:.4"></div>
+          <div class="barcode-bar" style="width:2px"></div><div class="barcode-bar" style="width:1px;opacity:.4"></div>
+          <div class="barcode-bar" style="width:2px"></div><div class="barcode-bar" style="width:2px;opacity:.4"></div>
+          <div class="barcode-bar" style="width:3px"></div><div class="barcode-bar" style="width:1px;opacity:.4"></div>
+          <div class="barcode-bar" style="width:2px"></div>
+          <div style="margin-left:4px;font-size:.5rem;color:var(--ouro-dim);align-self:flex-end;letter-spacing:.05em">LS2506-EXH-01</div>
+        </div>
+      </div>
+    </div>
+
+    <a href="#vernissage" class="btn-primary" style="margin-top:1rem">Reservar Ingresso</a>
+  </div>
+</section>
+
+<!-- ─── Brand Mark ─────────────────────────────────── -->
+<section class="brandmark">
+  <div class="brandmark-inner">
+    <div class="section-label">Literary Skins</div>
+
+    <svg class="large-mark" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Literary Skins badge">
+      <circle cx="80" cy="80" r="76" stroke="#D4AF37" stroke-width="1" opacity=".6"/>
+      <circle cx="80" cy="80" r="60" stroke="#D4AF37" stroke-width=".7" opacity=".4"/>
+      <circle cx="80" cy="80" r="44" stroke="#D4AF37" stroke-width=".7" opacity=".35"/>
+      <circle cx="80" cy="80" r="28" stroke="#D4AF37" stroke-width=".7" opacity=".3"/>
+      <circle cx="80" cy="80" r="12" stroke="#D4AF37" stroke-width="1" opacity=".7"/>
+      <circle cx="80" cy="80" r="4"  fill="#D4AF37" opacity=".8"/>
+      <!-- Radial lines -->
+      <line x1="80" y1="4"   x2="80" y2="52"  stroke="#D4AF37" stroke-width=".7" opacity=".4"/>
+      <line x1="80" y1="108" x2="80" y2="156" stroke="#D4AF37" stroke-width=".7" opacity=".4"/>
+      <line x1="4"  y1="80"  x2="52" y2="80"  stroke="#D4AF37" stroke-width=".7" opacity=".4"/>
+      <line x1="108" y1="80" x2="156" y2="80" stroke="#D4AF37" stroke-width=".7" opacity=".4"/>
+      <!-- Diagonals -->
+      <line x1="26"  y1="26"  x2="58"  y2="58"  stroke="#D4AF37" stroke-width=".5" opacity=".25"/>
+      <line x1="102" y1="102" x2="134" y2="134" stroke="#D4AF37" stroke-width=".5" opacity=".25"/>
+      <line x1="134" y1="26"  x2="102" y2="58"  stroke="#D4AF37" stroke-width=".5" opacity=".25"/>
+      <line x1="26"  y1="134" x2="58"  y2="102" stroke="#D4AF37" stroke-width=".5" opacity=".25"/>
+      <!-- Outer text path -->
+      <path id="circle-text-path" d="M 80,80 m -68,0 a 68,68 0 1,1 136,0 a 68,68 0 1,1 -136,0" fill="none"/>
+      <text font-family="'Space Grotesk',sans-serif" font-size="8" fill="#D4AF37" opacity=".5" letter-spacing="5">
+        <textPath href="#circle-text-path">VISÃO COMO FRATURA · MATÉRIA COMO MEMÓRIA · </textPath>
+      </text>
+    </svg>
+
+    <p class="brand-statement fade-up">
+      Matéria e símbolo.<br>
+      A pressão que forma. A ruptura que revela.<br>
+      Visão como fratura. Ouro como cicatriz.
+    </p>
+
+    <p class="brand-manifesto fade-up" style="margin-top:2rem">
+      Não é sobre luxo.<br>É sobre permanência.<br>É sobre o que resta quando tudo cede.
+    </p>
+  </div>
+</section>
+
+<!-- ─── Opening Night ──────────────────────────────── -->
+<section class="opening" id="vernissage">
+  <div class="opening-inner">
+    <div class="section-label">Vernissage</div>
+
+    <div class="opening-date fade-up">05.06</div>
+    <div class="opening-time fade-up">Quinta-feira · 19h · Galeria Origin · São Paulo SP</div>
+
+    <p class="fade-up" style="font-size:.85rem;line-height:1.8;color:var(--texto);max-width:440px;margin:0 auto 2rem">
+      Uma noite de abertura restrita. Obras, artistas e convidados — o primeiro encontro com SKSAM antes de abrir ao público.
+    </p>
+
+    <span class="divider fade-up"></span>
+
+    <form class="opening-form fade-up" onsubmit="handleRsvp(event)">
+      <input class="opening-input" type="email" placeholder="seu@email.com" required aria-label="E-mail para RSVP" id="rsvp-email">
+      <button type="submit" class="opening-submit">RSVP</button>
+    </form>
+    <p class="opening-note fade-up">Vagas limitadas · Confirmação por e-mail</p>
+
+    <div id="rsvp-confirm" style="display:none;margin-top:1.5rem;font-size:.8rem;color:var(--ouro);letter-spacing:.15em">
+      Reserva recebida. Até quinta-feira.
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ─────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="footer-col-title">Exposição</div>
+      <p>SKSAM</p>
+      <p>05.06 – 28.06.2025</p>
+      <p>Terça a domingo · 11h–20h</p>
+      <p style="margin-top:.5rem">Galeria Origin</p>
+      <p>São Paulo · SP</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Literary Skins</div>
+      <a href="#">Sobre</a>
+      <a href="#">Projetos</a>
+      <a href="#">Imprensa</a>
+      <a href="#">Contato</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Contato</div>
+      <a href="#">press@literaryskins.com</a>
+      <a href="#">curadoria@literaryskins.com</a>
+      <p style="margin-top:1rem;font-size:.7rem;opacity:.5">© 2025 Literary Skins Corp.<br>Todos os direitos reservados.</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copy">Literary Skins · SKSAM Exhibition · São Paulo 2025</span>
+    <span class="footer-tagline-small">"Consciência crítica não é negativismo. É liberdade."</span>
+  </div>
+</footer>
+
+<script>
+  // Fade-up observer
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // RSVP form
+  function handleRsvp(e) {
+    e.preventDefault();
+    const email = document.getElementById('rsvp-email').value;
+    if (!email) return;
+    document.getElementById('rsvp-confirm').style.display = 'block';
+    e.target.style.opacity = '.4';
+    e.target.style.pointerEvents = 'none';
+  }
+
+  // Smooth scroll for anchors
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
