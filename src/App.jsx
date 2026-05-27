@@ -3,6 +3,7 @@ import KallyniVideoConvite from './components/KallyniVideoConvite';
 import FrutasMortais from './components/FrutasMortais';
 import ChecklistCores from './components/ChecklistCores';
 import HauntingThoughts from './components/HauntingThoughts';
+import LillythApp from './components/LillythApp';
 
 function App() {
   const [currentView, setCurrentView] = useState('home');
@@ -17,6 +18,8 @@ function App() {
         return <ChecklistCores />;
       case 'haunting-thoughts':
         return <HauntingThoughts />;
+      case 'lillyth':
+        return <LillythApp />;
       default:
         return (
           <div className="min-h-screen bg-gradient-to-br from-purple-900 via-black to-orange-900 text-white flex items-center justify-center p-4">
@@ -26,6 +29,14 @@ function App() {
               </h1>
 
               <div className="space-y-4">
+                <button
+                  onClick={() => setCurrentView('lillyth')}
+                  className="w-full font-bold py-6 px-8 rounded-lg transition-all transform hover:scale-105 text-xl"
+                  style={{ background: 'linear-gradient(135deg, #C9A84C, #7A5A1A)', color: '#0A0A0A', letterSpacing: '0.15em' }}
+                >
+                  ✦ LILLYTH — For the Lived
+                </button>
+
                 <button
                   onClick={() => setCurrentView('haunting-thoughts')}
                   className="w-full bg-red-900 hover:bg-red-800 text-white font-bold py-6 px-8 rounded-lg transition-all transform hover:scale-105 text-xl"
