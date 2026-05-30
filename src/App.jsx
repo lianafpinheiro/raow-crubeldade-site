@@ -3,6 +3,7 @@ import KallyniVideoConvite from './components/KallyniVideoConvite';
 import FrutasMortais from './components/FrutasMortais';
 import ChecklistCores from './components/ChecklistCores';
 import HauntingThoughts from './components/HauntingThoughts';
+import EstudioGuiado from './components/EstudioGuiado';
 
 function App() {
   const [currentView, setCurrentView] = useState('home');
@@ -17,6 +18,8 @@ function App() {
         return <ChecklistCores />;
       case 'haunting-thoughts':
         return <HauntingThoughts />;
+      case 'estudio-guiado':
+        return <EstudioGuiado />;
       default:
         return (
           <div className="min-h-screen bg-gradient-to-br from-purple-900 via-black to-orange-900 text-white flex items-center justify-center p-4">
@@ -52,6 +55,13 @@ function App() {
                   className="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-6 px-8 rounded-lg transition-all transform hover:scale-105 text-xl"
                 >
                   Checklist de Avaliação – Uso das Cores
+                </button>
+
+                <button
+                  onClick={() => setCurrentView('estudio-guiado')}
+                  className="w-full bg-yellow-700 hover:bg-yellow-600 text-white font-bold py-6 px-8 rounded-lg transition-all transform hover:scale-105 text-xl"
+                >
+                  ∽ Estúdio Guiado — Sua Voz na Música
                 </button>
               </div>
 
