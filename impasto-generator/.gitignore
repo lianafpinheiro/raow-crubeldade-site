@@ -1,0 +1,12 @@
+# Backend
+backend/uploads/
+backend/outputs/
+backend/impasto.db
+backend/.env
+backend/__pycache__/
+backend/*.pyc
+
+# Frontend
+frontend/.next/
+frontend/node_modules/
+frontend/.env.local
