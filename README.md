@@ -27,7 +27,7 @@ Este repositório contém os materiais técnicos e de apresentação para a comp
 
 Esta obra é uma peça orquestral com as seguintes características:
 
-* **Duração:** Aproximadamente 40 segundos
+* **Duração:** Aproximadamente 68 segundos (17 medidas)
 * **Instrumentação:** Flauta, Oboé, Violino, Viola, Coro Misto e Harpa
 * **Tonalidade:** Lá Maior
 * **Estrutura:** Composição em 4 partes distintas
