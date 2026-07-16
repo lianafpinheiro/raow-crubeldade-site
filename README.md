@@ -15,10 +15,14 @@ Este repositório contém os materiais técnicos e de apresentação para a comp
 ### 🎂 Convite de 15 Anos (React App)
 * **`src/`**: Código-fonte da aplicação React
   * `components/KallyniVideoConvite.jsx`: Componente principal do convite animado
+  * `components/ConviteInterativo.jsx`: **NOVO!** Gerador de convite personalizado
   * `App.jsx`: Componente raiz da aplicação
   * `main.jsx`: Ponto de entrada do React
   * `index.css`: Estilos globais com Tailwind CSS
 * **`index.html`**: Página HTML principal para o React
+* **`convite-interativo.html`**: **NOVO!** Versão standalone do gerador de convite
+* **`generate_invitation_background.py`**: **NOVO!** Script para gerar imagem de fundo
+* **`assets/convite_base_sem_nome.png`**: **NOVO!** Imagem de fundo do convite
 * **`vite.config.js`**: Configuração do Vite (build tool)
 * **`tailwind.config.js`**: Configuração do Tailwind CSS
 * **`package.json`**: Dependências e scripts do projeto
@@ -99,7 +103,7 @@ Você também pode fazer o download direto do arquivo MIDI através da página.
 - Informações detalhadas sobre a composição
 - Opção de download do arquivo MIDI
 
-### Convite de 15 Anos
+### Convite de 15 Anos - Vídeo Animado
 - **7 Cenas Animadas**: Vídeo interativo estilo Stories (formato vertical 9:16)
 - **90 segundos de duração**: Jornada poética desde o amanhecer até o CTA
 - **Animações CSS avançadas**: Partículas douradas, explosões de luz, estrelas cintilantes
@@ -112,6 +116,19 @@ Você também pode fazer o download direto do arquivo MIDI através da página.
   - 📱 Contato: +55 54 99638-1003
 - **Design responsivo**: Otimizado para mobile (Stories format)
 - **Paleta de cores**: Azul celeste (#0B5B5E) e dourado (#FFD700)
+
+### ✨ Gerador de Convite Personalizado (NOVO!)
+- **Personalização em Tempo Real**: Digite o nome e veja-o aparecer instantaneamente
+- **Download em Alta Resolução**: Gere imagens PNG 800×1200px prontas para impressão
+- **Design Celestial**: Tema noite estrelada com gradientes azul-escuro e detalhes dourados
+- **Ajuste Automático de Fonte**: Adapta o tamanho do texto para nomes longos
+- **Duas Versões Disponíveis**: 
+  - Componente React integrado ao app principal
+  - Página HTML standalone (`convite-interativo.html`)
+- **Canvas HTML5**: Renderização dinâmica com tipografia elegante
+- **Geração de Arte**: Script Python para criar a imagem de fundo personalizada
+
+📖 **Documentação completa**: Veja `CONVITE_INTERATIVO_README.md` para instruções detalhadas
 
 ## 📝 Licença
 

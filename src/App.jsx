@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import KallyniVideoConvite from './components/KallyniVideoConvite';
+import ConviteInterativo from './components/ConviteInterativo';
 import FrutasMortais from './components/FrutasMortais';
 import ChecklistCores from './components/ChecklistCores';
 import HauntingThoughts from './components/HauntingThoughts';
@@ -12,6 +13,8 @@ function App() {
     switch (currentView) {
       case 'kallyni':
         return <KallyniVideoConvite />;
+      case 'convite-interativo':
+        return <ConviteInterativo />;
       case 'frutas-mortais':
         return <FrutasMortais />;
       case 'checklist-cores':
@@ -41,6 +44,13 @@ function App() {
                   className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-6 px-8 rounded-lg transition-all transform hover:scale-105 text-xl"
                 >
                   Convite - 15 Anos da Kallyni
+                </button>
+
+                <button
+                  onClick={() => setCurrentView('convite-interativo')}
+                  className="w-full bg-gradient-to-r from-yellow-600 to-amber-700 hover:from-yellow-700 hover:to-amber-800 text-white font-bold py-6 px-8 rounded-lg transition-all transform hover:scale-105 text-xl"
+                >
+                  ✨ Gerador de Convite Personalizado
                 </button>
 
                 <button
