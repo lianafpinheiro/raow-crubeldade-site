@@ -30,6 +30,13 @@ ALLOWED_TYPES = {"image/jpeg", "image/png", "image/webp"}
 MAX_SIZE = 10 * 1024 * 1024  # 10 MB
 
 
+def validate_job_id(job_id: str) -> str:
+    try:
+        return str(uuid.UUID(job_id))
+    except ValueError as exc:
+        raise HTTPException(400, "Invalid job id") from exc
+
+
 @app.on_event("startup")
 async def startup():
     init_db()
@@ -57,6 +64,7 @@ async def upload_image(background_tasks: BackgroundTasks, file: UploadFile = Fil
 
 @app.get("/api/job/{job_id}")
 async def get_job_status(job_id: str):
+    job_id = validate_job_id(job_id)
     job = get_job(job_id)
     if not job:
         raise HTTPException(404, "Job not found")
@@ -65,6 +73,7 @@ async def get_job_status(job_id: str):
 
 @app.get("/api/job/{job_id}/download")
 async def download_zip(job_id: str):
+    job_id = validate_job_id(job_id)
     job = get_job(job_id)
     if not job or job["status"] != "completed":
         raise HTTPException(400, "Job not ready for download")

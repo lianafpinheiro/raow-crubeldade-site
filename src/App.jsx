@@ -3,6 +3,8 @@ import KallyniVideoConvite from './components/KallyniVideoConvite';
 import FrutasMortais from './components/FrutasMortais';
 import ChecklistCores from './components/ChecklistCores';
 import HauntingThoughts from './components/HauntingThoughts';
+import LillythApp from './components/LillythApp';
+import SistemaHeraldico from './components/SistemaHeraldico';
 import EstudioGuiado from './components/EstudioGuiado';
 
 function App() {
@@ -18,6 +20,10 @@ function App() {
         return <ChecklistCores />;
       case 'haunting-thoughts':
         return <HauntingThoughts />;
+      case 'lillyth':
+        return <LillythApp />;
+      case 'heraldico':
+        return <SistemaHeraldico />;
       case 'estudio-guiado':
         return <EstudioGuiado />;
       default:
@@ -29,6 +35,22 @@ function App() {
               </h1>
 
               <div className="space-y-4">
+                <button
+                  onClick={() => setCurrentView('heraldico')}
+                  className="w-full font-bold py-6 px-8 rounded-lg transition-all transform hover:scale-105 text-xl"
+                  style={{ background: 'linear-gradient(135deg, #1A1810, #2A2418)', color: '#C4A253', border: '1px solid #C4A25355', letterSpacing: '0.12em' }}
+                >
+                  ♛ THE GODLESS CROWN — Sistema Heráldico
+                </button>
+
+                <button
+                  onClick={() => setCurrentView('lillyth')}
+                  className="w-full font-bold py-6 px-8 rounded-lg transition-all transform hover:scale-105 text-xl"
+                  style={{ background: 'linear-gradient(135deg, #C9A84C, #7A5A1A)', color: '#0A0A0A', letterSpacing: '0.15em' }}
+                >
+                  ✦ LILLYTH — For the Lived
+                </button>
+
                 <button
                   onClick={() => setCurrentView('haunting-thoughts')}
                   className="w-full bg-red-900 hover:bg-red-800 text-white font-bold py-6 px-8 rounded-lg transition-all transform hover:scale-105 text-xl"
