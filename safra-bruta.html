@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAFRA BRUTA — Instrumento de Decisao</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+
+:root {
+  --bg:        #0e0a06;
+  --surface:   #16110a;
+  --surface2:  #1e160d;
+  --border:    #2a1f0e;
+  --border-hi: #8b4513;
+  --ocre:      #c47a2b;
+  --cobre:     #b87333;
+  --palha:     #d4b896;
+  --gelo:      #ede4d0;
+  --acido:     #9b1b1b;
+  --verde:     #4a6741;
+  --cinza:     #5a5040;
+  --ok:        #4a7a4a;
+  --warn:      #8b6914;
+  --kill:      #7a1a1a;
+  --bI:  #4a6741;
+  --bII: #c47a2b;
+  --bIII:#b87333;
+  --bIV: #9b1b1b;
+  --bV:  #5a3a6a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--palha);
+  font-family: 'Courier Prime', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* HEADER */
+header {
+  border-bottom: 1px solid var(--border-hi);
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.h-titulo { font-size: 0.95rem; font-weight: 700; color: var(--gelo); letter-spacing: 0.1em; }
+.h-sub    { font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cobre); }
+.h-lei    { margin-left: auto; font-family: 'EB Garamond', serif; font-style: italic; font-size: 0.78rem; color: var(--cinza); }
+.h-btns   { display: flex; gap: 0.4rem; }
+
+/* LAYOUT */
+.app { display: grid; grid-template-columns: 195px 1fr; height: calc(100vh - 54px); }
+
+/* SIDEBAR */
+nav { border-right: 1px solid var(--border); overflow-y: auto; background: var(--surface); }
+.nav-bloco {
+  padding: 0.65rem 1rem 0.25rem;
+  font-size: 0.52rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  border-top: 1px solid var(--border);
+  margin-top: 0.25rem;
+}
+.nav-bloco:first-child { border-top: none; margin-top: 0; }
+.nav-cap {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.26rem 1rem;
+  cursor: pointer;
+  font-size: 0.65rem;
+  color: var(--cinza);
+  border-left: 2px solid transparent;
+  transition: all 0.1s;
+  overflow: hidden;
+}
+.nav-cap:hover           { color: var(--palha); background: rgba(255,255,255,0.03); }
+.nav-cap.active          { color: var(--gelo); border-left-color: var(--cobre); background: rgba(184,115,51,0.07); }
+.nav-cap.completo        { color: var(--ok); }
+.nav-cap.completo .sdot  { background: var(--ok); border-color: var(--ok); }
+.nav-cap.morto           { color: var(--kill); text-decoration: line-through; opacity: 0.55; }
+.nav-cap.morto .sdot     { background: var(--kill); border-color: var(--kill); }
+.sdot { width: 5px; height: 5px; border-radius: 50%; border: 1px solid var(--cinza); flex-shrink: 0; }
+.nav-cap span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* MAIN */
+main { overflow-y: auto; padding: 1.6rem 2rem 3rem; }
+
+/* CAP HEADER */
+.cap-header {
+  margin-bottom: 1.4rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+.cap-num    { font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cobre); margin-bottom: 0.18rem; }
+.cap-titulo { font-family: 'EB Garamond', serif; font-size: 1.45rem; color: var(--gelo); margin-bottom: 0.35rem; }
+.bloco-faixa {
+  display: inline-block;
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.13rem 0.55rem;
+  border: 1px solid;
+  margin-right: 0.5rem;
+}
+.bloco-lei {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 0.76rem;
+  color: var(--cinza);
+}
+
+/* STATUS BAR */
+.status-bar {
+  display: flex;
+  gap: 0.8rem;
+  padding: 0.5rem 0;
+  margin-bottom: 1.1rem;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.si { font-size: 0.56rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.sv { margin-left: 0.2rem; }
+.sv.ok { color: var(--ok); }
+.sv.no { color: var(--cinza); }
+
+/* CAMADAS */
+.camada {
+  margin-bottom: 1.6rem;
+  padding: 1.1rem 1.2rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+}
+.camada-h {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.cn  { font-size: 0.52rem; color: var(--cinza); }
+.cl  { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ocre); font-weight: 700; }
+.cle { margin-left: auto; font-family: 'EB Garamond', serif; font-style: italic; font-size: 0.72rem; color: var(--cinza); }
+
+/* BOTOES VEREDITO */
+.v-opcoes { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+.btn-v {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.38rem 0.95rem;
+  border: 1px solid var(--border);
+  color: var(--cinza);
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.12s;
+}
+.btn-v:hover { border-color: var(--cobre); color: var(--palha); }
+.btn-v[data-val="fica"].sel      { border-color: var(--ok);   color: var(--ok);   background: rgba(74,122,74,0.1); }
+.btn-v[data-val="funde"].sel     { border-color: var(--warn); color: var(--warn); background: rgba(139,105,20,0.1); }
+.btn-v[data-val="corta"].sel     { border-color: var(--kill); color: #e87070;     background: rgba(122,26,26,0.15); }
+.btn-v[data-val="reescreve"].sel { border-color: var(--bV);   color: #b08cc0;     background: rgba(90,58,106,0.1); }
+
+/* OPCOES GENERICAS */
+.opcoes { display: flex; flex-wrap: wrap; gap: 0.32rem; margin-bottom: 0.35rem; }
+.opcao {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.62rem;
+  padding: 0.2rem 0.58rem;
+  border: 1px solid var(--border);
+  color: var(--cinza);
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.11s;
+}
+.opcao:hover   { border-color: var(--cobre); color: var(--palha); }
+.opcao.sel     { border-color: var(--ocre);  color: var(--gelo);  background: rgba(196,122,43,0.1); }
+.opcao.msel    { border-color: var(--cobre); color: var(--palha); background: rgba(184,115,51,0.08); }
+.opcao-nota    { font-size: 0.56rem; color: var(--cinza); font-style: italic; margin-bottom: 0.45rem; }
+
+/* TEXTAREA */
+textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--gelo);
+  font-family: 'EB Garamond', serif;
+  font-size: 0.93rem;
+  line-height: 1.55;
+  padding: 0.5rem 0.7rem;
+  resize: vertical;
+  min-height: 55px;
+  outline: none;
+  transition: border-color 0.11s;
+}
+textarea:focus { border-color: var(--cobre); }
+textarea::placeholder { color: var(--cinza); font-style: italic; font-size: 0.83rem; }
+
+/* INPUT TEXT */
+input[type="text"] {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--gelo);
+  padding: 0.38rem 0.6rem;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.68rem;
+  outline: none;
+  transition: border-color 0.11s;
+}
+input[type="text"]:focus { border-color: var(--cobre); }
+
+/* ANTES DEPOIS */
+.ad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem; }
+.ad-label { font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cinza); margin-bottom: 0.28rem; }
+
+/* FRASE ANCORA */
+.frase-wrap { position: relative; }
+.char-ct { position: absolute; bottom: 0.35rem; right: 0.55rem; font-size: 0.58rem; color: var(--cinza); pointer-events: none; }
+.char-ct.over { color: var(--acido); }
+
+/* CORTE CHECKS */
+.corte-checks { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.45rem; }
+.ccheck {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.18rem 0.55rem;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  font-size: 0.6rem;
+  color: var(--cinza);
+  user-select: none;
+  transition: all 0.11s;
+}
+.ccheck:hover    { border-color: var(--cobre); color: var(--palha); }
+.ccheck.ck       { border-color: var(--acido); color: #e87070; background: rgba(155,27,27,0.08); }
+.ccheck input    { display: none; }
+
+/* ALERTAS */
+.al {
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.28rem;
+  padding: 0.22rem 0.5rem;
+  display: none;
+}
+.al.w { color: var(--warn);  border-left: 2px solid var(--warn);  background: rgba(139,105,20,0.06); display: block; }
+.al.k { color: #e87070;      border-left: 2px solid var(--kill);  background: rgba(122,26,26,0.06); display: block; }
+
+/* RASCUNHOS */
+.rascunho {
+  border: 1px dashed var(--border);
+  padding: 0.9rem;
+  margin-bottom: 0.8rem;
+  position: relative;
+  background: var(--bg);
+}
+.rascunho.final {
+  border: 1px solid var(--ok);
+  background: rgba(74,122,74,0.04);
+}
+.rasc-label { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cobre); margin-bottom: 0.4rem; }
+.rasc-label.fl { color: var(--ok); }
+.btn-rasc-rm {
+  position: absolute;
+  top: 0.5rem; right: 0.5rem;
+  color: var(--cinza); cursor: pointer;
+  background: none; border: none;
+  font-size: 0.9rem; line-height: 1;
+}
+.btn-rasc-rm:hover { color: #e87070; }
+.rasc-btns { display: flex; gap: 0.4rem; margin-top: 0.45rem; }
+
+/* LEXICO */
+.lex-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.62rem;
+  padding: 0.18rem 0.55rem;
+  border: 1px solid var(--ocre);
+  color: var(--gelo);
+  background: rgba(196,122,43,0.09);
+}
+.lex-rm { cursor: pointer; color: var(--acido); font-weight: 700; margin-left: 0.2rem; }
+.lex-add-row { display: flex; gap: 0.4rem; align-items: center; margin-top: 0.7rem; }
+
+/* BOTOES */
+.btns { display: flex; gap: 0.55rem; margin-top: 1.4rem; flex-wrap: wrap; }
+.btn {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.95rem;
+  border: 1px solid;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.btn.save       { border-color: var(--ocre);  color: var(--ocre); }
+.btn.save:hover { background: rgba(196,122,43,0.08); }
+.btn.clr        { border-color: var(--cinza); color: var(--cinza); }
+.btn.clr:hover  { border-color: var(--acido); color: #e87070; }
+.btn.sec        { border-color: var(--verde); color: var(--verde); }
+.btn.sec:hover  { background: rgba(74,103,65,0.08); }
+.btn.muted      { border-color: var(--cinza); color: var(--cinza); }
+.btn.muted:hover { border-color: var(--palha); color: var(--palha); }
+
+/* PROGRESSO */
+.prog {
+  position: fixed; bottom: 1rem; right: 1rem;
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 0.45rem 0.75rem;
+  font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cinza);
+  pointer-events: none;
+}
+.prog-n { color: var(--gelo); font-size: 0.82rem; display: block; margin-bottom: 0.08rem; }
+
+/* VISTA GERAL */
+#vgeral { display: none; }
+.gg { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.75rem; }
+.gc {
+  background: var(--surface2); border: 1px solid var(--border);
+  padding: 0.85rem; cursor: pointer; transition: border-color 0.11s;
+}
+.gc:hover    { border-color: var(--cobre); }
+.gc.completo { border-left: 3px solid var(--ok); }
+.gc.morto    { opacity: 0.4; border-left: 3px solid var(--kill); }
+.gc-num    { font-size: 0.56rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cobre); margin-bottom: 0.13rem; }
+.gc-titulo { font-family: 'EB Garamond', serif; font-size: 0.92rem; color: var(--gelo); margin-bottom: 0.45rem; }
+.gc-tags   { display: flex; flex-wrap: wrap; gap: 0.22rem; }
+.gt { font-size: 0.54rem; padding: 0.07rem 0.32rem; border: 1px solid; }
+.gt.ok { border-color: var(--ok);     color: var(--ok); }
+.gt.no { border-color: var(--border); color: var(--cinza); }
+
+@media (max-width: 680px) {
+  .app  { grid-template-columns: 1fr; }
+  nav   { display: none; }
+  .h-lei { display: none; }
+  .ad-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="h-titulo">SAFRA BRUTA</div>
+    <div class="h-sub">Instrumento de Decisao — V3</div>
+  </div>
+  <div class="h-lei">a obra nao descreve. a obra metaboliza.</div>
+  <div class="h-btns">
+    <button type="button" class="btn sec"   onclick="toggleGeral()">Vista Geral</button>
+    <button type="button" class="btn muted" onclick="exportar()">Exportar</button>
+  </div>
+</header>
+
+<div class="app">
+
+<nav id="sidebar"></nav>
+
+<main id="main">
+
+  <!-- VISTA CAPITULO -->
+  <div id="vcap">
+    <div class="cap-header">
+      <div class="cap-num"    id="cap-num"></div>
+      <div class="cap-titulo" id="cap-titulo"></div>
+      <span class="bloco-faixa" id="btag"></span>
+      <span class="bloco-lei"   id="bfunc"></span>
+    </div>
+
+    <div class="status-bar" id="sb"></div>
+
+    <!-- 00: VEREDITO -->
+    <div class="camada">
+      <div class="camada-h">
+        <span class="cn">00</span>
+        <span class="cl">Veredito de Existencia</span>
+        <span class="cle">antes de decidir o capitulo — decidir a existencia dele</span>
+      </div>
+      <div class="v-opcoes">
+        <button type="button" class="btn-v" data-campo="veredito" data-val="fica">fica</button>
+        <button type="button" class="btn-v" data-campo="veredito" data-val="funde">funde com outro</button>
+        <button type="button" class="btn-v" data-campo="veredito" data-val="corta">corta</button>
+        <button type="button" class="btn-v" data-campo="veredito" data-val="reescreve">reescreve do zero</button>
+      </div>
+      <div class="al" id="al-veredito"></div>
+    </div>
+
+    <!-- RASCUNHOS -->
+    <div class="camada">
+      <div class="camada-h">
+        <span class="cn">++</span>
+        <span class="cl">Rascunhos e Alternativas</span>
+        <span class="cle">cole versoes, compare, eleja uma</span>
+      </div>
+      <div id="cont-rascunhos"></div>
+      <button type="button" class="btn sec" onclick="addRascunho()">+ Rascunho</button>
+    </div>
+
+    <!-- LEXICO -->
+    <div class="camada">
+      <div class="camada-h">
+        <span class="cn">++</span>
+        <span class="cl">Lexico do Bloco</span>
+        <span class="cle">ancora as palavras que movem este capitulo</span>
+      </div>
+      <div class="opcao-nota">Sugestoes do bloco:</div>
+      <div class="opcoes" id="lex-sug" style="margin-bottom:1rem;"></div>
+      <div class="opcao-nota">Lexico activo neste capitulo:</div>
+      <div class="opcoes" id="lex-sel" style="min-height:28px;"></div>
+      <div class="lex-add-row">
+        <input type="text" id="lex-input" placeholder="Adicionar palavra...">
+        <button type="button" class="btn save" onclick="addLexLivre()">Adicionar</button>
+      </div>
+    </div>
+
+    <!-- 01-04: ESTRUTURA -->
+    <div class="camada">
+      <div class="camada-h">
+        <span class="cn">01 — 04</span>
+        <span class="cl">Decisao Estrutural</span>
+      </div>
+
+      <div style="margin-bottom:0.9rem">
+        <div class="opcao-nota">01 / Funcao Real — uma so. Se tiver mais de uma, ainda nao decidiu.</div>
+        <div class="opcoes">
+          <button type="button" class="opcao" data-campo="funcao" data-val="Instalar sistema">Instalar sistema</button>
+          <button type="button" class="opcao" data-campo="funcao" data-val="Quebrar controle">Quebrar controle</button>
+          <button type="button" class="opcao" data-campo="funcao" data-val="Introduzir variavel">Introduzir variavel</button>
+          <button type="button" class="opcao" data-campo="funcao" data-val="Aumentar pressao">Aumentar pressao</button>
+          <button type="button" class="opcao" data-campo="funcao" data-val="Produzir consequencia">Produzir consequencia</button>
+          <button type="button" class="opcao" data-campo="funcao" data-val="Revelar sem explicar">Revelar sem explicar</button>
+          <button type="button" class="opcao" data-campo="funcao" data-val="Encerrar sem consolar">Encerrar sem consolar</button>
+        </div>
+        <div class="al" id="al-funcao"></div>
+      </div>
+
+      <div style="margin-bottom:0.9rem">
+        <div class="opcao-nota">02 / Agente da Cena — um so. Se for varios, cena frouxa.</div>
+        <div class="opcoes">
+          <button type="button" class="opcao" data-campo="agente" data-val="Madre">Madre</button>
+          <button type="button" class="opcao" data-campo="agente" data-val="Lucia">Lucia</button>
+          <button type="button" class="opcao" data-campo="agente" data-val="Rosa">Rosa</button>
+          <button type="button" class="opcao" data-campo="agente" data-val="Duarte">Duarte</button>
+          <button type="button" class="opcao" data-campo="agente" data-val="Vittorio">Vittorio</button>
+          <button type="button" class="opcao" data-campo="agente" data-val="Comendador">Comendador</button>
+          <button type="button" class="opcao" data-campo="agente" data-val="Elias">Elias</button>
+          <button type="button" class="opcao" data-campo="agente" data-val="Sistema">Sistema</button>
+          <button type="button" class="opcao" data-campo="agente" data-val="Acaso material">Acaso material</button>
+        </div>
+        <div class="al" id="al-agente"></div>
+      </div>
+
+      <div style="margin-bottom:0.9rem">
+        <div class="opcao-nota">03 / Quem Erra — um so. Se ninguem erra, cena inutil.</div>
+        <div class="opcoes">
+          <button type="button" class="opcao" data-campo="quemerra" data-val="Lucia">Lucia</button>
+          <button type="button" class="opcao" data-campo="quemerra" data-val="Rosa">Rosa</button>
+          <button type="button" class="opcao" data-campo="quemerra" data-val="Duarte">Duarte</button>
+          <button type="button" class="opcao" data-campo="quemerra" data-val="Vittorio">Vittorio</button>
+          <button type="button" class="opcao" data-campo="quemerra" data-val="Comendador">Comendador</button>
+          <button type="button" class="opcao" data-campo="quemerra" data-val="Elias">Elias</button>
+          <button type="button" class="opcao" data-campo="quemerra" data-val="Sistema">Sistema</button>
+          <button type="button" class="opcao" data-campo="quemerra" data-val="Madre">Madre</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="opcao-nota">04 / Tipo do Erro</div>
+        <div class="opcoes">
+          <button type="button" class="opcao" data-campo="tipoerro" data-val="tecnico">tecnico</button>
+          <button type="button" class="opcao" data-campo="tipoerro" data-val="perceptivo">perceptivo</button>
+          <button type="button" class="opcao" data-campo="tipoerro" data-val="estrategico">estrategico</button>
+          <button type="button" class="opcao" data-campo="tipoerro" data-val="moral">moral</button>
+          <button type="button" class="opcao" data-campo="tipoerro" data-val="ontologico">ontologico</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05: TARIFA -->
+    <div class="camada">
+      <div class="camada-h">
+        <span class="cn">05</span>
+        <span class="cl">Tarifa</span>
+        <span class="cle">sem tarifa = ornamental. pode ser multipla.</span>
+      </div>
+      <div class="opcoes">
+        <button type="button" class="opcao" data-campo="tarifa" data-val="controle"   data-m="1">controle</button>
+        <button type="button" class="opcao" data-campo="tarifa" data-val="corpo"      data-m="1">corpo</button>
+        <button type="button" class="opcao" data-campo="tarifa" data-val="visao"      data-m="1">visao</button>
+        <button type="button" class="opcao" data-campo="tarifa" data-val="metodo"     data-m="1">metodo</button>
+        <button type="button" class="opcao" data-campo="tarifa" data-val="reputacao"  data-m="1">reputacao</button>
+        <button type="button" class="opcao" data-campo="tarifa" data-val="autonomia"  data-m="1">autonomia</button>
+        <button type="button" class="opcao" data-campo="tarifa" data-val="identidade" data-m="1">identidade</button>
+        <button type="button" class="opcao" data-campo="tarifa" data-val="milagre"    data-m="1">milagre</button>
+        <button type="button" class="opcao" data-campo="tarifa" data-val="tempo"      data-m="1">tempo</button>
+        <button type="button" class="opcao" data-campo="tarifa" data-val="linguagem"  data-m="1">linguagem</button>
+        <button type="button" class="opcao" data-campo="tarifa" data-val="memoria"    data-m="1">memoria</button>
+      </div>
+      <div class="al" id="al-tarifa"></div>
+    </div>
+
+    <!-- 06: MATERIAL -->
+    <div class="camada">
+      <div class="camada-h">
+        <span class="cn">06</span>
+        <span class="cl">Mudanca Material</span>
+        <span class="cle">se nada muda = atmosfera, nao narrativa</span>
+      </div>
+      <div class="ad-grid">
+        <div>
+          <div class="ad-label">antes</div>
+          <textarea id="f-antes"  placeholder="Estado fisico antes. Concreto." rows="3"></textarea>
+        </div>
+        <div>
+          <div class="ad-label">depois</div>
+          <textarea id="f-depois" placeholder="O que mudou de verdade." rows="3"></textarea>
+        </div>
+      </div>
+      <div class="al" id="al-mat"></div>
+    </div>
+
+    <!-- 07-08: VERBAL -->
+    <div class="camada">
+      <div class="camada-h">
+        <span class="cn">07 — 08</span>
+        <span class="cl">Decisao Verbal</span>
+      </div>
+      <div style="margin-bottom:0.9rem">
+        <div class="opcao-nota">07 / Frase-ancora — 180 caracteres. Uma so. Se tiver tres boas, errou o capitulo.</div>
+        <div class="frase-wrap">
+          <textarea id="f-frase" placeholder="A linha que carrega o capitulo inteiro." rows="2" maxlength="180"></textarea>
+          <span class="char-ct" id="char-ct">0/180</span>
+        </div>
+        <div class="al" id="al-frase"></div>
+      </div>
+      <div>
+        <div class="opcao-nota">08 / Corte Brutal — o que sai sem matar a funcao</div>
+        <div class="corte-checks">
+          <label class="ccheck"><input type="checkbox" data-corte="cena">       corta cena inteira</label>
+          <label class="ccheck"><input type="checkbox" data-corte="frase">      corta frase</label>
+          <label class="ccheck"><input type="checkbox" data-corte="personagem"> corta personagem da cena</label>
+          <label class="ccheck"><input type="checkbox" data-corte="explicacao"> corta explicacao</label>
+          <label class="ccheck"><input type="checkbox" data-corte="repeticao">  corta repeticao</label>
+          <label class="ccheck"><input type="checkbox" data-corte="ornamento">  corta ornamento</label>
+        </div>
+        <textarea id="f-corte" placeholder="O que especificamente. Sem piedade." rows="2"></textarea>
+        <div class="al" id="al-corte"></div>
+      </div>
+    </div>
+
+    <!-- 09: BLOCO -->
+    <div class="camada">
+      <div class="camada-h">
+        <span class="cn">09</span>
+        <span class="cl">Decisao de Bloco</span>
+        <span class="cle">o capitulo cumpre ou sabota a funcao do bloco?</span>
+      </div>
+      <div class="opcoes">
+        <button type="button" class="opcao" data-campo="blocodec" data-val="cumpre">cumpre</button>
+        <button type="button" class="opcao" data-campo="blocodec" data-val="antecipa">antecipa demais</button>
+        <button type="button" class="opcao" data-campo="blocodec" data-val="atrasa">atrasa demais</button>
+        <button type="button" class="opcao" data-campo="blocodec" data-val="sabota">sabota o bloco</button>
+        <button type="button" class="opcao" data-campo="blocodec" data-val="troca">pertence a outro bloco</button>
+      </div>
+      <div class="al" id="al-bloco"></div>
+    </div>
+
+    <!-- NOTAS -->
+    <div class="camada">
+      <div class="camada-h"><span class="cn">+</span><span class="cl">Notas de Trabalho</span></div>
+      <textarea id="f-notas" placeholder="Rascunho. Duvida. Fragmento." rows="3"></textarea>
+    </div>
+
+    <div class="btns">
+      <button type="button" class="btn save" onclick="salvar()">Salvar</button>
+      <button type="button" class="btn clr"  onclick="limpar()">Limpar</button>
+    </div>
+  </div>
+
+  <!-- VISTA GERAL -->
+  <div id="vgeral">
+    <div style="margin-bottom:1.1rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border);">
+      <div style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--cobre);margin-bottom:0.18rem;">Vista Geral</div>
+      <div style="font-family:'EB Garamond',serif;font-size:1.25rem;color:var(--gelo);">Estado da revisao — todos os capitulos</div>
+    </div>
+    <div class="gg" id="gg"></div>
+  </div>
+
+</main>
+</div>
+
+<div class="prog">
+  <span class="prog-n" id="prog-n">0/26</span>
+  decididos
+</div>
+
+<script>
+// ═══════════════════ DADOS ═══════════════════
+const BLOCOS = {
+  I:   { label:'Bloco I — Sedimento',  cor:'#4a6741', lei:'Instalar sistema. Tirar o humano do centro.' },
+  II:  { label:'Bloco II — Pressao',   cor:'#c47a2b', lei:'Erro comeca a produzir. Controle tenta sobreviver.' },
+  III: { label:'Bloco III — Retencao', cor:'#b87333', lei:'Milagre acontece. Destruicao vem de dentro.' },
+  IV:  { label:'Bloco IV — Captura',   cor:'#9b1b1b', lei:'Tudo vira produto. Linguagem sequestra o vivo.' },
+  V:   { label:'Bloco V — Dispersao',  cor:'#5a3a6a', lei:'Ninguem vence. Todos pagam. Sistema continua.' },
+};
+
+const LEXICO = {
+  I:   ['sedimento','oxidacao','salitre','fissura','basalto','cortisol','hifas','borossilicato','latencia','necrose'],
+  II:  ['pH','subsolo','anomalia','biofilme','cobre oxidado','lama','polietileno','vazamento','insurgencia'],
+  III: ['tinta ferrogalica','tanino','latencia','heterocromia','linhagem','ester','glicose','penduricalho','arranjo'],
+  IV:  ['demissao','roteiro','GIGGIO','Rhizopus','micelio','linho branco','rubi opaco','captura','embalagem'],
+  V:   ['hipoclorito','precipitado','angulo morto','epoxi','autolise','vacuo','dispersao','redistribuicao'],
+};
+
+const CAPS = [
+  {id:'prologo', num:'Prologo',  titulo:'A Voz da Madre',           bloco:'I'  },
+  {id:'c01',     num:'Cap. 1',   titulo:'O Sangue da Terra',        bloco:'I'  },
+  {id:'c02',     num:'Cap. 2',   titulo:'O Aquario de Leite Azedo', bloco:'I'  },
+  {id:'c03',     num:'Cap. 3',   titulo:'Os Galhos Secos',          bloco:'I'  },
+  {id:'c04',     num:'Cap. 4',   titulo:'A Poda de Inverno',        bloco:'I'  },
+  {id:'c05',     num:'Cap. 5',   titulo:'A Temperatura do Impuro',  bloco:'I'  },
+  {id:'c06',     num:'Cap. 6',   titulo:'O Primeiro Vazamento',     bloco:'II' },
+  {id:'c07',     num:'Cap. 7',   titulo:'Os Vinhodutos',            bloco:'II' },
+  {id:'c08',     num:'Cap. 8',   titulo:'O Tremor de Elias',        bloco:'II' },
+  {id:'c09',     num:'Cap. 9',   titulo:'A Agua que Voltou',        bloco:'II' },
+  {id:'c10',     num:'Cap. 10',  titulo:'A Inspecao',               bloco:'II' },
+  {id:'c11',     num:'Cap. 11',  titulo:'Giovanni no Dialeto',      bloco:'III'},
+  {id:'c12',     num:'Cap. 12',  titulo:'Dona Nona e o Presente',   bloco:'III'},
+  {id:'c13',     num:'Cap. 13',  titulo:'Os Olhos de Giovanni',     bloco:'III'},
+  {id:'c14',     num:'Cap. 14',  titulo:'O Sangue da Cantina',      bloco:'III'},
+  {id:'c15',     num:'Cap. 15',  titulo:'O Vinho que Deu Certo',    bloco:'III'},
+  {id:'c16',     num:'Cap. 16',  titulo:'O Despejo',                bloco:'III'},
+  {id:'c17',     num:'Cap. 17',  titulo:'A Demissao de Rosa',       bloco:'IV' },
+  {id:'c18',     num:'Cap. 18',  titulo:'A Garrafa Guardada',       bloco:'IV' },
+  {id:'c19',     num:'Cap. 19',  titulo:'A Vindima',                bloco:'IV' },
+  {id:'c20',     num:'Cap. 20',  titulo:'Os Olhos de Dubois',       bloco:'IV' },
+  {id:'c21',     num:'Cap. 21',  titulo:'O Hospital',               bloco:'V'  },
+  {id:'c22',     num:'Cap. 22',  titulo:'A Cegueira de Duarte',     bloco:'V'  },
+  {id:'c23',     num:'Cap. 23',  titulo:'A Morte do Rei',           bloco:'V'  },
+  {id:'c24',     num:'Cap. 24',  titulo:'A Prisao de Lucia',        bloco:'V'  },
+  {id:'epilogo', num:'Epilogo',  titulo:"L'Eredita de la Polvera",  bloco:'V'  },
+];
+
+let cur = 'prologo';
+let D   = {};
+
+// ═══════════════════ STORAGE ═══════════════════
+function save() { try { localStorage.setItem('sb_v3', JSON.stringify(D)); } catch(e){} }
+function load() { try { const s=localStorage.getItem('sb_v3'); if(s) D=JSON.parse(s); } catch(e){} }
+
+// ═══════════════════ UTILS ═══════════════════
+function get() { if(!D[cur]) D[cur]={}; return D[cur]; }
+function isCompleto(id) {
+  const d=D[id]||{};
+  return !!(d.veredito && d.funcao && d.agente && d.tarifa && d.tarifa.length && d.antes && d.frase);
+}
+function isMorto(id) { return (D[id]||{}).veredito==='corta'; }
+
+// ═══════════════════ SIDEBAR ═══════════════════
+function buildNav() {
+  let bAtual='', h='';
+  CAPS.forEach(c=>{
+    if(c.bloco!==bAtual){
+      bAtual=c.bloco;
+      const b=BLOCOS[c.bloco];
+      h+=`<div class="nav-bloco" style="color:${b.cor}">${b.label}</div>`;
+    }
+    h+=`<div class="nav-cap ${c.id===cur?'active':''} ${isCompleto(c.id)?'completo':''} ${isMorto(c.id)?'morto':''}" onclick="goto('${c.id}')">
+      <div class="sdot"></div><span>${c.num}</span></div>`;
+  });
+  document.getElementById('sidebar').innerHTML=h;
+}
+
+// ═══════════════════ GOTO ═══════════════════
+function goto(id) {
+  cur=id;
+  document.getElementById('vgeral').style.display='none';
+  document.getElementById('vcap').style.display='block';
+  render();
+  buildNav();
+  document.getElementById('main').scrollTop=0;
+}
+
+// ═══════════════════ RENDER ═══════════════════
+function render() {
+  const cap=CAPS.find(c=>c.id===cur);
+  const d=get();
+  const b=BLOCOS[cap.bloco];
+
+  document.getElementById('cap-num').textContent    = cap.num;
+  document.getElementById('cap-titulo').textContent = cap.titulo;
+  const btag=document.getElementById('btag');
+  btag.textContent=b.label; btag.style.color=b.cor; btag.style.borderColor=b.cor;
+  document.getElementById('bfunc').textContent=b.lei;
+
+  const chk=[['veredito',d.veredito],['funcao',d.funcao],['agente',d.agente],
+             ['tarifa',d.tarifa&&d.tarifa.length?d.tarifa.join('+'):''],
+             ['antes',d.antes],['depois',d.depois],['frase',d.frase]];
+  document.getElementById('sb').innerHTML=chk.map(([k,v])=>
+    `<div class="si">${k}<span class="sv ${v?'ok':'no'}">${v?String(v).split(' ').slice(0,2).join(' '):'-'}</span></div>`
+  ).join('');
+
+  ['veredito','funcao','agente','quemerra','tipoerro','blocodec'].forEach(campo=>{
+    document.querySelectorAll(`[data-campo="${campo}"]`).forEach(btn=>{
+      btn.classList.remove('sel');
+      if(btn.dataset.val===d[campo]) btn.classList.add('sel');
+    });
+  });
+
+  const tars=d.tarifa||[];
+  document.querySelectorAll('[data-campo="tarifa"]').forEach(btn=>{
+    btn.classList.toggle('msel', tars.includes(btn.dataset.val));
+  });
+
+  document.getElementById('f-antes').value  = d.antes  ||'';
+  document.getElementById('f-depois').value = d.depois ||'';
+  document.getElementById('f-frase').value  = d.frase  ||'';
+  document.getElementById('f-corte').value  = d.corte  ||'';
+  document.getElementById('f-notas').value  = d.notas  ||'';
+
+  updateCharCount();
+
+  const cc=d.cortechecks||[];
+  document.querySelectorAll('[data-corte]').forEach(inp=>{
+    inp.checked=cc.includes(inp.dataset.corte);
+    inp.closest('.ccheck').classList.toggle('ck', inp.checked);
+  });
+
+  renderRascunhos();
+  renderLexico();
+  validar(d);
+}
+
+function updateCharCount() {
+  const v=document.getElementById('f-frase').value.length;
+  const ct=document.getElementById('char-ct');
+  ct.textContent=v+'/180';
+  ct.classList.toggle('over', v>=170);
+}
+
+// ═══════════════════ VALIDAR ═══════════════════
+function validar(d) {
+  const set=(id,txt,cls)=>{ const el=document.getElementById(id); el.textContent=txt; el.className='al '+(txt?cls:''); };
+
+  if(!d.veredito)                   set('al-veredito','Decidir a existencia antes de tudo.','w');
+  else if(d.veredito==='corta')     set('al-veredito','Capitulo marcado para corte.','k');
+  else if(d.veredito==='reescreve') set('al-veredito','Reescrever do zero.','w');
+  else                              set('al-veredito','','');
+
+  if(!d.funcao) set('al-funcao','Funcao nao definida.','w'); else set('al-funcao','','');
+  if(!d.agente) set('al-agente','Agente nao definido. Cena frouxa.','w'); else set('al-agente','','');
+  if(!d.tarifa||!d.tarifa.length) set('al-tarifa','Sem tarifa = ornamental.','k'); else set('al-tarifa','','');
+  if(!d.antes&&!d.depois) set('al-mat','Definir antes e depois.','w');
+  else if(!d.antes||!d.depois) set('al-mat','Preencher os dois campos.','w');
+  else set('al-mat','','');
+  if(!d.frase) set('al-frase','Sem frase-ancora = sem eixo.','w'); else set('al-frase','','');
+  if(!d.cortechecks||!d.cortechecks.length) set('al-corte','Nenhum corte definido.','w'); else set('al-corte','','');
+  if(d.blocodec==='sabota')      set('al-bloco','Sabota o bloco. Rever.','k');
+  else if(d.blocodec==='troca')  set('al-bloco','Mover para outro bloco.','w');
+  else                           set('al-bloco','','');
+}
+
+// ═══════════════════ RASCUNHOS ═══════════════════
+function renderRascunhos() {
+  const d=get();
+  if(!d.rascunhos) d.rascunhos=[];
+  if(d.rascEscolhido===undefined) d.rascEscolhido=null;
+  const cont=document.getElementById('cont-rascunhos');
+  if(!d.rascunhos.length){
+    cont.innerHTML='<div style="color:var(--cinza);font-style:italic;margin-bottom:0.8rem;">Nenhum rascunho ainda.</div>';
+    return;
+  }
+  cont.innerHTML=d.rascunhos.map((r,i)=>{
+    const fl=d.rascEscolhido===r.id;
+    return `<div class="rascunho ${fl?'final':''}">
+      <button type="button" class="btn-rasc-rm" onclick="rmRasc(${r.id})">&#215;</button>
+      <div class="rasc-label ${fl?'fl':''}">Opcao ${i+1}${fl?' — VERSAO FINAL':''}</div>
+      <textarea oninput="updRasc(${r.id},this.value)" rows="4" placeholder="Cole ou escreva aqui...">${escH(r.texto)}</textarea>
+      <div class="rasc-btns">
+        ${!fl?`<button type="button" class="btn save" onclick="escolherRasc(${r.id})">Definir como final</button>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function addRascunho() {
+  const d=get();
+  if(!d.rascunhos) d.rascunhos=[];
+  d.rascunhos.push({id:Date.now(), texto:''});
+  save(); renderRascunhos();
+}
+function rmRasc(id) {
+  const d=get();
+  if(!confirm('Remover este rascunho?')) return;
+  d.rascunhos=d.rascunhos.filter(r=>r.id!==id);
+  if(d.rascEscolhido===id) d.rascEscolhido=null;
+  save(); renderRascunhos();
+}
+function updRasc(id, txt) {
+  const r=(get().rascunhos||[]).find(x=>x.id===id);
+  if(r){ r.texto=txt; save(); }
+}
+function escolherRasc(id) {
+  get().rascEscolhido=id;
+  save(); renderRascunhos();
+}
+function escH(s) {
+  return (s||'')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// ═══════════════════ LEXICO ═══════════════════
+function renderLexico() {
+  const d=get();
+  if(!d.lexico) d.lexico=[];
+  const cap=CAPS.find(c=>c.id===cur);
+  const sug=(LEXICO[cap.bloco]||[]).filter(p=>!d.lexico.includes(p));
+
+  document.getElementById('lex-sug').innerHTML=
+    sug.map(p=>`<button type="button" class="opcao" onclick="addLex('${p}')">${p}</button>`).join('')
+    || '<span style="color:var(--cinza);font-style:italic;font-size:0.7rem;">Todas as sugestoes adicionadas.</span>';
+
+  document.getElementById('lex-sel').innerHTML=
+    d.lexico.map(p=>`<span class="lex-tag">${escH(p)}<span class="lex-rm" onclick="rmLex('${escH(p)}')" >x</span></span>`).join('')
+    || '<span style="color:var(--cinza);font-style:italic;font-size:0.7rem;">Nenhum lexico definido.</span>';
+}
+function addLex(p) {
+  const d=get();
+  if(!d.lexico) d.lexico=[];
+  if(!d.lexico.includes(p)){ d.lexico.push(p); save(); renderLexico(); }
+}
+function rmLex(p) {
+  get().lexico=(get().lexico||[]).filter(x=>x!==p);
+  save(); renderLexico();
+}
+function addLexLivre() {
+  const inp=document.getElementById('lex-input');
+  const p=inp.value.trim();
+  if(p){ addLex(p); inp.value=''; }
+}
+
+// ═══════════════════ INTERACAO ═══════════════════
+document.addEventListener('click', e=>{
+  const btn=e.target.closest('[data-campo]');
+  if(!btn) return;
+  const campo=btn.dataset.campo, val=btn.dataset.val, multi=btn.dataset.m==='1';
+  const d=get();
+  if(multi){
+    if(!d[campo]) d[campo]=[];
+    const i=d[campo].indexOf(val);
+    if(i>=0) d[campo].splice(i,1); else d[campo].push(val);
+  } else {
+    d[campo]=d[campo]===val?'':val;
+  }
+  render();
+});
+
+['f-antes','f-depois','f-frase','f-corte','f-notas'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', e=>{
+    get()[id.replace('f-','')]=e.target.value;
+    if(id==='f-frase') updateCharCount();
+    validar(get());
+  });
+});
+
+document.querySelectorAll('[data-corte]').forEach(inp=>{
+  inp.closest('.ccheck').addEventListener('click', ()=>{
+    setTimeout(()=>{
+      const cc=Array.from(document.querySelectorAll('[data-corte]')).filter(i=>i.checked).map(i=>i.dataset.corte);
+      get().cortechecks=cc;
+      document.querySelectorAll('[data-corte]').forEach(i=>i.closest('.ccheck').classList.toggle('ck',i.checked));
+      validar(get());
+    }, 10);
+  });
+});
+
+// ═══════════════════ SALVAR / LIMPAR ═══════════════════
+function salvar() {
+  save(); buildNav(); updateProg();
+  const b=document.querySelector('.btn.save');
+  const o=b.textContent; b.textContent='Salvo ✓'; b.style.color='#4a7a4a';
+  setTimeout(()=>{ b.textContent=o; b.style.color=''; }, 1000);
+}
+function limpar() {
+  if(!confirm('Limpar todas as decisoes deste capitulo?')) return;
+  delete D[cur]; save(); render(); buildNav(); updateProg();
+}
+function updateProg() {
+  document.getElementById('prog-n').textContent=CAPS.filter(c=>isCompleto(c.id)).length+'/'+CAPS.length;
+}
+
+// ═══════════════════ VISTA GERAL ═══════════════════
+function toggleGeral() {
+  const vg=document.getElementById('vgeral'), vc=document.getElementById('vcap');
+  if(vg.style.display==='none'||!vg.style.display){
+    vg.style.display='block'; vc.style.display='none'; renderGeral();
+  } else {
+    vg.style.display='none'; vc.style.display='block';
+  }
+}
+function renderGeral() {
+  const campos=['veredito','funcao','agente','tarifa','frase','corte'];
+  document.getElementById('gg').innerHTML=CAPS.map(c=>{
+    const d=D[c.id]||{};
+    const comp=isCompleto(c.id), mort=isMorto(c.id);
+    const tags=campos.map(k=>{
+      const v=d[k]; const ok=v&&(Array.isArray(v)?v.length>0:v.length>0);
+      return `<span class="gt ${ok?'ok':'no'}">${k}</span>`;
+    }).join('');
+    return `<div class="gc ${comp?'completo':''} ${mort?'morto':''}" onclick="goto('${c.id}')">
+      <div class="gc-num">${c.num}</div>
+      <div class="gc-titulo">${c.titulo}</div>
+      <div class="gc-tags">${tags}</div>
+      ${d.veredito?`<div style="margin-top:0.35rem;font-size:0.56rem;color:${mort?'var(--kill)':'var(--ok)'}">${d.veredito}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════ EXPORTAR ═══════════════════
+function exportar() {
+  let txt='SAFRA BRUTA — DECISOES DE REVISAO V3\n'+'='.repeat(50)+'\n\n';
+  CAPS.forEach(c=>{
+    const d=D[c.id]; if(!d||!Object.keys(d).length) return;
+    txt+=`${c.num.toUpperCase()} — ${c.titulo.toUpperCase()}\n`;
+    txt+=`Bloco: ${BLOCOS[c.bloco].label}\n${'-'.repeat(40)}\n`;
+    [['Veredito',d.veredito],['Funcao',d.funcao],['Agente',d.agente],
+     ['Quem erra',d.quemerra],['Tipo erro',d.tipoerro],
+     ['Tarifa',d.tarifa?d.tarifa.join(' + '):''],
+     ['Lexico',d.lexico?d.lexico.join(', '):''],
+     ['Antes',d.antes],['Depois',d.depois],
+     ['Frase',d.frase],
+     ['Cortes',d.cortechecks?d.cortechecks.join(' + '):''],
+     ['Corte det',d.corte],
+     ['Bloco dec',d.blocodec],['Notas',d.notas]
+    ].forEach(([k,v])=>{ if(v) txt+=`${k}: ${v}\n`; });
+    if(d.rascunhos&&d.rascEscolhido){
+      const rf=(d.rascunhos||[]).find(r=>r.id===d.rascEscolhido);
+      if(rf) txt+=`\nVERSAO FINAL:\n${rf.texto}\n`;
+    }
+    txt+='\n';
+  });
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain;charset=utf-8'}));
+  a.download='SAFRA_BRUTA_decisoes_v3.txt';
+  a.click();
+}
+
+// ═══════════════════ INIT ═══════════════════
+load(); buildNav(); goto('prologo'); updateProg();
+</script>
+
+</body>
+</html>
